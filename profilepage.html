@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {font-family: "Lucida Console", Monaco, monospaces;}
+
+.sidebar {
+  height: 100%;
+  width: 160px;
+  position: absolute;;
+  z-index: 1;
+  top: 80px;
+  left: 0;
+  background-color:aliceblue;
+  overflow-x: hidden;
+  padding-top: 16px;
+}
+
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color:gray;
+  display: block;
+}
+
+.sidebar a:hover {
+  color:aqua;
+}
+
+.main {
+  margin-left: 160px;
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
+
+</style>
+</head>
+<body>
+<img src="ilovem.jpg" alt="ilovem icion" width="160" height="80">
+<div class="sidebar">
+  <a href="#profile"><i class="fa fa-fw fa-home"></i> Account</a>
+  <a href="#services"><i class="fa fa-fw fa-wrench"></i> Moive</a>
+  <a href="#clients"><i class="fa fa-fw fa-user"></i> Poeple</a>
+  <a href="#contact"><i class="fa fa-fw fa-envelope"></i> Upgrade</a>
+</div>
+
+<div class="main">
+  <h1>Account overview</h1>
+  <p><Strong>Profile</Strong></p><br>
+  <p style="color:aqua">Username</p><hr>
+  <p style="color:aqua">Password</p><hr>
+  <p style="color:aqua">Account level</p><hr>
+</div>
+     
+</body>
+</html> 
