@@ -28,6 +28,4 @@ function display(){
   let movieInfo= document.getElementById("movieInfo");
   movieInfo.innerHTML = out;
 
-
-
 }
