@@ -1,0 +1,89 @@
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* use . to select class, add the background color */
+.topBar{
+  font-family: "Lucida Console", Monaco, monospaces;
+  background-color: aliceblue;
+  overflow: hidden;
+
+}
+
+.topBar a{
+  font-family: "Lucida Console", Monaco, monospaces;
+  float: left;
+  display: block;
+  color: black;
+  padding: 12px 14px;
+  font-size: 19px;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid aliceblue;
+
+}
+.topBar a:hover {
+  color: DodgerBlue;
+  transition-duration: 0.4s;
+  border: 2px solid DodgerBlue;
+}
+
+.topBar a.curSelect{
+  background-color: DodgerBlue;
+  color: white;
+  border: 2px solid DodgerBlue;
+
+}
+
+.topBar .searchBar{
+  float: right;
+
+}
+
+.topBar input[type = text]{
+  font-family: "Lucida Console", Monaco, monospaces;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 10px;
+  font-size: 17px;
+
+}
+
+
+
+.topBar .searchBar button {
+  padding: 6px 10px;
+  margin-top: 7px;
+  margin-right: 10px;
+  background-color: white;
+  color: black;
+  font-size: 17px;
+  font-family: "Lucida Console", Monaco, monospaces;
+  border: 2px solid #55555;
+
+
+}
+
+.topBar .searchBar button:hover {
+  padding: 6px 10px;
+  margin-top: 7px;
+  margin-right: 10px;
+  background-color: DodgerBlue;
+  color: white;
+  font-size: 17px;
+  font-family: "Lucida Console", Monaco, monospaces;
+  transition-duration: 0.4s;
+
+
+}
+
+
+/* use . to select div class, the liks inside of the bar  */
+.curSelect{
+
+
+}
