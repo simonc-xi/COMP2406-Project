@@ -1,11 +1,11 @@
 1. List of Souce files
 	README.txt
-	login.html
-	movie.html
-	otherprofile.html
-	profilepage.html
-	ilovem.jpg
-	ilovemb.jpg
+	login.html			This file include the log in to account and creat new account
+	movie.html			This file include the top search bar, the movie information, and the other movie for the other users's viewing 
+	otherprofile.html		This file include the follow button, user's information, the list of movie reivew and following people.
+	profilepage.html		This file include the my account information, a side bar navigation. 
+	ilovem.jpg			Website icon
+	ilovemb.jpg			Website background
 	
 
 
