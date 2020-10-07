@@ -44,8 +44,6 @@ body {
 
 .topBar .searchBar{
   float: right;
-
-
 }
 
 .topBar input[type = text]{
@@ -58,8 +56,6 @@ body {
 
 }
 
-
-
 .topBar .searchBar button {
   padding: 6px 10px;
   margin-top: 7px;
@@ -69,28 +65,14 @@ body {
   font-size: 17px;
   border: 2px solid #55555;
 
-
 }
 
 .topBar .searchBar button:hover {
-  padding: 6px 10px;
-  margin-top: 7px;
-  margin-right: 10px;
   background-color: DodgerBlue;
   color: white;
-  font-size: 17px;
-
   transition-duration: 0.4s;
-
-
 }
 
-
-/* use . to select div class, the liks inside of the bar  */
-.curSelect{
-
-
-}
 .side-content{
   width:12.5%;
 }
@@ -132,5 +114,47 @@ body {
     width:25%;
     float: left;
     text-align: center;
+}
+
+.col{
+  float: left;
+  width: 20%;
+  padding: 12px 14px;
+
+}
+
+.midcol{
+  float: left;
+  width: 60%;
+  padding: 12px 14px;
+  background-color: white;
+  height: 100%;
+  font-family: "Lucida Console", Monaco, monospaces;
+}
+.midcol .pic{
+  background-color: grey;
+  width:25%;
+  height:218px;
+}
+
+
+.midcol button{
+  background-color: tomato;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 24px;
+  padding: 20px;
+  width: 160px;
+  transition: all 0.3s;
+  margin: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.midcol button:hover{
+  background-color: white;
+  color: black;
+  border: 1px solid tomato;*/
 
 }
