@@ -5,7 +5,7 @@ function init(){
   console.log("init() load successful");
   let searchBut = document.getElementById("search");
   searchBut.onclick = validate;  // validate the user type
-  display();
+  //display();
 
 }
 
@@ -18,6 +18,7 @@ function validate(){
 
   }
 }
+
 
 function display(){
   console.log("display");

@@ -3,7 +3,11 @@ img {
   margin-left: auto;
   margin-right: auto;
 }
+body {
+  background-image: url('ilovemb.jpg');
 
+
+}
 
 /* use . to select class, add the background color */
 .topBar{
@@ -63,7 +67,6 @@ img {
   background-color: white;
   color: black;
   font-size: 17px;
-  font-family: "Lucida Console", Monaco, monospaces;
   border: 2px solid #55555;
 
 
@@ -76,7 +79,7 @@ img {
   background-color: DodgerBlue;
   color: white;
   font-size: 17px;
-  font-family: "Lucida Console", Monaco, monospaces;
+
   transition-duration: 0.4s;
 
 
@@ -95,13 +98,39 @@ img {
   font-family: "Lucida Console", Monaco, monospaces;
   float: left;
   color: black;
-  margin-right: 10px;
-  margin-top: : 10px;
-  background-color: #ccc;
+  background-color: Gray;
   padding: 12px 14px;
-  width: 20%;
-  height:600px;
+  width: 100%;
   overflow: hidden;
 
+}
+.mid-content h2{
+  color: aliceblue;
+}
+
+.mid-content h3{
+  color:white;
+}
+
+.mid-content p{
+  color:white;
+}
+
+.mid-content p:hover{
+  text-decoration: underline;
+}
+
+.mid-content .img{
+    float: left;
+    width: 25%;
+}
+.mid-content .img:hover{
+    filter: brightness(60%);
+}
+
+.mid-content .description{
+    width:25%;
+    float: left;
+    text-align: center;
 
 }
