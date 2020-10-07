@@ -41,25 +41,59 @@ background-image: url('ilovemb.jpg');
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 18px;}
 }
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
+.column {
+   background-color: aliceblue;
+   padding: 30px;
+   margin-top: 20px;
+}
+
+.review {
+  background-color:lightgrey;
+  width: 98%;
+  padding: 20px;
+}
 
 </style>
 </head>
 <body>
 <img src="ilovem.jpg" alt="ilovem icion" width="172" height="80">
 <div class="sidebar">
-  <a href="#profile"><i class="fa fa-fw fa-home"></i> Account</a>
-  <a href="#movie"><i class="fa fa-book fa-fw"></i> Moive</a>
-  <a href="#people"><i class="fa fa-fw fa-user"></i> Poeple</a>
+  <a href="#HomePage"><i class="fa fa-fw fa-home"></i> Home</a>
   <a href="#upgrade"><i class="fa fa-cog fa-fw"></i> Upgrade</a>
 </div>
 
 <div class="main">
   <h1 >Account overview</h1>
-  <p style="color:dodgerblue"><Strong>Profile</Strong></p><br>
-  <p style="color:gray">Username</p><hr>
-  <p style="color:gray">Password</p><hr>
-  <p style="color:gray">Account level</p><hr>
+  <p style="color:gray">Username: </p><hr>
+  <p style="color:gray">Password: </p><hr>
+  <p style="color:gray">Account level: </p><hr>
+  <br><br>
+  
+  <div class="row">
+    <div class="column">
+        <p style="color:dodgerblue">Movie Reviews</p>
+        <div class="review"> 
+            Movie Title:
+            <hr>
+            <p>Review:</p>
+            
+        </div>
+    </div>
+  </div>
+
+    <div class="row">
+        <div class="column">
+            <p style="color:dodgerblue">Following</p>
+            <div class="review"> 
+            <a href="#People">People:</a>
+        </div>
+    </div>
 </div>
      
 </body>
