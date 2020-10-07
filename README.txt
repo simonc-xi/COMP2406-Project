@@ -36,5 +36,5 @@
 		- Finished all the basic outlooks for the html part.
 		- Created the website icon.
 		- Use navigation bar made the website looks better.
-		- Import the javascript to validate user input and button redirection test out.
+		- Import the JavaScript to validate user input and button redirection test out.
 		- Try to extract the movie name from the movie json files(you can test it by uncomment the Homepage.js line 8, it will extract some movie title)
