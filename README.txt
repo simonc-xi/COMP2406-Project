@@ -3,7 +3,7 @@
 
 		login.html						This file include the username input and password input by using the log in button to log in to the account and creat new account by using the sign up button
 		movie.html						This file include the top search bar which can be using for return to home page and the search button for the movie or people searching, also include the movie information, and the other movie for the other users's viewing
-		otherprofile.html			This file include the follow button which can follow the user, user's information, the list of movie reivew by user, and include the people followed by this user and clike the people is able to navigate to that person’s page.
+		otherProfile.html			This file include the follow button which can follow the user, user's information, the list of movie reivew by user, and include the people followed by this user and clike the people is able to navigate to that person’s page.
 		profilepage.html			This file include the my account information, a side bar navigation to the home page and the upgrade page.
 		Homepage.html					The homepage of the web, provide search bar, log in and register button. also provides a list of movie that is recoomand to the users.
 		HomePage.js						The basic function test of js
