@@ -1,5 +1,15 @@
 let users = require("./users.json");
 
+//check the user is already valid form or not.
+function isValidUser(userObj){
+  if(!userObj){
+    return false;
+  }
+  if(!userObj.username || !users.hasOwnProperty(userObj.username)){
+    return false;
+  }
+  return true;
+}
 
 function getUser(requestingUser, userID){
     //If the requesting user is invalid (e.g., is not logged in, is missing username, anything else expected is invalid), disallow
@@ -18,3 +28,15 @@ function getUser(requestingUser, userID){
   
     return null;
 }
+
+console.log("chechk user using the correct form");
+let userA = isValidUser({username:"Sophi",password:"12345",accountLevel:["contributing"],reviews:[{"Title":"Toy Story", "Review":"Bad moive, but I like it"}], following:[]});
+let userB = isValidUser({username: "rend",});
+let userC = isValidUser({password:"12345"});
+let userD = isValidUser({username: "Lulu", password: "12345"});
+
+console.log("check the user state:");
+console.log(userA);
+console.log(userB);
+console.log(userC);
+console.log(userD);

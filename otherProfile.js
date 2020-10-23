@@ -17,4 +17,8 @@
     users[userB].following.push(userA);
 }
 
-  
+console.log(users.user0);
+
+let userA=makeFollow("Sophia", "Chen");
+//let userB = makeFriends("Sophia", "Frank");
+console.log(userA);
