@@ -32,3 +32,13 @@ function createUser(newUser){
     
         return users[newUser.username];
 }
+
+const assert = require("assert");
+console.log("Creating some users");
+
+let user1 = createUser({username: "Sophia", password: "12345"});
+let user2 = createUser({username: "bbbbb", password:"12345"});
+let user3 = createUser({username: "Candy", password:"12345"});
+let user4 = createUser({username: "Lulu", password: "12345"});
+
+assert(Object.keys(users).length === 6, "Unexpected number of users");

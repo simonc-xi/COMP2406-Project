@@ -26,21 +26,17 @@ function searchUsers(requestingUser, searchTerm){
   }
 
   
-function createQuestion(requestingUser, newQ){
-//We should verify the contents of the question and we should verify the user
-//We will skip validating the question for now (it's almost dinner time).
+  function createReview(requestingUser, newR){
+    //We should verify the contents of the question and we should verify the user
+    //We will skip validating the question for now (it's almost dinner time).
     if(!isValidUser(requestingUser)){
-        return null;
+      return null;
     }
 
-    newQ.id = String(nextQuestionID);
+    newR.id = String(nextQuestionID);
     newQ.creator = requestingUser.username;
-    nextQuestionID++;
-    questions[newQ.id] = newQ;
-    users[requestingUser.username].questions_created.push(newQ.id);
-    return newQ;
-}
-
-function generateRecommendMovie(){
-  
+    nextReviewID++;
+    Reviews[newR.id] = newQ;
+    users[requestingUser.username].review.push(newR.id);
+    return newR;
 }

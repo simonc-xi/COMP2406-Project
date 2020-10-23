@@ -15,6 +15,6 @@
     //Update both so they are now friends
     users[userA].following.push(userB);
     users[userB].following.push(userA);
-  }
+}
 
   
