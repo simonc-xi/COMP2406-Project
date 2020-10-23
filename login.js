@@ -29,8 +29,6 @@ function getUser(requestingUser, userID){
     return null;
 }
 
-
-
 let signUpBut = document.getElementById("signup");
 signUpBut.onclick = signup;
 let loginBut = document.getElementById("login");

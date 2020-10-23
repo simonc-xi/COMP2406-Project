@@ -13,12 +13,13 @@
     }
   
     //Update both so they are now friends
+    
     users[userA].following.push(userB);
     users[userB].following.push(userA);
-}
 
-console.log(users.user0);
+  }
 
-let userA=makeFollow("Sophia", "Chen");
+
+let userC = makeFollow(users.user0, users.user1);
 //let userB = makeFriends("Sophia", "Frank");
-console.log(userA);
+console.log(userC);
