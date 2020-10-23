@@ -29,6 +29,7 @@ function getUser(requestingUser, userID){
     return null;
 }
 
+//function for the sign up and loge in
 let signUpBut = document.getElementById("signup");
 signUpBut.onclick = signup;
 let loginBut = document.getElementById("login");
@@ -44,6 +45,8 @@ function login(){
   window.location.href = "http://localhost:3000/login";
 }
 
+
+//check
 console.log("chechk user using the correct form");
 let userA = isValidUser({username:"Sophi",password:"12345",accountLevel:["contributing"],reviews:[{"Title":"Toy Story", "Review":"Bad moive, but I like it"}], following:[]});
 let userB = isValidUser({username: "rend",});

@@ -25,6 +25,8 @@ function createUser(newUser){
         return users[newUser.username];
 }
 
+
+//check
 const assert = require("assert");
 console.log("Creating some users");
 //chechk the createUser function
