@@ -37,4 +37,5 @@
 		- Created the website icon.
 		- Use navigation bar made the website looks better.
 		- Import the JavaScript to validate user input and button redirection test out.
+			if the user search is empty, it will alarm the user to enter something to search for.
 		- Try to extract the movie name from the movie json files(you can test it by uncomment the Homepage.js line 8, it will extract some movie title)
