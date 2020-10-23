@@ -1,5 +1,7 @@
 let users = require("./users.json");
 
+
+//check the user is already exists or not.
 function isValidUser(userObj){
     if(!userObj){
       return false;

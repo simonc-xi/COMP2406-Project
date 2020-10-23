@@ -1,5 +1,5 @@
 let users = require("./users.json");
-let movie = require("./movie-data-short.jason");
+let movies = require("./movie-data-short.jason");
 
 function createReview(requestingUser, newR){
     //We should verify the contents of the question and we should verify the user
@@ -14,4 +14,15 @@ function createReview(requestingUser, newR){
     Reviews[newR.id] = newQ;
     users[requestingUser.username].review.push(newR.id);
     return newR;
+}
+
+
+//choose to make the account level
+function upgradeAccount(requestingUser){
+   
+    if(!isValidUser(requestingUser)){
+        return null;
+    }
+
+
 }

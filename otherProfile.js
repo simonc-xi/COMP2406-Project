@@ -1,5 +1,5 @@
  let users = require("./users.json");
- let movie = require("./movie-data-short.json");
+ let movies = require("./movie-data-short.json");
 
  function makeFollow(userA, userB){
     //If one of the user IDs doesn't exist, stop
