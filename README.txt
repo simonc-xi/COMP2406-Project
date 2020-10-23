@@ -2,12 +2,17 @@
 		README.txt
 
 		login.html						This file include the username input and password input by using the log in button to log in to the account and create new account by using the sign up button
+		login.pug							The pug file of the login.html
+		SignUp.html           The User registration page contains username and password
+		Signup.pug						The pug file of the signup.pug
 		movie.html						This file include the top search bar which can be using for return to home page and the search button for the movie or people searching, also include the movie information, and the other movie for the other user's viewing
 		otherProfile.html			This file include the follow button which can follow the user, user's information, the list of movie review by user, and include the people followed by this user and click the people is able to navigate to that person’s page.
 		profilepage.html			This file include the my account information, a side bar navigation to the home page and the upgrade page.
 		Homepage.html					The homepage of the web, provide search bar, log in and register button. also provides a list of movie that is recommend to the users.
+		Home.pug							The pug file of the homepage
 		HomePage.js						The basic function test of js
 		View.html
+
 
 		style.css							Style sheet for Homepage
 		ilovem.jpg						Website icon
@@ -28,7 +33,10 @@
 	 Yanxi Chen #101118360，
 
 4. Install instruction:
-	-	can be running on Visual Studio.
+	- type <npm install pug> in the terminal at the same directly of the server.js
+	-	type node server.js in the terminal
+	- after seeing the <Server running at http://127.0.0.1:3000/> in the terminal,
+		then you can copy the address and run on the browser
 	- The html page can be directly run in the common browser(chrome, Firefox ,etc.)
 
 

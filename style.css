@@ -2,9 +2,12 @@ img {
   display: block;
   margin-left: auto;
   margin-right: auto;
+
 }
+
+
 body {
-  background-image: url('ilovemb.jpg');
+  background-image: url('img/ilovemb.jpg');
 
 
 }

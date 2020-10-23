@@ -4,7 +4,7 @@
   <link rel = "stylesheet" href = "style.css">
 <style>
 body{font-family: "Lucida Console", Monaco, monospaces;
-  background-image: url('ilovemb.jpg');
+  background-image: url('img/ilovemb.jpg');
 }
 img {
   display: block;
@@ -58,8 +58,11 @@ input[type=text]:focus, input[type=password]:focus {
 </head>
 <body>
   <div class = "topBar">
-    <img src="ilovem.jpg" alt="ilovem icion" width="150" height="80">
+    <img src="img/ilovem.jpg" alt="ilovem icion" width="150" height="80">
+
     <hr>
+    <a  href = "http://localhost:3000">Home</a>
+    <a  href = "#movie">Movie</a>
   </div>
 
 
@@ -71,15 +74,15 @@ input[type=text]:focus, input[type=password]:focus {
     <label for="pass"><b>Password</b></label>
     <input type="password" placeholder="Password" name="pass" required>
 
-    <button type="submit" class="btn">LOG IN</button>
+    <button type="submit" class="btn" id = "login">LOG IN</button>
 </div>
 
 <br><br>
 
 <div class="containerL">
     <p><strong>Don't have an account?</strong></p><br>
-    <button type="sigup" class="btn">SIGN UP</button>
+    <button type="submit" class="btn" id = "signup">SIGN UP</button>
 </div>
-
+<script src="login.js"></script>
 </body>
 </html>

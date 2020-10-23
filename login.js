@@ -1,4 +1,4 @@
-let users = require("./users.json");
+//let users = require("./users.json");
 
 
 //check the user is already exists or not.
@@ -39,7 +39,7 @@ function getUser(requestingUser, userID){
     if(!isValidUser(requestingUser)){
       return null;
     }
-  
+
     //If the requested userID exists and the requesting user is allowed to access it, return the user
     if(users.hasOwnProperty(userID)){
       //It may be beneficial to create a helper function for canAccessUser(requesterID, requestedID)
@@ -48,6 +48,22 @@ function getUser(requestingUser, userID){
         return users[userID];
       }
     }
-  
+
     return null;
+}
+
+
+let signUpBut = document.getElementById("signup");
+signUpBut.onclick = signup;
+let loginBut = document.getElementById("login");
+loginBut.onclick = login;
+
+
+function signup(){
+  window.location.href = "http://localhost:3000/signup";
+}
+
+function login(){
+  
+  window.location.href = "http://localhost:3000/login";
 }
