@@ -43,16 +43,12 @@ function searchUsers(requestingUser, searchTerm){
   
     //If the user is not valid, return an empty array.
     //You could return null to indicate an error or any other value to signify the requesting user was not valid.
-    /*
-    if(!isValidUser(requestingUser)){
-      return results;
-    }*/
+    
   
-    for(Title in movies){
-      let movie = movies[Title];
-        if(movie.keywords.includes(movieName)){
+    for(name in movies){
+      let movie = movies[name];
+        if(movie.Title.includes(movieName)){
           results.push(movie);
-       
       }
     }
   
@@ -63,28 +59,23 @@ function searchUsers(requestingUser, searchTerm){
   function searchPeople(peopleName){
     let results = [];
 
-    /*
-    if(!isValidUser(requestingUser)){
-      return results;
-    }*/
-
-    for(Writer in movies){
-      let movieWriter = movies[Writer];
-        if(movieWriter.keywords.includes(peopleName)){
+    for(writer in movies){
+      let movieWriter = movies[writer];
+        if(movieWriter.Writer.includes(peopleName)){
           results.push(movieWriter);
         }
       }
     
-    for(Actors in movies){
-      let movieActors = movies[Actors];
-        if(movieActors.keywords.includes(peopleName)){
+    for(actors in movies){
+      let movieActors = movies[actors];
+        if(movieActors.Actors.includes(peopleName)){
           results.push(movieActors);
         }
       }
 
-    for(Director in movies){
-      let movieDirector = movies[Director];
-        if(movieDirector.keywords.includes(peopleName)){
+    for(director in movies){
+      let movieDirector = movies[director];
+        if(movieDirector.Director.includes(peopleName)){
           results.push(movieDirector);
         }
       }
@@ -93,7 +84,12 @@ function searchUsers(requestingUser, searchTerm){
   }
 
 //check
-console.log("Testing searchUsers");
-let result = searchUsers(users.user0, "Sophia")
+//searching the movie by name
+console.log("Testing searchMoive");
+let result = searchMovie("Toy Story")
 console.log(result);
-//assert(result.length === 2);
+
+//Testing the people by name
+console.log("Testing searchPoeple");
+let results = searchPeople("John Lasseter")
+console.log(results);
