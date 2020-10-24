@@ -1,4 +1,11 @@
- let users = require("./users.json");
+/*
+The purpose for the file is to let user viewing other people's profile page, if the user 
+likes the review or information this person include, the user could follow this person for 
+futuer viewing.  
+*/
+
+//include the user.json and movie.json
+let users = require("./users.json");
  let movies = require("./movie-data-short.json");
 
  //input userA is the follower, and userB is the one been followed

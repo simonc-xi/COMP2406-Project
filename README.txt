@@ -15,13 +15,13 @@
 			View.html							The web page that shows the information about the Director, also have subscirbe button than can subscribe the Director
 
 		Logic JS file	(the client side and some server side of programming was divided each corresponding web page)
-			- View.js
-			- login.js
-			- movie.js
-			- otherProfile.js
-			- profilepage.js
-			- SearchBar.js
-			- signUp.js
+			- View.js							The JavaScript file for people viewing page, which can let user subscribe the viewing person
+			- login.js						This file for user to check having a correct form to login
+			- movie.js						The JavaScript file for the movie which do recommend movie for similar genre.
+			- otherProfile.js     The JavaScript file for the other users, which can let users following the viewing users
+			- profilepage.js			The JavaScript file for the user profile page which can change account level
+			- SearchBar.js				The JavaScript file for the search bar, include searching people user or movie.
+			- signUp.js						This is the sign up page for user to create account
 
 		Sever JS file
 			- server.js

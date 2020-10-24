@@ -1,3 +1,10 @@
+/*
+The purpose for the file is to let a new user to create their new iLovem account,
+the function include having the ceart new user to check is that valid or not, and 
+also chechk is the name already exist or not.
+*/
+
+
 //load the initial user.json
 let users = require("./users.json");
 
