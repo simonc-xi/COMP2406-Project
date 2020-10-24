@@ -1,3 +1,11 @@
+/*
+The purpose for the file is to give the search bar some function, which been using at the 
+homepage, movie page, and Viewing people page, the search bar include the searching other users, 
+searching movies by movie title, and also searching people, include director, actors, or 
+even writers.
+*/
+
+//include the user and movie.json file
 let users = require("./users.json");
 let movies = require("./movie-data-short.json");
 

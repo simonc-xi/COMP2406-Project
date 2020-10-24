@@ -1,3 +1,11 @@
+/*
+The purpose for this page is to let user viewing their own information, 
+which include username and and the account level, if the account level 
+is not enough for the user, he can choose to upgrade from 
+the regular level to the contributing level, and it also can be down to the backword. 
+*/
+
+//include user.json and movie.json
 let users = require("./users.json");
 let movies = require("./movie-data-short.json");
 

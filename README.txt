@@ -2,25 +2,34 @@
 		README.txt
 
 		login.html						This file include the username input and password input by using the log in button to log in to the account and create new account by using the sign up button
-		login.pug							The pug file of the login.html
-		SignUp.html           The User registration page contains username and password
+		login.js						This file for user to check having a correct form to login 
+		login.pug						The pug file of the login.html
+		signUp.html           			The User registration page contains username and password
+		signUp.js						This is the sign up page for user to creat account
 		Signup.pug						The pug file of the signup.pug
 		movie.html						This file include the top search bar which can be using for return to home page and the search button for the movie or people searching, also include the movie information, and the other movie for the other user's viewing
-		otherProfile.html			This file include the follow button which can follow the user, user's information, the list of movie review by user, and include the people followed by this user and click the people is able to navigate to that person’s page.
-		profilepage.html			This file include the my account information, a side bar navigation to the home page and the upgrade page.
+		movie.js						The javascript file for the movie whcih do recommand movie for similar genre.
+		otherProfile.html				This file include the follow button which can follow the user, user's information, the list of movie review by user, and include the people followed by this user and click the people is able to navigate to that person’s page.
+		otherProfile.js					The javascript file for the other users, which can let users following the vewing users
+		profilepage.html				This file include the my account information, a side bar navigation to the home page and the upgrade page.
+		profilepage.js					The javascript file for the user profilepage which can change account level
 		Homepage.html					The homepage of the web, provide search bar, log in and register button. also provides a list of movie that is recommend to the users.
-		Home.pug							The pug file of the homepage
+		Home.pug						The pug file of the homepage
 		HomePage.js						Include some basic functions about the homepage, ex,navigation
-		View.html							The web page that shows the information about the Director, also have subscirbe button than can subscribe the Director
+		View.html						The web page that shows the information about the Director, also have subscirbe button than can subscribe the Director
+		View.js							The javascript file for people viewing page, which can let user subscirbe the viewing person
+		searchBar.js					The javascript file for the search bar, include seaching people user or movie. 
 
 
-		style.css							Style sheet for Homepage
+		style.css						Style sheet for Homepage
 		ilovem.jpg						Website icon
 		ilovemb.jpg						Website background
 		jumanji.jpg						demo movie Poster pic
 		Sabrina.jpg						demo movie Poster pic
-		Sudden Death.jpg			demo movie Poster pic
+		Sudden Death.jpg				demo movie Poster pic
 		waiting.jpg						demo movie Poster pic
+		users.json						The json file include the user info, username, password, account level, review and following 
+		movie-data-short.json			The json file include movie info and people 
 
 
 

@@ -1,3 +1,8 @@
+/*
+The purpose for this file is to chechk is the user having a correct form to login 
+the account, and get the user id and password return back, and some button function which can locate
+to the direction page. 
+*/
 let users = require("./users.json");
 
 //check the user is already valid form or not.
