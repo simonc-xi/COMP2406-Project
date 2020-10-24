@@ -6,11 +6,13 @@ const pug = require("pug");
 const renderLogin = pug.compileFile('pages/login.pug');
 const renderHome = pug.compileFile('pages/Home.pug');
 const renderSignup = pug.compileFile('pages/Signup.pug');
+const renderProfile = pug.compileFile('pages/Profile.pug');
 
 
-let userID = 1;
-// store the username and password
-let users = [
+
+let userID = 1;				// user's identical id
+
+let users = [					// user's array
 	{id : 0, username:"kavin",password:"123"}
 ]
 
@@ -35,7 +37,7 @@ function send500(response){
 const server = http.createServer(function (request, response) {
 	//console.log(request.method+" -> "+request.url);  test about the income request
 
-	// handle the request
+	// handle the get request
 	if(request.method === "GET"){
 		if(request.url === "/" || request.url === "/Homepage"){
 			let data = renderHome("./pages/Home.pug",{})
@@ -74,12 +76,11 @@ const server = http.createServer(function (request, response) {
 		response.end(data);
 
 	}else if(request.url === "/signup"){
-		let data = renderSignup("./pages/signup.pug",{})
+		let data = renderSignup("./pages/Signup.pug",{})
 		response.statusCode = 200;
 		response.end(data);
-
+		return;
 	}else if(request.url === "/login"){
-
 		fs.readFile("profilepage.html", function(err, data){
 			if(err){
 				send500(response);
@@ -90,7 +91,6 @@ const server = http.createServer(function (request, response) {
 			response.write(data);
 			response.end();
 		});
-
 	}else if(request.url === "/movie"){
 
 		fs.readFile("movie.html", function(err, data){

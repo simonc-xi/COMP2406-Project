@@ -6,27 +6,6 @@ let movies = [{"Title":"Toy Story","Year":"1995","Rated":"G","Released":"22 Nov 
 
 
 
-/*
-Purpose :
-
-*/
-
-function createQReview(requestingUser, newR, title){
-
-
-  for (i in users){
-    for (j in users[i].reviews){
-
-    }
-  }
-}
-
-
-
-console.log("add a new review");
-createQReview(users.user0, "aaaaaa", "aaaaa");
-console.log(users.user0);
-
 
 
 /*
@@ -70,7 +49,6 @@ function generateRecommendMovie(mov,user){
 // add the movie that is user likede general in to movie array
 for(i in mov){
   console.log(" User:  " + likeGenre[0]);
-
   let movieGenera = mov[i]["Genre"].split(',');
   console.log(" Movie  :  " + movieGenera[0]);
   if(movieGenera[0] == likeGenre[0]){

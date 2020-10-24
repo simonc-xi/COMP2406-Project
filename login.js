@@ -1,4 +1,4 @@
-let users = require("./users.json");
+//let users = require("./users.json");
 
 //check the user is already valid form or not.
 function isValidUser(userObj){
@@ -36,10 +36,26 @@ let loginBut = document.getElementById("login");
 loginBut.onclick = login;
 
 
+/*
+Purpose : re-direct to the signup Page
+          client-side javascript
+input : null
+output : null
+*/
+
 function signup(){
   window.location.href = "http://localhost:3000/signup";
 }
 
+
+
+/*
+Purpose : send user input username and password information to the server,\
+          client-side javascript
+input : null
+output : null
+
+*/
 function login(){
   //get user name
   let username = document.getElementById("username").value;
@@ -64,10 +80,6 @@ function login(){
   req.open("POST", "http://localhost:3000/login");
   req.send(JSON.stringify(user));
 
-
-
-
-  //window.location.href = "http://localhost:3000/login";
 }
 
 
