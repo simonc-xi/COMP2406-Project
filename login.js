@@ -1,4 +1,4 @@
-//let users = require("./users.json");
+let users = require("./users.json");
 
 //check the user is already valid form or not.
 function isValidUser(userObj){
@@ -71,12 +71,12 @@ function login(){
 }
 
 
-//check
+//check the users valid or not
 console.log("chechk user using the correct form");
 let userA = isValidUser({username:"Sophi",password:"12345",accountLevel:["contributing"],reviews:[{"Title":"Toy Story", "Review":"Bad moive, but I like it"}], following:[]});
-let userB = isValidUser({username: "rend",});
-let userC = isValidUser({password:"12345"});
-let userD = isValidUser({username: "Lulu", password: "12345"});
+let userB = isValidUser({username: "rend",});//false
+let userC = isValidUser({password:"12345"});//false
+let userD = isValidUser({username: "Lulu", password: "12345"}); //false
 
 console.log("check the user state:");
 console.log(userA);

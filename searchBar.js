@@ -86,10 +86,10 @@ function searchUsers(requestingUser, searchTerm){
 //check
 //searching the movie by name
 console.log("Testing searchMoive");
-let result = searchMovie("Toy Story")
+let result = searchMovie("Toy Story") //should print the movie info with the title Toy Story
 console.log(result);
 
 //Testing the people by name
 console.log("Testing searchPoeple");
-let results = searchPeople("John Lasseter")
+let results = searchPeople("John Lasseter") //should print this people's movie info and other related 
 console.log(results);
