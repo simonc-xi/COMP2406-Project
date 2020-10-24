@@ -6,7 +6,7 @@ const pug = require("pug");
 const renderLogin = pug.compileFile('pages/login.pug');
 const renderHome = pug.compileFile('pages/Home.pug');
 const renderSignup = pug.compileFile('pages/Signup.pug');
-const renderProfile = pug.compileFile('pages/Profile.pug');
+
 
 
 

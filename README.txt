@@ -11,7 +11,7 @@
 			profilepage.html			This file include the my account information, a side bar navigation to the home page and the upgrade page.
 			Homepage.html					The homepage of the web, provide search bar, log in and register button. also provides a list of movie that is recommend to the users.
 			Home.pug							The pug file of the homepage
-			HomePage.js						Include some basic functions about the homepage, ex,navigation
+			HomePage.js						Include some basic functions about the homepage, ex, navigation
 			View.html							The web page that shows the information about the Director, also have subscirbe button than can subscribe the Director
 
 		Logic JS file	(the client side and some server side of programming was divided each corresponding web page)
@@ -65,5 +65,3 @@
 	 	request ,and json files that contains username and password to the server through
 		the login page. After the server receives the username and password, it will validate
 		it, and stores user infor in the local. then send back the user page back to client.
-
-	-
