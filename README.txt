@@ -10,8 +10,8 @@
 		profilepage.html			This file include the my account information, a side bar navigation to the home page and the upgrade page.
 		Homepage.html					The homepage of the web, provide search bar, log in and register button. also provides a list of movie that is recommend to the users.
 		Home.pug							The pug file of the homepage
-		HomePage.js						The basic function test of js
-		View.html
+		HomePage.js						Include some basic functions about the homepage, ex,navigation
+		View.html							The web page that shows the information about the Director, also have subscirbe button than can subscribe the Director
 
 
 		style.css							Style sheet for Homepage
@@ -41,9 +41,11 @@
 
 
 5. Introduction of current working progress:
-		- Finished all the basic outlooks for the html part.
-		- Created the website icon.
-		- Use navigation bar made the website looks better.
-		- Import the JavaScript to validate user input and button redirection test out.
-			if the user search is empty, it will alarm the user to enter something to search for.
-		- Try to extract the movie name from the movie json files(you can test it by uncomment the Homepage.js line 8, it will extract some movie title)
+	- Create a basic node server that servers static html page about the project-in #1
+		Allows users to redirect to different web page.
+
+	- Support basic AJAX interaction between user and server,ex ,user can send the post 
+	 	request ,and json files that contains username and password to the server through
+		the login page. After the server receives the username and password, it will validate
+		it, and stores user infor in the local. then send back the user page back to client.
+	-

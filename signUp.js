@@ -9,19 +9,19 @@ function createUser(newUser){
         if(!newUser.username || !newUser.password){
             return null;
         }
-    
+
 
         if(users.hasOwnProperty(newUser.username)){
             //There is a user with that name already
             return null;
         }
-    
+
         //Set initial values for the new user
         newUser.accountLevel = ["regular"];
         newUser.reviews = [];
         newUser.following = [];
         users[newUser.username] = newUser;
-    
+
         return users[newUser.username];
 }
 
@@ -29,7 +29,7 @@ function createUser(newUser){
 //check
 const assert = require("assert");
 console.log("Creating some users");
-//chechk the createUser function
+//check the createUser function
 
 let userA = createUser({username: "rand", password: "12345"});
 let userB = createUser({username: "rend", password:"12345"});
