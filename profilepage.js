@@ -1,28 +1,32 @@
 let users = require("./users.json");
-let movies = require("./movie-data-short.jason");
-
-function createReview(requestingUser, newR){
-    //We should verify the contents of the question and we should verify the user
-    //We will skip validating the question for now (it's almost dinner time).
-    if(!isValidUser(requestingUser)){
-      return null;
-    }
-
-    newR.id = String(nextQuestionID);
-    newQ.creator = requestingUser.username;
-    nextReviewID++;
-    Reviews[newR.id] = newQ;
-    users[requestingUser.username].review.push(newR.id);
-    return newR;
-}
+let movies = require("./movie-data-short.json");
 
 
-//choose to make the account level
+//change the account level
 function upgradeAccount(requestingUser){
-   
+   /*
     if(!isValidUser(requestingUser)){
         return null;
     }
-
-
+*/
+    if(requestingUser.accountLevel === "regular"){
+        requestingUser.accountLevel = ["contributing"];
+        console.log("upgrade!")
+    }else{
+        requestingUser.accountLevel= ["regular"];
+        console.log("downgrade~"); 
+    }
+    users[requestingUser.accountLevel] = requestingUser;
+    return users[requestingUser.accountLevel];
 }
+
+
+//check
+//display the old user
+console.log (users.user0)
+
+//print the new account level
+let userA = upgradeAccount(users.user0);
+console.log(userA);
+
+

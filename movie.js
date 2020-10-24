@@ -1,111 +1,19 @@
-
+let movies = require ("./movie-data-short.json");
 let users = require("./users.json");
 
-let movies = [{"Title":"Toy Story","Year":"1995","Rated":"G","Released":"22 Nov 1995","Runtime":"81 min","Genre":"Animation, Adventure, Comedy, Family, Fantasy","Director":"John Lasseter","Writer":"John Lasseter (original story by), Pete Docter (original story by), Andrew Stanton (original story by), Joe Ranft (original story by), Joss Whedon (screenplay by), Andrew Stanton (screenplay by), Joel Cohen (screenplay by), Alec Sokolow (screenplay by)","Actors":"Tom Hanks, Tim Allen, Don Rickles, Jim Varney","Plot":"A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy's room.","Language":"English","Country":"USA","Awards":"Nominated for 3 Oscars. Another 27 wins & 20 nominations.","Poster":"https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg","Ratings":[{"Source":"Internet Movie Database","Value":"8.3/10"},{"Source":"Rotten Tomatoes","Value":"100%"},{"Source":"Metacritic","Value":"95/100"}],"Metascore":"95","imdbRating":"8.3","imdbVotes":"864,385","imdbID":"tt0114709","Type":"movie","DVD":"20 Mar 2001","BoxOffice":"N/A","Production":"Buena Vista","Website":"N/A","Response":"True"},{"Title":"Jumanji","Year":"1995","Rated":"PG","Released":"15 Dec 1995","Runtime":"104 min","Genre":"Adventure, Comedy, Family, Fantasy","Director":"Joe Johnston","Writer":"Jonathan Hensleigh (screenplay by), Greg Taylor (screenplay by), Jim Strain (screenplay by), Greg Taylor (screen story by), Jim Strain (screen story by), Chris Van Allsburg (screen story by), Chris Van Allsburg (based on the book by)","Actors":"Robin Williams, Jonathan Hyde, Kirsten Dunst, Bradley Pierce","Plot":"When two kids find and play a magical board game, they release a man trapped in it for decades - and a host of dangers that can only be stopped by finishing the game.","Language":"English, French","Country":"USA","Awards":"4 wins & 11 nominations.","Poster":"https://m.media-amazon.com/images/M/MV5BZTk2ZmUwYmEtNTcwZS00YmMyLWFkYjMtNTRmZDA3YWExMjc2XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg","Ratings":[{"Source":"Internet Movie Database","Value":"7.0/10"},{"Source":"Rotten Tomatoes","Value":"54%"},{"Source":"Metacritic","Value":"39/100"}],"Metascore":"39","imdbRating":"7.0","imdbVotes":"297,463","imdbID":"tt0113497","Type":"movie","DVD":"25 Jan 2000","BoxOffice":"N/A","Production":"Sony Pictures Home Entertainment","Website":"N/A","Response":"True"},{"Title":"Grumpier Old Men","Year":"1995","Rated":"PG-13","Released":"22 Dec 1995","Runtime":"101 min","Genre":"Comedy, Romance","Director":"Howard Deutch","Writer":"Mark Steven Johnson (characters), Mark Steven Johnson","Actors":"Walter Matthau, Jack Lemmon, Sophia Loren, Ann-Margret","Plot":"John and Max resolve to save their beloved bait shop from turning into an Italian restaurant, just as its new female owner catches Max's attention.","Language":"English, Italian, German","Country":"USA","Awards":"2 wins & 2 nominations.","Poster":"https://m.media-amazon.com/images/M/MV5BMjQxM2YyNjMtZjUxYy00OGYyLTg0MmQtNGE2YzNjYmUyZTY1XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg","Ratings":[{"Source":"Internet Movie Database","Value":"6.7/10"},{"Source":"Rotten Tomatoes","Value":"17%"},{"Source":"Metacritic","Value":"46/100"}],"Metascore":"46","imdbRating":"6.7","imdbVotes":"23,736","imdbID":"tt0113228","Type":"movie","DVD":"18 Nov 1997","BoxOffice":"N/A","Production":"Warner Home Video","Website":"N/A","Response":"True"},{"Title":"Waiting to Exhale","Year":"1995","Rated":"R","Released":"22 Dec 1995","Runtime":"124 min","Genre":"Comedy, Drama, Romance","Director":"Forest Whitaker","Writer":"Terry McMillan (novel), Terry McMillan (screenplay), Ronald Bass (screenplay)","Actors":"Whitney Houston, Angela Bassett, Loretta Devine, Lela Rochon","Plot":"Based on Terry McMillan's novel, this film follows four very different African-American women and their relationships with the male gender.","Language":"English","Country":"USA","Awards":"9 wins & 10 nominations.","Poster":"https://m.media-amazon.com/images/M/MV5BYzcyMDY2YWQtYWJhYy00OGQ2LTk4NzktYWJkNDYwZWJmY2RjXkEyXkFqcGdeQXVyMTA0MjU0Ng@@._V1_SX300.jpg","Ratings":[{"Source":"Internet Movie Database","Value":"5.9/10"},{"Source":"Rotten Tomatoes","Value":"56%"}],"Metascore":"N/A","imdbRating":"5.9","imdbVotes":"9,272","imdbID":"tt0114885","Type":"movie","DVD":"06 Mar 2001","BoxOffice":"N/A","Production":"Twentieth Century Fox Home Entertainment","Website":"N/A","Response":"True"},{"Title":"Father of the Bride Part II","Year":"1995","Rated":"PG","Released":"08 Dec 1995","Runtime":"106 min","Genre":"Comedy, Family, Romance","Director":"Charles Shyer","Writer":"Albert Hackett (screenplay \"Father's Little Dividend\"), Frances Goodrich (screenplay \"Father's Little Dividend\"), Nancy Meyers (screenplay), Charles Shyer (screenplay)","Actors":"Steve Martin, Diane Keaton, Martin Short, Kimberly Williams-Paisley","Plot":"George Banks must deal not only with the pregnancy of his daughter, but also with the unexpected pregnancy of his wife.","Language":"English","Country":"USA","Awards":"Nominated for 1 Golden Globe. Another 1 win & 1 nomination.","Poster":"https://m.media-amazon.com/images/M/MV5BOTEyNzg5NjYtNDU4OS00MWYxLWJhMTItYWU4NTkyNDBmM2Y0XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg","Ratings":[{"Source":"Internet Movie Database","Value":"6.0/10"},{"Source":"Rotten Tomatoes","Value":"48%"},{"Source":"Metacritic","Value":"49/100"}],"Metascore":"49","imdbRating":"6.0","imdbVotes":"33,337","imdbID":"tt0113041","Type":"movie","DVD":"09 May 2000","BoxOffice":"N/A","Production":"Disney","Website":"N/A","Response":"True"},{"Title":"Heat","Year":"1995","Rated":"R","Released":"15 Dec 1995","Runtime":"170 min","Genre":"Crime, Drama, Thriller","Director":"Michael Mann","Writer":"Michael Mann","Actors":"Al Pacino, Robert De Niro, Val Kilmer, Jon Voight","Plot":"A group of professional bank robbers start to feel the heat from police when they unknowingly leave a clue at their latest heist.","Language":"English, Spanish","Country":"USA","Awards":"14 nominations.","Poster":"https://m.media-amazon.com/images/M/MV5BMDJjNWE5MTEtMDk2Mi00ZjczLWIwYjAtNzM2ZTdhNzcwOGZjXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_SX300.jpg","Ratings":[{"Source":"Internet Movie Database","Value":"8.2/10"},{"Source":"Rotten Tomatoes","Value":"87%"},{"Source":"Metacritic","Value":"76/100"}],"Metascore":"76","imdbRating":"8.2","imdbVotes":"560,172","imdbID":"tt0113277","Type":"movie","DVD":"27 Jul 1999","BoxOffice":"N/A","Production":"Warner Bros.","Website":"N/A","Response":"True"},{"Title":"Sabrina","Year":"1995","Rated":"PG","Released":"15 Dec 1995","Runtime":"127 min","Genre":"Comedy, Drama, Romance","Director":"Sydney Pollack","Writer":"Samuel A. Taylor (play), Billy Wilder (earlier screenplay), Samuel A. Taylor (earlier screenplay), Ernest Lehman (earlier screenplay), Barbara Benedek (screenplay), David Rayfiel (screenplay)","Actors":"Harrison Ford, Julia Ormond, Greg Kinnear, Nancy Marchand","Plot":"An ugly duckling having undergone a remarkable change, still harbors feelings for her crush: a carefree playboy, but not before his business-focused brother has something to say about it.","Language":"English, French","Country":"Germany, USA","Awards":"Nominated for 2 Oscars. Another 2 wins & 4 nominations.","Poster":"https://m.media-amazon.com/images/M/MV5BYjQ5ZjQ0YzQtOGY3My00MWVhLTgzNWItOTYwMTE5N2ZiMDUyXkEyXkFqcGdeQXVyNjUwMzI2NzU@._V1_SX300.jpg","Ratings":[{"Source":"Internet Movie Database","Value":"6.3/10"},{"Source":"Rotten Tomatoes","Value":"65%"},{"Source":"Metacritic","Value":"56/100"}],"Metascore":"56","imdbRating":"6.3","imdbVotes":"35,527","imdbID":"tt0114319","Type":"movie","DVD":"15 Jan 2002","BoxOffice":"N/A","Production":"Paramount","Website":"N/A","Response":"True"},{"Title":"Tom and Huck","Year":"1995","Rated":"PG","Released":"22 Dec 1995","Runtime":"97 min","Genre":"Adventure, Comedy, Drama, Family, Romance, Western","Director":"Peter Hewitt","Writer":"Mark Twain (novel), Stephen Sommers (screenplay), David Loughery (screenplay)","Actors":"Jonathan Taylor Thomas, Brad Renfro, Eric Schweig, Charles Rocket","Plot":"Two best friends witness a murder and embark on a series of adventures in order to prove the innocence of the man wrongly accused of the crime.","Language":"English","Country":"USA","Awards":"1 win & 5 nominations.","Poster":"https://m.media-amazon.com/images/M/MV5BN2ZkZTMxOTAtMzg1Mi00M2U0LWE2NWItZDg4YmQyZjVkMDdhXkEyXkFqcGdeQXVyNTM5NzI0NDY@._V1_SX300.jpg","Ratings":[{"Source":"Internet Movie Database","Value":"5.5/10"},{"Source":"Rotten Tomatoes","Value":"25%"}],"Metascore":"N/A","imdbRating":"5.5","imdbVotes":"9,621","imdbID":"tt0112302","Type":"movie","DVD":"06 May 2003","BoxOffice":"N/A","Production":"Buena Vista","Website":"N/A","Response":"True"},{"Title":"Sudden Death","Year":"1995","Rated":"R","Released":"22 Dec 1995","Runtime":"111 min","Genre":"Action, Crime, Thriller","Director":"Peter Hyams","Writer":"Karen Elise Baldwin (story), Gene Quintano (screenplay)","Actors":"Jean-Claude Van Damme, Powers Boothe, Raymond J. Barry, Whittni Wright","Plot":"A former fireman takes on a group of terrorists holding the Vice President and others hostage during the seventh game of the NHL Stanley Cup finals.","Language":"English","Country":"USA","Awards":"N/A","Poster":"https://m.media-amazon.com/images/M/MV5BN2NjYWE5NjMtODlmZC00MjJhLWFkZTktYTJlZTI4YjVkMGNmXkEyXkFqcGdeQXVyNDc2NjEyMw@@._V1_SX300.jpg","Ratings":[{"Source":"Internet Movie Database","Value":"5.8/10"},{"Source":"Rotten Tomatoes","Value":"51%"}],"Metascore":"N/A","imdbRating":"5.8","imdbVotes":"31,424","imdbID":"tt0114576","Type":"movie","DVD":"01 Nov 1998","BoxOffice":"N/A","Production":"MCA Universal Home Video","Website":"N/A","Response":"True"},{"Title":"GoldenEye","Year":"1995","Rated":"PG-13","Released":"17 Nov 1995","Runtime":"130 min","Genre":"Action, Adventure, Thriller","Director":"Martin Campbell","Writer":"Ian Fleming (characters), Michael France (story), Jeffrey Caine (screenplay), Bruce Feirstein (screenplay)","Actors":"Pierce Brosnan, Sean Bean, Izabella Scorupco, Famke Janssen","Plot":"Years after a friend and fellow 00 agent is killed on a joint mission, a secret space based weapons program known as \"GoldenEye\" is stolen. James Bond sets out to stop a Russian crime syndicate from using the weapon.","Language":"English, Russian, Spanish","Country":"UK, USA","Awards":"Nominated for 2 BAFTA Film Awards. Another 2 wins & 6 nominations.","Poster":"https://m.media-amazon.com/images/M/MV5BMzk2OTg4MTk1NF5BMl5BanBnXkFtZTcwNjExNTgzNA@@._V1_SX300.jpg","Ratings":[{"Source":"Internet Movie Database","Value":"7.2/10"},{"Source":"Rotten Tomatoes","Value":"78%"},{"Source":"Metacritic","Value":"65/100"}],"Metascore":"65","imdbRating":"7.2","imdbVotes":"233,822","imdbID":"tt0113189","Type":"movie","DVD":"19 Oct 1999","BoxOffice":"N/A","Production":"MGM/UA","Website":"N/A","Response":"True"}]
 
+function createQReview(requestingUser, newR, title){
+  //We should verify the contents of the question and we should verify the user
+  //We will skip validating the question for now (it's almost dinner time).
+  for (i in users){
+    for (j in users[i].reviews){
 
-
-
-function searchUsers(requestingUser, searchTerm){
-    let results = [];
-
-    //If the user is not valid, return an empty array.
-    //You could return null to indicate an error or any other value to signify the requesting user was not valid.
-    if(!isValidUser(requestingUser)){
-      return results;
-    }
-
-    //If users was an array, you could use a nice one line filter function call
-    for(username in users){
-      let user = users[username];
-      //If this user matches the search term
-      if(user.username.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0){
-        //If the requesting user is allowed to access the matching user
-        if(user.username === requestingUser.username || requestingUser.friends.includes(user.username)){
-          results.push(user);
-        }
-      }
-    }
-
-    return results;
-  }
-
-
-function createQuestion(requestingUser, newQ){
-//We should verify the contents of the question and we should verify the user
-//We will skip validating the question for now (it's almost dinner time).
-    if(!isValidUser(requestingUser)){
-        return null;
-    }
-
-    newQ.id = String(nextQuestionID);
-    newQ.creator = requestingUser.username;
-    nextQuestionID++;
-    questions[newQ.id] = newQ;
-    users[requestingUser.username].questions_created.push(newQ.id);
-    return newQ;
-}
-/*
-Purpose : Recommand some movies to the user homepage with in the section of recommand Movies
-Throug the input parameter of the user, we can get its liked movie. from the user liked movie,
-we can get general types of movie that users will liked , then we can generated an objects of
-movieArr that contains some similar types movies to the users. if the users does not have any
-like movie, we will juest randomlize choose some movies to the users.
-
-
-input:    1. The movie database that stores all the movies
-          2. The specific user ,where we can get its liked movie.
-          3. The current number
-
-outputs:
-          a movies arrary object that contains some movies informaion
-*/
-
-
-
-function generateRecommendMovie(mov,user){
-
-  let movieArr = [];
-  let likeGenre = [];
-  let userLiked = [];
-
-  // get user subscribe movie name
-  for (i in user["following"]){
-    console.log(user["following"][0]);
-    userLiked.push(user["following"][i]);
-  }
-
-  // get the user liked movie general
-  for(i in mov){
-    for(j in userLiked){
-      if(mov[i]["Title"] == userLiked[j]){
-        console.log(mov[i]["Genre"].split(','));
-        likeGenre.push(mov[i]["Genre"].split(',')[0]); // push the first
-        break;
-      }
     }
   }
-
-// add the movie that is user likede general in to movie array
-for(i in mov){
-  console.log(" User:  " + likeGenre[0]);
-
-  let movieGenera = mov[i]["Genre"].split(',');
-  console.log(" Movie  :  " + movieGenera[0]);
-  if(movieGenera[0] == likeGenre[0]){
-    movieArr.push(mov[i]);
-  }
-
-
 }
 
-  console.log("User liked movie : " + userLiked);
-  console.log("User liked Genre : " + likeGenre);
-  console.log(movieArr);
-  return movieArr;
 
-}
 
-// generate recommend movie for first user for testing
-console.log(users["user0"]);
-generateRecommendMovie(movies,users["user0"]);
+console.log("add a new review");
+createQReview(users.user0, "aaaaaa", "aaaaa");
+console.log(users.user0);
