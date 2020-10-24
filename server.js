@@ -8,7 +8,11 @@ const renderHome = pug.compileFile('pages/Home.pug');
 const renderSignup = pug.compileFile('pages/Signup.pug');
 
 
-
+let userID = 1;
+// store the username and password
+let users = [
+	{id : 0, username:"kavin",password:"123"}
+]
 
 //Helper function to send a 404 error
 function send404(response){
@@ -29,7 +33,7 @@ function send500(response){
 
 // initilize the server
 const server = http.createServer(function (request, response) {
-	console.log(request.method+" -> "+request.url);
+	//console.log(request.method+" -> "+request.url);  test about the income request
 
 	// handle the request
 	if(request.method === "GET"){
@@ -52,7 +56,7 @@ const server = http.createServer(function (request, response) {
 			});
 
 	}else if(request.url === "/login.js"){
-		//read Homepage.js file and send it back
+		//read login.js file and send it back
 		fs.readFile("login.js", function(err, data){
 			if(err){
 				send500(response);
@@ -127,7 +131,7 @@ const server = http.createServer(function (request, response) {
 		});
 
 	}else if(request.url === "/img/ilovem.jpg"){
-	//console.log("get ilovem jpg");
+			//read the img
 		fs.readFile("img/ilovem.jpg", function(err, data){
 			if(err){
 				send500(response);
@@ -140,7 +144,7 @@ const server = http.createServer(function (request, response) {
 		});
 
 	}else if(request.url === "/img/ilovemb.jpg"){
-	console.log("get ilovemb jpg");
+
 		fs.readFile("img/ilovemb.jpg", function(err, data){
 			if(err){
 				send500(response);
@@ -153,7 +157,7 @@ const server = http.createServer(function (request, response) {
 		});
 
 	}else if(request.url === "/img/jumanji.jpg"){
-		//console.log("inside jpg");
+			//read the img
 		fs.readFile("img/jumanji.jpg", function(err, data){
 			if(err){
 				send500(response);
@@ -166,7 +170,7 @@ const server = http.createServer(function (request, response) {
 		});
 
 	}else if(request.url === "/img/Sabrina.jpg"){
-		//console.log("inside jpg");
+		//read the img
 		fs.readFile("img/Sabrina.jpg", function(err, data){
 			if(err){
 				send500(response);
@@ -179,7 +183,7 @@ const server = http.createServer(function (request, response) {
 		});
 
 	}else if(request.url === "/img/waitiing.jpg"){
-		//console.log("inside jpg");
+		//read the img
 		fs.readFile("img/waitiing.jpg", function(err, data){
 			if(err){
 				send500(response);
@@ -192,7 +196,7 @@ const server = http.createServer(function (request, response) {
 		});
 
 	}else if(request.url === "/img/Sudden.jpg"){
-		//console.log("inside jpg");
+		//read the img
 		fs.readFile("img/Sudden.jpg", function(err, data){
 			if(err){
 				send500(response);
@@ -205,7 +209,7 @@ const server = http.createServer(function (request, response) {
 		});
 
 	}else if(request.url === "/style.css"){
-		//console.log("inside css");
+
 		//read css file
 		fs.readFile("style.css", function(err, data){
 			if(err){
@@ -222,9 +226,39 @@ const server = http.createServer(function (request, response) {
 			return;
 		}
 	}else if(request.method === "POST"){
-		//any handling in here
-		send404(response);
-		return;
+		if(request.url === "/login"){
+			let body = ""
+			request.on('data', (chunk) => {
+					body += chunk;
+			})
+
+			request.on('end', () => {
+				let newUser= JSON.parse(body);
+
+				// check if the past in object has username and password properties
+				if(newUser.hasOwnProperty("username") && newUser.hasOwnProperty("password")){
+					newUser.id = userID;
+					userID++;
+					users.push(newUser);
+					// print out the users in the server
+					for (let i = 0; i<userID;i++){
+						console.log("USERNAME : " + users[i].username + "  PASSWORD : "+ users[i].password)
+					}
+
+
+					response.write(String(newUser.id));
+					response.end();
+					return;
+				}else{
+					send404(response);
+					return;
+				}
+			})
+
+		}else{
+			send404(response);
+			return;
+		}
 	}
 });
 

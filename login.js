@@ -31,6 +31,31 @@ function signup(){
 }
 
 function login(){
-  
-  window.location.href = "http://localhost:3000/login";
+  //get user name
+  let username = document.getElementById("username").value;
+  let password = document.getElementById("password").value;
+
+  if(username.length == 0 || password.length == 0){
+		alert("Enter the correct input");
+		return;
+	}
+
+  let user = {username,password};
+  console.log(user);
+  let req = new XMLHttpRequest();
+	req.onreadystatechange = function(){
+		if(this.readyState == 4 && this.status == 200){
+			console.log("userprofile ->  " + this.responseText);
+			//console.log("http://localhost:3000/login" + this.responseText);
+			window.location.href = "http://localhost:3000/login";
+		}
+	}
+
+  req.open("POST", "http://localhost:3000/login");
+  req.send(JSON.stringify(user));
+
+
+
+
+  //window.location.href = "http://localhost:3000/login";
 }
