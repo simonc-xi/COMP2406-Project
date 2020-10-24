@@ -16,5 +16,5 @@ function makeSubscribe(user, people){
   }
 //check
 //print the user after following
-let userC = makeSubscribe(users.user0, "John Lasseter");
+let userC = makeSubscribe(users.user0, "John Lasseter"); //should display the user info with following John Lasseter 
 console.log(users.user0);

@@ -10,10 +10,11 @@ function createUser(newUser){
             return null;
         }
     
-
-        if(users.hasOwnProperty(newUser.username)){
-            //There is a user with that name already
-            return null;
+        for (i in users){
+            if(users[i].username.hasOwnProperty(newUser.username)){
+                //There is a user with that name already
+                return null;
+            }
         }
     
         //Set initial values for the new user
@@ -27,16 +28,16 @@ function createUser(newUser){
 
 
 //check
-const assert = require("assert");
 console.log("Creating some users");
 //chechk the createUser function
 
-let userA = createUser({username: "rand", password: "12345"});
+let userA = createUser({username: "Sop", password: "12345"});
 let userB = createUser({username: "rend", password:"12345"});
 let userC = createUser({username: "Li", password:"12345"});
 let userD = createUser({username: "Lulu", password: "12345"});
 
-assert(Object.keys(users).length === 7, "Unexpected number of users");
+
+
 //display the newly create user
 console.log("Newly created users:");
 console.log(userA);

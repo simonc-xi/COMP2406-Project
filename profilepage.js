@@ -26,7 +26,7 @@ function upgradeAccount(requestingUser){
 console.log (users.user0)
 
 //print the new account level
-let userA = upgradeAccount(users.user0);
+let userA = upgradeAccount(users.user0);// this should be downgrade contributing -> regular 
 console.log(userA);
 
 
