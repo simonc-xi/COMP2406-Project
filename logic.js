@@ -36,16 +36,12 @@ let userB = createUser({username: "rend", password:"12345"});
 let userC = createUser({username: "Li", password:"12345"});
 let userD = createUser({username: "Lulu", password: "12345"});
 
-
-
 //display the newly create user
 console.log("Newly created users:");
 console.log(userA);
 console.log(userB);
 console.log(userC);
 console.log(userD);
-
-
 
 //check the user is already valid form or not.
 function isValidUser(userObj){
@@ -75,15 +71,8 @@ function getUser(requestingUser, userID){
 
     return null;
 }
-
-
-
 //check the users valid or not
 console.log("chechk user using the correct form");
-let userA = isValidUser({username:"Sophi",password:"12345",accountLevel:["contributing"],reviews:[{"Title":"Toy Story", "Review":"Bad moive, but I like it"}], following:[]});
-let userB = isValidUser({username: "rend",});//false
-let userC = isValidUser({password:"12345"});//false
-let userD = isValidUser({username: "Lulu", password: "12345"}); //false
 
 console.log("check the user state:");
 console.log(userA);
@@ -147,18 +136,45 @@ for(i in mov){
   console.log(movieArr);
   return movieArr;
 }
+//test case
 console.log(users)
 // generate recommend movie for first user for testing
 console.log(users["user0"]);
 getRecMovie(movies,users["user0"]);
 
+
+
+
+
+/*
+input: userID who want to subscribe, and the people who has been subscribed by other
+*/
+function makeSubscribe(user, people){
+
+    //If the users are already Subscribe, stop
+    if(user.following.includes(people)){
+      return;
+    }
+
+    //Update they are now followed
+    user.following.push(people);
+
+
+  }
+//check
+//print the user after following
+makeSubscribe(users.user0, "John Lasseter"); //should display the user info with following John Lasseter
+console.log(users.user0);
+
+
+
+
 module.exports = {
   users,
   movies,
-  createUser,
   isValidUser,
-  getRecMovie
+  getRecMovie,
   createUser,
   getUser,
-  searchUsers,
+  
 }
