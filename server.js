@@ -20,6 +20,7 @@ Function our business logic currently supports:
 7. Recommend Movie (generatedRecommendMovie) -GET /movie-data-short
 8. Making a follow (makeFollow) -Post /users
 9. Upgrade the Account level (upgradeAccount) - Post /users
+10. Posting a new Review for movie (createReview) -Post /users
 */
 
 

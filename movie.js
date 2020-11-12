@@ -66,3 +66,26 @@ for(i in mov){
 // generate recommend movie for first user for testing
 console.log(users["user0"]);
 generateRecommendMovie(movies,users["user0"]);
+
+
+
+function createReview(requestingUser, title, newR){
+  //We should verify the contents of the question and we should verify the user
+  //We will skip validating the question for now (it's almost dinner time).
+  /*
+  if(!isValidUser(requestingUser)){
+    return null;
+  }*/
+  let reviewArr = [];
+
+  //users[requestingUser].reviews.Title.push(title);
+  reviewArr.push(title);
+  reviewArr.push(newR);
+
+  requestingUser.reviews.push(reviewArr);
+
+  return newR;
+}
+
+createReview(users.user1, "Toy Story", "Nice");
+console.log(users.user1);
