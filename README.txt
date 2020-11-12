@@ -77,7 +77,7 @@
 		it, and stores user infor in the local. then send back the user page back to client.
 
 
-	-The majority of the business logic has add into the project and made the backgroud of the
+	-The majority of the business logic has add into the project and made the background of the
 		html more useful and functional, by adding the check users, search bar, following the
-		person and recommand some similar movie, all of these function made the project getting
+		person and recommend some similar movie, all of these function made the project getting
 		more powerful.
