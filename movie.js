@@ -78,7 +78,6 @@ function createReview(requestingUser, title, newR){
   }*/
   let reviewArr = [];
 
-  //users[requestingUser].reviews.Title.push(title);
   reviewArr.push(title);
   reviewArr.push(newR);
 
@@ -86,6 +85,6 @@ function createReview(requestingUser, title, newR){
 
   return newR;
 }
-
+//testing code
 createReview(users.user1, "Toy Story", "Nice");
 console.log(users.user1);
