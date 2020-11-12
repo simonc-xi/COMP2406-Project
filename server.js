@@ -17,9 +17,9 @@ Function our business logic currently supports:
 4. Searching for movie (searchMovie) -GET /movie-data-short
 5. Searching for people (searchPeople) -GET /movie-data-short
 6. Making a subscribe (makeSubscribe) -Post /users
-7. Recommend Movie (generatedRecommendMovie) - Post /..?
+7. Recommend Movie (generatedRecommendMovie) -GET /movie-data-short
 8. Making a follow (makeFollow) -Post /users
-9. Upgrade the Account level (upgradeAccount) - ..?
+9. Upgrade the Account level (upgradeAccount) - Post /users
 */
 
 
