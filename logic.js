@@ -25,20 +25,6 @@ function createUser(newUser){
 }
 
 
-//check
-console.log("Creating some users");
-//check the createUser function
-
-let userA = createUser({username: "Sop", password: "12345"});
-let userC = createUser({username: "Li", password:"12345"});
-let userD = createUser({username: "Lulu", password: "12345"});
-
-//display the newly create user
-console.log("Newly created users:");
-console.log(userA);
-console.log(userC);
-console.log(userD);
-
 //check the user is already valid form or not.
 function isValidUser(userObj){
   if(!userObj){
@@ -49,6 +35,7 @@ function isValidUser(userObj){
   }
   return true;
 }
+
 
 function getUser(requestingUser, userID){
     //If the requesting user is invalid (e.g., is not logged in, is missing username, anything else expected is invalid), disallow
@@ -67,15 +54,6 @@ function getUser(requestingUser, userID){
 
     return null;
 }
-//check the users valid or not
-console.log("chechk user using the correct form");
-
-console.log("check the user state:");
-console.log(userA);
-console.log(userC);
-console.log(userD);
-
-
 
 /*
 Purpose : Recommand some movies to the user homepage with in the section of recommand Movies
@@ -138,9 +116,6 @@ console.log(users["user0"]);
 getRecMovie(movies,users["user0"]);
 
 
-
-
-
 /*
 input: userID who want to subscribe, and the people who has been subscribed by other
 */
@@ -155,13 +130,112 @@ function makeSubscribe(user, people){
     user.following.push(people);
 
 
+}
+
+//search the user
+function searchUsers(requestingUser, searchTerm){
+    let results = [];
+  
+    //If the user is not valid, return an empty array.
+    //You could return null to indicate an error or any other value to signify the requesting user was not valid.
+    if(!isValidUser(requestingUser)){
+      return results;
+    }
+  
+    //If users was an array, you could use a nice one line filter function call
+    for(username in users){
+      let user = users[username];
+      //If this user matches the search term
+      if(user.username.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0){
+        //If the requesting user is allowed to access the matching user
+        if(user.username === requestingUser.username || requestingUser.following.includes(user.username)){
+          results.push(user);
+        }
+      }
+    }
+  
+  return results;
+}
+
+
+//search Movie Title
+function searchMovie(movieName){
+  let results = [];
+
+  //If the user is not valid, return an empty array.
+  //You could return null to indicate an error or any other value to signify the requesting user was not valid.
+
+
+  for(name in movies){
+    let movie = movies[name];
+      if(movie.Title.includes(movieName)){
+        results.push(movie);
+    }
   }
+
+return results;
+}
+
+//search people (writer, actor, director)
+function searchPeople(peopleName){
+  let results = [];
+
+  for(writer in movies){
+    let movieWriter = movies[writer];
+      if(movieWriter.Writer.includes(peopleName)){
+        results.push(movieWriter);
+      }
+    }
+  
+  for(actors in movies){
+    let movieActors = movies[actors];
+      if(movieActors.Actors.includes(peopleName)){
+        results.push(movieActors);
+      }
+    }
+
+  for(director in movies){
+    let movieDirector = movies[director];
+      if(movieDirector.Director.includes(peopleName)){
+        results.push(movieDirector);
+      }
+    }
+
+  return results;
+}
+
+
+
+//check
+console.log("Creating some users");
+//check the createUser function
+
+let userA = createUser({username: "Sop", password: "12345"});
+let userC = createUser({username: "Li", password:"12345"});
+let userD = createUser({username: "Lulu", password: "12345"});
+
+//display the newly create user
+console.log("Newly created users:");
+console.log(userA);
+console.log(userC);
+console.log(userD);
+
 //check
 //print the user after following
-
+console.log("Make user to be susbcribe");
 makeSubscribe(users.user0, "John Lasseter"); //should display the user info with following John Lasseter
 console.log(users.user0);
 
+//check
+//searching the movie by name
+console.log("Testing searchMoive");
+let result = searchMovie("Toy Story") //should print the movie info with the title Toy Story
+console.log(result);
+
+//Testing the people by name
+console.log("Testing searchPoeple");
+let results = searchPeople("John Lasseter") //should print this people's movie info and other related 
+console.log(results);
 
 
 module.exports = {

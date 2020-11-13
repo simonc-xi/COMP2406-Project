@@ -50,7 +50,23 @@ app.get("/users/:uid", function(req, res, next){
 
 
 //Searching for users (searchUsers), 
-app.
+app.get("/users", function(req, res, next){
+  console.log (req.query.name);
+  if(req.query.name==undefined){
+    req.query.name="";
+  }
+  let result =model.searchUsers(requestingUser, req.query.name);
+  res.status(200).json(result);
+})
+
+app.get("/movies", function(req, res, next){
+  console.log (req.query.title);
+  if(req.query.name==undefined){
+    req.query.name="";
+  }
+  let result =model.searchUsers(requestingUser, req.query.name);
+  res.status(200).json(result);
+})
 
 
 
