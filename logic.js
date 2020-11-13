@@ -135,13 +135,13 @@ function makeSubscribe(user, people){
 //search the user
 function searchUsers(requestingUser, searchTerm){
     let results = [];
-  
+
     //If the user is not valid, return an empty array.
     //You could return null to indicate an error or any other value to signify the requesting user was not valid.
     if(!isValidUser(requestingUser)){
       return results;
     }
-  
+
     //If users was an array, you could use a nice one line filter function call
     for(username in users){
       let user = users[username];
@@ -153,7 +153,7 @@ function searchUsers(requestingUser, searchTerm){
         }
       }
     }
-  
+
   return results;
 }
 
@@ -186,7 +186,7 @@ function searchPeople(peopleName){
         results.push(movieWriter);
       }
     }
-  
+
   for(actors in movies){
     let movieActors = movies[actors];
       if(movieActors.Actors.includes(peopleName)){
@@ -213,12 +213,19 @@ console.log("Creating some users");
 let userA = createUser({username: "Sop", password: "12345"});
 let userC = createUser({username: "Li", password:"12345"});
 let userD = createUser({username: "Lulu", password: "12345"});
+let userB = createUser({username: "simon", password: "123"});
 
 //display the newly create user
 console.log("Newly created users:");
 console.log(userA);
 console.log(userC);
 console.log(userD);
+
+//display all the users
+console.log("USERS: ");
+console.log(users);
+
+
 
 //check
 //print the user after following
@@ -234,8 +241,10 @@ console.log(result);
 
 //Testing the people by name
 console.log("Testing searchPoeple");
-let results = searchPeople("John Lasseter") //should print this people's movie info and other related 
+let results = searchPeople("John Lasseter") //should print this people's movie info and other related
 console.log(results);
+
+
 
 
 module.exports = {
@@ -245,5 +254,5 @@ module.exports = {
   getRecMovie,
   createUser,
   getUser,
-  
+
 }
