@@ -18,6 +18,18 @@ Function our business logic currently supports:
 10. Posting a new Review for movie (createReview) -Post /users
 */
 
+app.use(express.json());
+
+app.post("/users", function(req, res, next){
+//the request body contains the new user information
+console.log(req.body);
+let result = model.createUser(req.body);
+if(!result==null){
+  res.status(200).send("User added: " + JSON.stringify(result));
+}else{
+  res.status(500).send("Failed to add user.");
+}
+})
 
 app.listen(3000);
 console.log("Server listening at http://localhost:3000");

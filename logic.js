@@ -10,11 +10,9 @@ function createUser(newUser){
             return null;
         }
 
-        for (i in users){
-            if(users[i].username.hasOwnProperty(newUser.username)){
-                //There is a user with that name already
-                return null;
-            }
+        if(users.hasOwnProperty(newUser.username)){
+          //There is a user with that name already
+          return null;
         }
 
         //Set initial values for the new user
