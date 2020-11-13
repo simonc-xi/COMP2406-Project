@@ -30,14 +30,12 @@ console.log("Creating some users");
 //check the createUser function
 
 let userA = createUser({username: "Sop", password: "12345"});
-let userB = createUser({username: "rend", password:"12345"});
 let userC = createUser({username: "Li", password:"12345"});
 let userD = createUser({username: "Lulu", password: "12345"});
 
 //display the newly create user
 console.log("Newly created users:");
 console.log(userA);
-console.log(userB);
 console.log(userC);
 console.log(userD);
 
@@ -62,7 +60,7 @@ function getUser(requestingUser, userID){
     if(users.hasOwnProperty(userID)){
       //It may be beneficial to create a helper function for canAccessUser(requesterID, requestedID)
       //You could use this function in searchUsers below too
-      if(requestingUser.username == userID){
+      if(requestingUser.username == userID || requestingUser.friends.includes(userID)){
         return users[userID];
       }
     }
@@ -74,7 +72,6 @@ console.log("chechk user using the correct form");
 
 console.log("check the user state:");
 console.log(userA);
-console.log(userB);
 console.log(userC);
 console.log(userD);
 
@@ -161,9 +158,9 @@ function makeSubscribe(user, people){
   }
 //check
 //print the user after following
+
 makeSubscribe(users.user0, "John Lasseter"); //should display the user info with following John Lasseter
 console.log(users.user0);
-
 
 
 
