@@ -241,7 +241,6 @@ console.log(results);
 module.exports = {
   users,
   movies,
-  peoples,
   isValidUser,
   getRecMovie,
   createUser,

@@ -10,7 +10,7 @@ Function our business logic currently supports:
 2. Reading a user (getUser) - GET /users/:users
 3. Searching for users (searchUsers) -GET /users
 4. Searching for movie (searchMovie) -GET /movies
-5. Searching for people (searchPeople) -GET /peoples
+5. Searching for people (searchPeople) -GET /movies
 6. Making a subscribe (makeSubscribe) -Post /users
 7. Recommend Movie (getRecMovie) -GET /movies
 8. Making a follow (makeFollow) -Post /users
@@ -72,7 +72,7 @@ app.get("/movies", function(req, res, next){
 
 
 //Searching for People (searchPeople),
-app.get("/peoples", function(req, res, next){
+app.get("/movies", function(req, res, next){
   console.log (req.query.title);
   if(req.query.name==undefined){
     req.query.name="";
