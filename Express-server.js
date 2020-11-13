@@ -23,7 +23,7 @@ console.log(requestingUser);
 
 app.use(express.json());
 
-//Post request for the creating a new user (createUser), input password/username, return the
+//1. Post request for the creating a new user (createUser), input password/username, return the
 //user information
 app.post("/users", function(req, res, next){
 //the request body contains the new user information
@@ -37,7 +37,7 @@ if(result){
 })
 
 
-//get request for the Reading a user (getUser), input the uid to get the user information
+//2. get request for the Reading a user (getUser), input the uid to get the user information
 app.get("/users/:uid", function(req, res, next){
   console.log("Getting user with name: " + req.params.uid);
   let requestUser = model.users[req.params.uid];
@@ -50,7 +50,7 @@ app.get("/users/:uid", function(req, res, next){
 })
 
 
-//Searching for users (searchUsers),
+//3. Searching for users (searchUsers),
 app.get("/users", function(req, res, next){
   console.log (req.query.name);
   if(req.query.name==undefined){
@@ -61,7 +61,7 @@ app.get("/users", function(req, res, next){
 })
 
 
-//Searching for moive (searchMovie),
+//4. Searching for moive (searchMovie),
 app.get("/movies", function(req, res, next){
   console.log (req.query.title);
   if(req.query.title==undefined){
@@ -72,7 +72,7 @@ app.get("/movies", function(req, res, next){
 })
 
 
-//Searching for People (searchPeople),
+//5. Searching for People (searchPeople),
 app.get("/movies", function(req, res, next){
   console.log (req.query.title);
   if(req.query.name==undefined){

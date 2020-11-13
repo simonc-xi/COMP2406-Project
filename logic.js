@@ -254,4 +254,8 @@ module.exports = {
   getRecMovie,
   createUser,
   getUser,
+  makeSubscribe,
+  searchUsers,
+  searchMovie,
+  searchPeople,
 }
