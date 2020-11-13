@@ -214,12 +214,6 @@ let userA = createUser({username: "Sop", password: "12345"});
 let userC = createUser({username: "Li", password:"12345"});
 let userD = createUser({username: "Lulu", password: "12345"});
 
-//display the newly create user
-console.log("Newly created users:");
-console.log(userA);
-console.log(userC);
-console.log(userD);
-
 //check
 //print the user after following
 console.log("Make user to be susbcribe");
@@ -245,5 +239,4 @@ module.exports = {
   getRecMovie,
   createUser,
   getUser,
-  
 }
