@@ -32,7 +32,7 @@ let result = model.createUser(req.body);
 if(result){
   res.status(200).send("User added: " + JSON.stringify(result));
 }else{
-  res.status(500).send("Failed to add user.");
+  res.status(500).send("Not valid user.");
 }
 })
 
@@ -74,7 +74,7 @@ app.get("/movies", function(req, res, next){
 
 //5. Searching for People (searchPeople),
 app.get("/movies", function(req, res, next){
-  console.log (req.query.title);
+  console.log (req.query.name);
   if(req.query.name==undefined){
     req.query.name="";
   }
