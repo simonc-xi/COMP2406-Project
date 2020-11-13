@@ -48,12 +48,13 @@ head
   a(href='/movie') Movie
 .containerR
   h1 Create account
-  label(for='username')
-    b Username
-  input(type='text' placeholder='Username' name='username' required='')
-  label(for='pass')
-    b Password
-  input(type='password' placeholder='Password' name='pass' required='')
-  button.btn(type='submit') Create your iLoveM account
+  form(method="POST" action="/signInUser")
+    label(for='username')
+      b Username
+    input(type='text' placeholder='Username' name='username' required='')
+    label(for='pass')
+      b Password
+    input(type='password' placeholder='Password' name='pass' required='')
+    button.btn(type='submit') Create your iLoveM account
 br
 br

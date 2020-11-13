@@ -36,11 +36,6 @@ function isValidUser(userObj){
   return true;
 }
 
-//check user is authenticated or not
-function authenticateUser(username, password){
-  return users.hasOwnProperty(username) && users[username].password == password;
-}
-
 
 function getUser(requestingUser, userID){
     //If the requesting user is invalid (e.g., is not logged in, is missing username, anything else expected is invalid), disallow
@@ -244,7 +239,6 @@ module.exports = {
   users,
   movies,
   isValidUser,
-  authenticateUser,
   getRecMovie,
   createUser,
   getUser,

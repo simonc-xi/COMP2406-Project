@@ -56,13 +56,15 @@ head
   a(href='#movie') Movie
 .containerR
   h1 Log In to Your Account
-  label(for='username')
-    b Username
-  input#username(type='text' placeholder='Username' name='username' required='')
-  label(for='pass')
-    b Password
-  input#password(type='password' placeholder='Password' name='pass' required='')
-  button#login.btn(type='submit') LOG IN
+
+  form(method="POST" action="/logInUser")
+    label(for='username')
+      b Username
+    input#username(type='text' placeholder='Username' name='username' required='')
+    label(for='pass')
+      b Password
+    input#password(type='password' placeholder='Password' name='pass' required='')
+    button#login.btn(type='submit') LOG IN
 br
 br
 .containerL

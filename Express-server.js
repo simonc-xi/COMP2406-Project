@@ -4,6 +4,9 @@ const app = express();
 const model = require("./logic.js");
 
 
+const requestingUser = model.users["Sop"];
+console.log(requestingUser);
+
 /*
 Function our business logic currently supports:
 1. creating a new user (createUser) - POST/users
@@ -18,10 +21,9 @@ Function our business logic currently supports:
 10. Posting a new Review for movie (createReview) -Post /users
 */
 
-const requestingUser = model.users["Sop"];
-console.log(requestingUser);
-
-app.use(express.json());
+app.use(express.static('public'));
+//app.set('view engine', 'pug')
+app.use(express.urlencoded({extended: true}));
 
 const session = require('express-session')
 app.use(session({ 
@@ -31,29 +33,30 @@ app.use(session({
   secret: 'secret!!'
 }))
 
+//check the cookie been create
 app.use('/', function(req, res, next){
   console.log(req.session);
   next()
 })
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 
-app.use(express.static("public"))
+app.get('/signup',signUpPage)
+app.get('/login',logInPage)
 
-app.post("/login", function(req, res, next){
-  if(model.authenticateUser(req.body.username, req.body.password)){
-    //they have logged in successfully
-    req.session.user = model.users[req.body.username];
-    res.redirect("/users/" + req.body.username);
-  }else{
-    //they did not log in successfully.
-    res.status(401).send("Invalid credentials.");
-  }
-})
+//app.post('/signUpUser',signUpUser,logInUser)
+//app.post('/logInUser',logInUser);
+
+function signUpPage(req, res){
+  res.render('pages/Signup.pug')
+}
+
+function logInPage(req, res){
+  res.render("pages/login.pug",{session:req.session})
+}
 
 //1. Post request for the creating a new user (createUser)
-//input password/username, return the
-//user information
+//input password/username, return the user information
 app.post("/users", function(req, res, next){
 //the request body contains the new user information
 console.log(req.body);
