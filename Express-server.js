@@ -23,13 +23,13 @@ console.log(requestingUser);
 
 app.use(express.json());
 
-//Post request for the creating a new user (createUser), input password/username, return the 
+//Post request for the creating a new user (createUser), input password/username, return the
 //user information
 app.post("/users", function(req, res, next){
 //the request body contains the new user information
 console.log(req.body);
 let result = model.createUser(req.body);
-if(!result==null){
+if(result){
   res.status(200).send("User added: " + JSON.stringify(result));
 }else{
   res.status(500).send("Failed to add user.");
@@ -40,7 +40,8 @@ if(!result==null){
 //get request for the Reading a user (getUser), input the uid to get the user information
 app.get("/users/:uid", function(req, res, next){
   console.log("Getting user with name: " + req.params.uid);
-  let result = model.getUser(requestingUser, req.params.uid);
+  let requestUser = model.users[req.params.uid];
+  let result = model.getUser(requestUser, req.params.uid);
   if(result == null){
     res.status(404).send("Unknown user")
   }else{
@@ -49,13 +50,13 @@ app.get("/users/:uid", function(req, res, next){
 })
 
 
-//Searching for users (searchUsers), 
+//Searching for users (searchUsers),
 app.get("/users", function(req, res, next){
   console.log (req.query.name);
   if(req.query.name==undefined){
     req.query.name="";
   }
-  let result =model.searchUsers(requestingUser, req.query.name);
+  let result = model.searchUsers(requestingUser, req.query.name);
   res.status(200).json(result);
 })
 
@@ -81,7 +82,37 @@ app.get("/movies", function(req, res, next){
   res.status(200).json(result);
 })
 
+//6. Making a subscribe (makeSubscribe) -Post /users
+app.post("/users", function(req, res, next){
+  console.log("req.body = " + req.body);
+  let user = model.searchUsers(requestingUser, req.query.name);
+  let result = model.makeSubscribe(user, req.body);
+  if(result == null){
+    res.status(500).send("The user does not exist")
+    return;
+  }else{
+    res.status(200).json(result);
+  }
+})
+
+//7. Recommend Movie (getRecMovie) -GET /movies
+app.get("/movies", function(req, res, next){
+  console.log (req.query.title);
+  if(req.query.name==undefined){
+    req.query.name="";
+  }
+  let recMovies =model.getRecMovie(model.movies, req.query.name);
+  res.status(200).json(result);
+})
 
 
+//8. Making a follow (makeFollow) -Post /users
+
+
+
+//9. Upgrade the Account level (upgradeAccount) - Post /users
+
+
+//10. Posting a new Review for movie (createReview) -Post /users
 app.listen(3000);
 console.log("Server listening at http://localhost:3000");
