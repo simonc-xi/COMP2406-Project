@@ -9,6 +9,9 @@ const session = require('express-session');
 app.use(session({ secret: 'some secret here'}))
 
 
+const requestingUser = model.users["Sop"];
+console.log(requestingUser);
+
 /*
 Function our business logic currently supports:
 1. creating a new user (createUser) - POST/users
@@ -30,82 +33,42 @@ const renderSignup = pug.compileFile('pages/Signup.pug');
 
 
 
-const requestingUser = model.users["Sop"];
-console.log(requestingUser);
+app.use(express.static('public'));
+//app.set('view engine', 'pug')
+app.use(express.urlencoded({extended: true}));
+
+const session = require('express-session')
+app.use(session({
+  cookie:{
+    maxAge:500000000000000
+  },
+  secret: 'secret!!'
+}))
+
+//check the cookie been create
+app.use('/', function(req, res, next){
+  console.log(req.session);
+  next()
+})
 
 app.use(express.json());
 
-//render the home page
-app.get("/", function(req, res, next){
-  let data = renderHome("./pages/Home.pug",{})
-  res.status(200).send(data);
-})
+app.get('/signup',signUpPage)
+app.get('/login',logInPage)
 
-app.get("/Homepage.js", function(req, res, next){
-  fs.readFile("Homepage.js", function(err, data){
-    if(err){
-      res.status(500).send("Unknown resources");
-      return;
-    }
-      res.status(200).send(data);
-  });
-})
-//render sign up page
-app.get("/signup", function(req, res, next){
-  let data = renderSignup("./pages/Signup.pug",{})
-  res.status(200).send(data);
-})
+//app.post('/signUpUser',signUpUser,logInUser)
+//app.post('/logInUser',logInUser);
 
-//render sign up page
-app.get("/signin", function(req, res, next){
-  let data = renderLogin("./pages/login.pug",{})
-  res.status(200).send(data);
-})
+function signUpPage(req, res){
+  res.render('pages/Signup.pug')
+}
 
+function logInPage(req, res){
+  res.render("pages/login.pug",{session:req.session})
+}
 
-app.get("/style.css", function(req, res, next){
-
-  fs.readFile("style.css", function(err, data){
-    if(err){
-      res.status(500).send("Unknown resources");
-      return;
-    }
-      console.log("/style.css");
-      res.status(200).send(data);
-  });
-})
-
-app.get("/img/ilovem.jpg", function(req, res, next){
-  fs.readFile("img/ilovem.jpg", function(err, data){
-    if(err){
-      res.status(500).send("Unknown resources");
-      return;
-    }
-      res.status(200).send(data);
-  });
-})
-
-app.get("/img/ilovemb.jpg", function(req, res, next){
-  fs.readFile("img/ilovemb.jpg", function(err, data){
-    if(err){
-      res.status(500).send("Unknown resources");
-      return;
-    }
-      res.status(200).send(data);
-  });
-})
-
-app.get("/login.js", function(req, res, next){
-  fs.readFile("login.js", function(err, data){
-    if(err){
-      res.status(500).send("Unknown resources");
-      return;
-    }
-      res.status(200).send(data);
-  });
-})
-
-//Creating a new user (createUser), Input:  password/username, Output: user information
+//1. Post request for the creating a new user (createUser)
+//input password/username, return the user information
 app.post("/users", function(req, res, next){
 //the request body contains the new user information
 console.log(req.body);
@@ -113,12 +76,12 @@ let result = model.createUser(req.body);
 if(result){
   res.status(200).send("User added: " + JSON.stringify(result));
 }else{
-  res.status(500).send("Failed to add user.");
+  res.status(500).send("Not valid user.");
 }
 })
 
 
-//get request for the Reading a user (getUser), input the uid to get the user information
+//2. get request for the Reading a user (getUser), input the uid to get the user information
 app.get("/users/:uid", function(req, res, next){
   console.log("Getting user with name: " + req.params.uid);
   //let requestUser = model.users[req.params.uid];
@@ -132,7 +95,7 @@ app.get("/users/:uid", function(req, res, next){
 })
 
 
-//Searching for subscribed users (searchUsers),
+//3. Searching for users (searchUsers),
 app.get("/users", function(req, res, next){
   console.log (req.query.name);
   if(req.query.name==undefined){
@@ -143,8 +106,8 @@ app.get("/users", function(req, res, next){
 })
 
 
-//Searching for moive (searchMovie),
-app.get("/SearchMovies", function(req, res, next){
+//4. Searching for moive (searchMovie),
+app.get("/movies", function(req, res, next){
   console.log (req.query.title);
   if(req.query.title==undefined){
     req.query.title="";
@@ -154,9 +117,9 @@ app.get("/SearchMovies", function(req, res, next){
 })
 
 
-//Searching for People (searchPeople),
-app.get("/SearchPeople", function(req, res, next){
-  console.log (req.query.title);
+//5. Searching for People (searchPeople),
+app.get("/movies", function(req, res, next){
+  console.log (req.query.name);
   if(req.query.name==undefined){
     req.query.name="";
   }

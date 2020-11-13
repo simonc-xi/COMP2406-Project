@@ -257,27 +257,7 @@ let userC = createUser({username: "Li", password:"12345"});
 let userD = createUser({username: "Lulu", password: "12345"});
 let userB = createUser({username: "simon", password: "123"});
 
-console.log("SUBSCRIBE TEST--");
-
-makeSubscribe("Sop","Li")
-makeSubscribe("Li", "John Lasseter");
-makeSubscribe("Sop", "Frank");
-makeSubscribe("Sop", "Franksadassd");
-upgradeAccount(userA);
-//display the newly create user
-console.log("Newly created users:");
-console.log(userA);
-console.log(userC);
-console.log(userD);
-
-//display all the users
-console.log("USERS: ");
-console.log(users);
-console.log("Sop Following: ");
-console.log(users["Sop"].following);
-console.log("Frank Following: ");
-console.log(users["Frank"].following);
-console.log(!users.hasOwnProperty("dsadsadsa"));
+//check
 //print the user after following
 
 
@@ -301,8 +281,8 @@ module.exports = {
   //getRecMovie,
   createUser,
   getUser,
-  searchUsers,
   makeSubscribe,
-  upgradeAccount,
-  createReview,
+  searchUsers,
+  searchMovie,
+  searchPeople,
 }
