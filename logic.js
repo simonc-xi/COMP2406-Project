@@ -70,16 +70,20 @@ input:    1. The movie database that stores all the movies
 outputs:
           a movies arrary object that contains some movies informaion
 */
+/*
 function getRecMovie(mov,user){
 
   let movieArr = [];
   let likeGenre = [];
   let userLiked = [];
 
-  // get user subscribe movie name
-  for (i in user["following"]){
-    console.log(user["following"][0]);
-    userLiked.push(user["following"][i]);
+  // check if the user subscribe movie is null or not
+  if (user["following"] != NULL){
+    // get user subscribe movie name
+    for (i in user["following"]){
+      console.log(user["following"][0]);
+      userLiked.push(user["following"][i]);
+    }
   }
 
   // get the user liked movie general
@@ -93,41 +97,47 @@ function getRecMovie(mov,user){
     }
   }
 
-// add the movie that is user likede general in to movie array
-for(i in mov){
-  console.log(" User:  " + likeGenre[0]);
-  let movieGenera = mov[i]["Genre"].split(',');
-  console.log(" Movie  :  " + movieGenera[0]);
-  if(movieGenera[0] == likeGenre[0]){
-    movieArr.push(mov[i]);
+  // add the movie that is user likede general in to movie array
+  for(i in mov){
+    console.log(" User:  " + likeGenre[0]);
+    let movieGenera = mov[i]["Genre"].split(',');
+    console.log(" Movie  :  " + movieGenera[0]);
+    if(movieGenera[0] == likeGenre[0]){
+      movieArr.push(mov[i]);
+    }
+
+
   }
-
-
-}
   console.log("User liked movie : " + userLiked);
   console.log("User liked Genre : " + likeGenre);
   console.log(movieArr);
   return movieArr;
 }
-//test case
-console.log(users)
-// generate recommend movie for first user for testing
-console.log(users["user0"]);
-getRecMovie(movies,users["user0"]);
-
+*/
 
 /*
-input: userID who want to subscribe, and the people who has been subscribed by other
+input: user - who want to subscribe, and the people who has been subscribed by other
+output: NULL - not found the user, 2 - user already in the following, 3-add succesful
 */
 function makeSubscribe(user, people){
-
+    console.log("!"+user + ".hasOwnProperty("+people+ " = " +  !users.hasOwnProperty(people));
+    let flag = 0;
+    //If one of the user doesn't exist, stop
+    if(!users.hasOwnProperty(user) || !users.hasOwnProperty(people)){
+      return flag;
+    }
+    console.log("user = " + user);
+    console.log("users = " + users[user]);
     //If the users are already Subscribe, stop
-    if(user.following.includes(people)){
-      return;
+    if(users[user].following.includes(people)){
+      flag = 1;
+      return flag;
     }
 
     //Update they are now followed
-    user.following.push(people);
+    users[user].following.push(people);
+    flag = 2;
+    return flag;
 
 
 }
@@ -204,17 +214,56 @@ function searchPeople(peopleName){
   return results;
 }
 
+//change the account level
+function upgradeAccount(requestingUser){
+
+    if(!isValidUser(requestingUser)){
+        return null;
+    }
+
+    if(requestingUser.accountLevel === "regular"){
+        requestingUser.accountLevel = ["contributing"];
+        console.log("upgrade!")
+    }else{
+        requestingUser.accountLevel= ["regular"];
+        console.log("downgrade~");
+    }
+    users[requestingUser.accountLevel] = requestingUser;
+    return users[requestingUser.accountLevel];
+}
 
 
-//check
+function createReview(requestingUser, title, newR){
+  //Verify the contents of the question and we should verify the user
+
+  /*
+  if(!isValidUser(requestingUser)){
+    return null;
+  }*/
+  let reviewArr = [];
+
+  reviewArr.push(title);
+  reviewArr.push(newR);
+
+  requestingUser.reviews.push(reviewArr);
+
+  return newR;
+}
+
+/*
 console.log("Creating some users");
-//check the createUser function
-
 let userA = createUser({username: "Sop", password: "12345"});
 let userC = createUser({username: "Li", password:"12345"});
 let userD = createUser({username: "Lulu", password: "12345"});
 let userB = createUser({username: "simon", password: "123"});
 
+console.log("SUBSCRIBE TEST--");
+
+makeSubscribe("Sop","Li")
+makeSubscribe("Li", "John Lasseter");
+makeSubscribe("Sop", "Frank");
+makeSubscribe("Sop", "Franksadassd");
+upgradeAccount(userA);
 //display the newly create user
 console.log("Newly created users:");
 console.log(userA);
@@ -224,16 +273,14 @@ console.log(userD);
 //display all the users
 console.log("USERS: ");
 console.log(users);
-
-
-
-//check
+console.log("Sop Following: ");
+console.log(users["Sop"].following);
+console.log("Frank Following: ");
+console.log(users["Frank"].following);
+console.log(!users.hasOwnProperty("dsadsadsa"));
 //print the user after following
-console.log("Make user to be susbcribe");
-makeSubscribe(users.user0, "John Lasseter"); //should display the user info with following John Lasseter
-console.log(users.user0);
 
-//check
+
 //searching the movie by name
 console.log("Testing searchMoive");
 let result = searchMovie("Toy Story") //should print the movie info with the title Toy Story
@@ -243,7 +290,7 @@ console.log(result);
 console.log("Testing searchPoeple");
 let results = searchPeople("John Lasseter") //should print this people's movie info and other related
 console.log(results);
-
+*/
 
 
 
@@ -251,8 +298,11 @@ module.exports = {
   users,
   movies,
   isValidUser,
-  getRecMovie,
+  //getRecMovie,
   createUser,
   getUser,
-
+  searchUsers,
+  makeSubscribe,
+  upgradeAccount,
+  createReview,
 }
