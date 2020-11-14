@@ -1,3 +1,8 @@
+/*
+Purpose: This file is the server using express method, which provides the basic fundamental web application features.
+This file include the 9 different logic function, and also using the sessions to authenticate the users log in account,
+sign up account, and the log out method.
+*/
 const express = require('express');
 const pug = require("pug");
 const model = require("./logic.js");
