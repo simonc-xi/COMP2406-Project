@@ -215,8 +215,6 @@ function searchPeople(peopleName){
   return results;
 }
 
-
-
 //check
 console.log("Creating some users");
 //check the createUser function

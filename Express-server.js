@@ -48,6 +48,7 @@ app.get('/login',logInPage)
 app.post('/signUpUser',signUpUser,logInUser)
 app.post('/logInUser',logInUser);
 
+//the get function to get the pug file data
 function signUpPage(req, res){
   res.render('Signup.pug')
 }
@@ -56,6 +57,7 @@ function logInPage(req, res){
   res.render("login.pug",{session:req.session})
 }
 
+//the post request for the log in function
 function logInUser(req, res, next){
   console.log("logInUser function");
   /*
@@ -91,16 +93,14 @@ function logInUser(req, res, next){
   }
 }
 
+//the post request for the sign up function
 function signUpUser(req, res, next){
   console.log("signUpUser function");
   let newUser =req.body;
   if(users.hasOwnProperty(newUser.username)){
     res.status(300).send("Username already created");
   }else{
-    //newUser.id=uuidv4();
-    
     model.createUser(newUser);
-    console.log(users);
     next();
   }
 }
