@@ -7,7 +7,8 @@ app.set("view engine", "pug");
 const session = require('express-session');
 
 app.use(session({ secret: 'some secret here'}))
-
+app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}));
 
 /*
 Function our business logic currently supports:
@@ -23,21 +24,43 @@ Function our business logic currently supports:
 10. Posting a new Review for movie (createReview) -Post /users
 */
 //user pug functrion to render through the login Page
-const renderLogin = pug.compileFile('pages/login.pug');
+const renderLogin = pug.compileFile('views/login.pug');
 const renderHome = pug.compileFile('pages/Home.pug');
-const renderSignup = pug.compileFile('pages/Signup.pug');
+const renderSignup = pug.compileFile('views/Signup.pug');
+const renderProfile = pug.compileFile('pages/Profile.pug');
+const renderMovie = pug.compileFile('pages/Movie.pug');
+
+
+app.use(express.static("stylesheets"));
 
 
 
-
-const requestingUser = model.users["Sop"];
-console.log(requestingUser);
+//const requestingUser = model.users["Sop"];
+//console.log(requestingUser);
 
 app.use(express.json());
 
+
+
+function auth(req, res, next){
+  if(!req.session.user){
+    res.status(403).send(" You need to logged in to view");
+    return;
+  }
+  next();
+}
+
+app.post('/signUpUser',signUpUser,logInUser);
+app.post('/logInUser',logInUser);
+
 //render the home page
 app.get("/", function(req, res, next){
-  let data = renderHome("./pages/Home.pug",{})
+  let movArr = model.getRanMovie();
+  let name = movArr[0].Title;
+
+  console.log(movArr[0].Title);
+  console.log(movArr[0].poster);
+  let data = renderHome({movie: movArr, movName: name});
   res.status(200).send(data);
 })
 
@@ -50,30 +73,51 @@ app.get("/Homepage.js", function(req, res, next){
       res.status(200).send(data);
   });
 })
-//render sign up page
-app.get("/signup", function(req, res, next){
-  let data = renderSignup("./pages/Signup.pug",{})
-  res.status(200).send(data);
-})
 
-//render sign up page
-app.get("/signin", function(req, res, next){
-  let data = renderLogin("./pages/login.pug",{})
-  res.status(200).send(data);
-})
-
-
-app.get("/style.css", function(req, res, next){
-
+app.get("/movie/style.css", function(req, res, next){
   fs.readFile("style.css", function(err, data){
     if(err){
       res.status(500).send("Unknown resources");
       return;
     }
-      console.log("/style.css");
       res.status(200).send(data);
   });
 })
+
+//render sign up page
+app.get("/signup", function(req, res, next){
+  let data = renderSignup("./pages/Signup.pug",{session:req.session})
+  res.status(200).send(data);
+})
+
+//render sign up page
+app.get("/signin", function(req, res, next){
+  let data = renderLogin("./pages/login.pug",{session:req.session})
+  res.status(200).send(data);
+})
+
+app.get("/login", function(req, res, next){
+  let data = renderLogin("./pages/login.pug",{session:req.session})
+  res.status(200).send(data);
+})
+
+//render the home page
+app.get("/profile", function(req, res, next){
+
+  let data = renderProfile({movie: movArr, movlink: link});
+  res.status(200).send(data);
+})
+
+//render the movie
+app.get("/movie/:mid", function(req, res, next){
+  console.log("id = "+ req.params.mid)
+  let movArr = model.getMovie(req.params.mid);
+  let url = movArr[0].Poster;
+  let data = renderMovie({movie: movArr, link: url});
+  res.status(200).send(data);
+})
+
+
 
 app.get("/img/ilovem.jpg", function(req, res, next){
   fs.readFile("img/ilovem.jpg", function(err, data){
@@ -85,7 +129,48 @@ app.get("/img/ilovem.jpg", function(req, res, next){
   });
 })
 
+app.get("/movie/img/ilovem.jpg", function(req, res, next){
+  fs.readFile("img/ilovem.jpg", function(err, data){
+    if(err){
+      res.status(500).send("Unknown resources");
+      return;
+    }
+      res.status(200).send(data);
+  });
+})
+
+
+app.get("/users/img/ilovem.jpg", function(req, res, next){
+  fs.readFile("img/ilovem.jpg", function(err, data){
+    if(err){
+      res.status(500).send("Unknown resources");
+      return;
+    }
+      res.status(200).send(data);
+  });
+})
+
 app.get("/img/ilovemb.jpg", function(req, res, next){
+  fs.readFile("img/ilovemb.jpg", function(err, data){
+    if(err){
+      res.status(500).send("Unknown resources");
+      return;
+    }
+      res.status(200).send(data);
+  });
+})
+
+app.get("/users/ilovemb.jpg", function(req, res, next){
+  fs.readFile("img/ilovemb.jpg", function(err, data){
+    if(err){
+      res.status(500).send("Unknown resources");
+      return;
+    }
+      res.status(200).send(data);
+  });
+})
+
+app.get("/movie/img/ilovemb.jpg", function(req, res, next){
   fs.readFile("img/ilovemb.jpg", function(err, data){
     if(err){
       res.status(500).send("Unknown resources");
@@ -117,35 +202,49 @@ if(result){
 }
 })
 
-app.post("/logInUser", function(req, res, next){
-  console.log("login User " + req.params.uid);
-  //let requestUser = model.users[req.params.uid];
-  if(session.loggedin == true){
-    res.send("You are already loggin in")
-  }
-  let logUser = req.body;
-  console.log("User" + req.body.username);
 
-  let result = model.getUser(requestUser, req.params.uid);
-  if(result == null){
-    res.status(404).send("Unknown user")
+//the post request for the log in function
+function logInUser(req, res, next){
+  console.log("username :" + req.body.username);
+  console.log("password : " + req.body.password);
+
+
+  if(model.authenticateUser(req.body.username, req.body.password)){
+    //they have logged in successfully
+    req.session.user = model.users[req.body.username];
+    res.redirect("/users/" + req.body.username);
   }else{
-    res.status(200).json(result);
-    return;
+    //they did not log in successfully.
+    res.status(401).send("Invalid credentials.");
   }
-})
+}
 
+
+
+//the post request for the sign up function
+function signUpUser(req, res, next){
+  console.log("signUpUser function");
+  let newUser =req.body;
+  if(model.hasOwnProperty(newUser.username)){
+    res.status(300).send("Username already created");
+  }else{
+    model.createUser(newUser);
+    // redirect to profile page
+    next();
+  }
+}
 
 
 //2. get request for the Reading a user (getUser), input the uid to get the user information
-app.get("/users/:uid", function(req, res, next){
+app.get("/users/:uid", auth,function(req, res, next){
   console.log("Getting user with name: " + req.params.uid);
   //let requestUser = model.users[req.params.uid];
-  let result = model.getUser(requestUser, req.params.uid);
+  let result = model.getUser(req.session.user, req.params.uid);
   if(result == null){
     res.status(404).send("Unknown user")
   }else{
-    res.status(200).json(result);
+    let data = renderProfile({user: result});
+    res.status(200).send(data);
     return;
   }
 })
@@ -157,7 +256,7 @@ app.get("/users", function(req, res, next){
   if(req.query.name==undefined){
     req.query.name="";
   }
-  let result = model.searchUsers(requestingUser, req.query.name);
+  let result = model.searchUsers(req.session.user, req.query.name);
   res.status(200).json(result);
 })
 
@@ -168,7 +267,7 @@ app.get("/SearchMovies", function(req, res, next){
   if(req.query.title==undefined){
     req.query.title="";
   }
-  let result =model.searchMoive(requestingUser, req.query.name);
+  let result =model.searchMoive(req.session.user, req.query.name);
   res.status(200).json(result);
 })
 
@@ -179,14 +278,14 @@ app.get("/SearchPeople", function(req, res, next){
   if(req.query.name==undefined){
     req.query.name="";
   }
-  let result =model.searchPeople(requestingUser, req.query.name);
+  let result =model.searchPeople(req.session.user, req.query.name);
   res.status(200).json(result);
 })
 
 //6. Making a subscribe (makeSubscribe) -Post /users
 app.post("/SubscibeUsers/:uid", function(req, res, next){
   console.log("req.params.uid = " + req.params.uid);
-  let result = model.makeSubscribe(requestingUser.username, req.params.uid);
+  let result = model.makeSubscribe(req.session.user.username, req.params.uid);
   console.log("result = "+ result);
   if(result == 0){
     res.status(500).send("The user does not exist");
@@ -211,22 +310,23 @@ app.get("/Recmovies", function(req, res, next){
 
 
 //9. Upgrade the Account level (upgradeAccount) - Post /users
-app.post("/update", function(req, res, next){
-  console.log (req.query.title);
-  if(req.query.title==undefined){
-    req.query.title="";
-  }
-  let result = upgradeAccount(requestingUser);
+app.post("/upgrade/:uid", auth,function(req, res, next){
+  console.log (req.params.uid);
+
+  let result = upgradeAccount(req.session.user);
+  console.log(result);
   if(result == NULL){
       res.status(500).send("Invalid User");
   }
-  res.status(200).json(result);
+  let data = renderProfile({user: result});
+  res.status(200).send(data);
+  return;
 })
 
 //10. Posting a new Review for movie (createReview) -Post /users
 app.post("/reviewmovie/:movieid", function(req, res, next){
   console.log("reveiew movie: " + req.params.movieid);
-  let result = createReview(requestingUser,req.params.movieid, req.body.review);
+  let result = createReview(req.session.user,req.params.movieid, req.body.review);
   console.log("result" + result )
   if(result == NULL){
       res.status(500).send("Invalid User");

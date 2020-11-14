@@ -263,8 +263,21 @@ function getRanMovie(){
 
 }
 
+// Pupose : get Specific movie
+function getMovie(name){
+  let movArr =[];
+  for(i in movies){
+    if(movies[i].Title == name){
+      movArr.push(movies[i]);
+    }
+  }
+  console.log(movArr);
+  return movArr;
 
-/*
+}
+
+
+
 console.log("Creating some users");
 let userA = createUser({username: "Sop", password: "12345"});
 let userC = createUser({username: "Li", password:"12345"});
@@ -274,7 +287,7 @@ let userB = createUser({username: "simon", password: "123"});
 //check
 //print the user after following
 
-
+/*
 //searching the movie by name
 console.log("Testing searchMoive");
 let result = searchMovie("Toy Story") //should print the movie info with the title Toy Story
@@ -285,7 +298,7 @@ console.log("Testing searchPoeple");
 let results = searchPeople("John Lasseter") //should print this people's movie info and other related
 console.log(results);
 */
-
+console.log(users);
 
 
 module.exports = {
@@ -301,4 +314,5 @@ module.exports = {
   searchPeople,
   authenticateUser,
   getRanMovie,
+  getMovie,
 }

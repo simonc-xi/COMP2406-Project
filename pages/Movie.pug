@@ -53,18 +53,19 @@ br
       i.fa.fa-search
 hr
 .title
-  h2 Movie Title
-  p(style='font-size: small;') release year:  runtime:
+  h2 #{movie[0].Title}
+  p(style='font-size: small;') release year:#{movie[0].Released}  runtime:#{movie[0].Runtime}
 .row
   .column
-    .movieimg(style='height:200px;') Movie image
+    img(src=  link ,alt= " poster Picture")
     br
-    .rate &amp;#10024 average rating: 10/10
-    p plot:
-    p Director:
-    a(href='http://localhost:3000/view') writer:
+    br
+    .rate average rating: #{movie[0].imdbRating}/10
+    p plot: #{movie[0].Plot}
+    p Director: #{movie[0].Director}
+    a(href='http://localhost:3000/view') writer:#{movie[0].Writer[0]}
     p Stars:
-    button.btn(type='submit') &amp;#128525 Add to Watchlist
+    button.btn(type='submit')  Add to Watchlist
 .row
   .column
     h2(style='font-size: medium;') Other Users Also Like This

@@ -7,6 +7,8 @@ app.set("view engine", "pug");
 const session = require('express-session');
 
 app.use(session({ secret: 'some secret here'}))
+app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}));
 
 
 const requestingUser = model.users["Sop"];
@@ -31,22 +33,13 @@ Function our business logic currently supports:
 const renderLogin = pug.compileFile('pages/login.pug');
 const renderHome = pug.compileFile('pages/Home.pug');
 const renderSignup = pug.compileFile('pages/Signup.pug');
+const renderProfile = pug.compileFile('pages/Profile.pug');
 
 
 
 
-app.use(express.static('public'));
-//app.set('view engine', 'pug')
-app.use(express.urlencoded({extended: true}));
-
-const session = require('express-session');
 const { users } = require('./logic.js');
-app.use(session({
-  cookie:{
-    maxAge:500000000000000
-  },
-  secret: 'secret!!'
-}))
+
 
 //check the cookie been create
 app.use('/', function(req, res, next){
@@ -71,31 +64,18 @@ function logInPage(req, res){
   res.render("login.pug",{session:req.session})
 }
 
+function auth(req, res, next){
+  if(!req.session.user){
+    res.status(403).send(" You need to logged in to view");
+    return;
+  }
+  next();
+}
+
+
 //the post request for the log in function
 function logInUser(req, res, next){
   console.log("logInUser function");
-  /*
-  if(session.loggedin==true){
-    res.send("Already loggin in");
-  }else{
-    let logUser=req.body;
-    console.log("User log in:"+ req.body.username);
-    let authBool =true;
-    //users.forEach(u => {
-    for(u in users){
-      if(logUser.username==u.username && logUser.password==u.password){
-        console.log("Found");
-        authBool =false;
-        req.session.username =logUser.username;
-        req.session.loggedin =true;
-
-        res.ststus(200).redirect(`/users/${u.id}`)
-      }
-    }
-    if(authBool){
-      res.status(401).send("Wrong username or password, please try again");
-    }
-  }*/
   if(model.authenticateUser(req.body.username, req.body.password)){
     //they have logged in successfully
     req.session.user = model.users[req.body.username];
@@ -114,6 +94,7 @@ function signUpUser(req, res, next){
     res.status(300).send("Username already created");
   }else{
     model.createUser(newUser);
+    // redirect to profile page
     next();
   }
 }
@@ -131,16 +112,16 @@ if(result){
 }
 })
 
-
 //2. get request for the Reading a user (getUser), input the uid to get the user information
-app.get("/users/:uid", function(req, res, next){
+app.get("/users/:uid", auth,function(req, res, next){
   console.log("Getting user with name: " + req.params.uid);
   //let requestUser = model.users[req.params.uid];
-  let result = model.getUser(requestUser, req.params.uid);
+  let result = model.getUser(req.session.user, req.params.uid);
   if(result == null){
     res.status(404).send("Unknown user")
   }else{
-    res.status(200).json(result);
+    let data = renderProfile({user: result});
+    res.status(200).send(data);
     return;
   }
 })
@@ -152,7 +133,7 @@ app.get("/users", function(req, res, next){
   if(req.query.name==undefined){
     req.query.name="";
   }
-  let result = model.searchUsers(requestingUser, req.query.name);
+  let result = model.searchUsers(req.session.user, req.query.name);
   res.status(200).json(result);
 })
 

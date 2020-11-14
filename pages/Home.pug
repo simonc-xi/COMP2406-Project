@@ -17,17 +17,17 @@ br
   h2 What to Watch
   h3 Recommended Movies
   .img
-    a(href= 'http://localhost:3000/' + movlink)
+    a(href= 'http://localhost:3000/movie/' + movName)
       img(src=  "https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg" alt=" # {movie[0].Title}")
   .img
-    a(href='http://localhost:3000/movie')
-      img(src='img/jumanji.jpg' alt='Movie Picture')
+    a(href='http://localhost:3000/movie/Jumanji')
+      img(src='https://m.media-amazon.com/images/M/MV5BZTk2ZmUwYmEtNTcwZS00YmMyLWFkYjMtNTRmZDA3YWExMjc2XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg' alt='Movie Poster')
   .img
-    a(href='http://localhost:3000/movie')
-      img(src='img/Sudden.jpg' alt='GoldenEye Poster' width='195px')
+    a(href='http://localhost:3000/movie/Grumpier Old Men')
+      img(src='https://m.media-amazon.com/images/M/MV5BMjQxM2YyNjMtZjUxYy00OGYyLTg0MmQtNGE2YzNjYmUyZTY1XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg' alt='Movie Poster' width='195px')
   .img
-    a(href='http://localhost:3000/movie')
-      img(src='img/waitiing.jpg' alt='Movie Picture')
+    a(href='http://localhost:3000/movie/Waiting to Exhale')
+      img(src='https://m.media-amazon.com/images/M/MV5BYzcyMDY2YWQtYWJhYy00OGQ2LTk4NzktYWJkNDYwZWJmY2RjXkEyXkFqcGdeQXVyMTA0MjU0Ng@@._V1_SX300.jpg' alt='Movie Poster')
 .mid-content
   .description
     p #{movie[0].Title}
