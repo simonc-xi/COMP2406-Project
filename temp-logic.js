@@ -59,6 +59,15 @@ function getUser(requestingUser, userID){
 
     return null;
 }
+// Purpose : generated random movie on the Homepage if the user haven't login
+function getRanMovie(){
+  let movArr =[];
+  for(let i =0;i< 5;i++){
+    movArr[i] = movies[i];
+  }
+  return movArr;
+
+}
 
 /*
 Purpose : Recommand some movies to the user homepage with in the section of recommand Movies
@@ -297,6 +306,8 @@ let results = searchPeople("John Lasseter") //should print this people's movie i
 console.log(results);
 */
 
+let arr = getRanMovie();
+console.log(arr);
 
 
 module.exports = {
@@ -313,4 +324,5 @@ module.exports = {
   searchPeople,
   searchMovie,
   searchUsers,
+  getRanMovie,
 }
