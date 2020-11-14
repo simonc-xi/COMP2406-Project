@@ -33,7 +33,7 @@
 			- logic.js						(final version) This file include all the business logic part of the project.
 
 		Sever JS file
-			- server.js				The new server by using the express application.
+			- Exp-server.js				The new server by using the express application.
 
 		CSS style sheet
 			style.css						Style sheet for webpage
@@ -56,15 +56,19 @@
 	Yanxi Chen #101118360，
 
 4. Summary of extensions have added to the system
-	1. Using Express’ functionality to connect incoming requests to the business logic that writed at chechk in 2.
+	1. Using Express’ functionality to connect incoming requests to the business logic that writhed at check in 2.
 	2. Using sessions to authenticate the users log in account.
-	3.
+	3. Using pug to generate web page
 
 
 5. Summary of any design decisions you have increased the quality of your system
 	1. Combine all the separate logic function into one logic file for more conciseness
 	2. Update the old logic function become more details and efficient.
-	3.
+	3. Mostly finished the API design for the web, ex. log in, sign in, getMovie, user now can only access its own profile page after logged in
+	4. Due to time issue, still left some Api such as subscribe, search incomplete, but the logic model works well,
+		 Test by the postman.
+	5. Dynamically create web using template engine(pug) to produce html pages such as movie pages.
+
 
 6. OpenStack instance information
 	ip: 134.117.133.188
@@ -74,4 +78,7 @@
 7. How to run the server on OpenStack instance
 	1. cd COMP2406_Project
 	2. /home/student/COMP2406_Project
-	3. node Express-server.js
+	3. npm install express
+	4. npm install pug
+	5. npm install express-session
+	4. node Express-server.js
