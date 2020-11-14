@@ -1,0 +1,31 @@
+doctype html
+head
+  title Viewpeople_page
+  link(rel='stylesheet' href='style.css')
+br
+.topBar
+  img(src='img/ilovem.jpg' alt='ilovem icion' width='150' height='80')
+  hr
+  a(href='http://localhost:3000') Home
+  a(href='#about') About
+  .searchBar
+    input#name(type='text' placeholder='Search Movie')
+    button#search(type='button') Search
+    button#sign(type='button') Sign in
+hr
+.col
+.midcol
+  .row
+    h2  Name of Person:
+    .pic
+      p picture of the person
+    p Discription of the person, ....
+    h3 History
+    a(href='movie')  Jumanji
+    a(href='movie') Sudden Death
+  .row
+    h3  Collaborators
+    p simon
+  button#subscribe(type='button') subscribe
+.col
+script(src='Homepage.js')

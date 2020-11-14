@@ -63,7 +63,7 @@ hr
     .rate average rating: #{movie[0].imdbRating}/10
     p plot: #{movie[0].Plot}
     p Director: #{movie[0].Director}
-    a(href='http://localhost:3000/view') writer:#{movie[0].Writer[0]}
+    a(href='http://localhost:3000/view') writer:#{movie[0].Writer}
     p Stars:
     button.btn(type='submit')  Add to Watchlist
 .row

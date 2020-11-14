@@ -29,6 +29,7 @@ const renderHome = pug.compileFile('pages/Home.pug');
 const renderSignup = pug.compileFile('views/Signup.pug');
 const renderProfile = pug.compileFile('pages/Profile.pug');
 const renderMovie = pug.compileFile('pages/Movie.pug');
+const renderView = pug.compileFile('pages/View.pug');
 
 
 app.use(express.static("stylesheets"));
@@ -117,6 +118,11 @@ app.get("/movie/:mid", function(req, res, next){
   res.status(200).send(data);
 })
 
+//render the movie
+app.get("/view", function(req, res, next){
+  let data = renderView();
+  res.status(200).send(data);
+})
 
 
 app.get("/img/ilovem.jpg", function(req, res, next){
@@ -262,13 +268,15 @@ app.get("/users", function(req, res, next){
 
 
 //Searching for moive (searchMovie),
-app.get("/SearchMovies", function(req, res, next){
-  console.log (req.query.title);
+app.post("/SearchMovie", function(req, res, next){
+  console.log (req.query.name);
   if(req.query.title==undefined){
     req.query.title="";
   }
-  let result =model.searchMoive(req.session.user, req.query.name);
-  res.status(200).json(result);
+  let result =model.searchMovie(req.session.user, req.query.name);
+  
+  let data = renderMovie({movie: result});
+  res.status(200).send(data);
 })
 
 

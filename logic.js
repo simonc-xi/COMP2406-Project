@@ -278,6 +278,8 @@ function getMovie(name){
 
 
 
+
+
 console.log("Creating some users");
 let userA = createUser({username: "Sop", password: "12345"});
 let userC = createUser({username: "Li", password:"12345"});
@@ -315,4 +317,5 @@ module.exports = {
   authenticateUser,
   getRanMovie,
   getMovie,
+
 }
