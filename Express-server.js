@@ -6,8 +6,6 @@ const app = express();
 app.set("view engine", "pug");
 const session = require('express-session');
 
-app.use(session({ secret: 'some secret here'}))
-
 
 const requestingUser = model.users["Sop"];
 console.log(requestingUser);
@@ -27,19 +25,17 @@ Function our business logic currently supports:
 9. Upgrade the Account level (upgradeAccount) - Post /users
 10. Posting a new Review for movie (createReview) -Post /users
 */
+
 //user pug functrion to render through the login Page
 const renderLogin = pug.compileFile('pages/login.pug');
 const renderHome = pug.compileFile('pages/Home.pug');
 const renderSignup = pug.compileFile('pages/Signup.pug');
 
 
-
-
 app.use(express.static('public'));
 //app.set('view engine', 'pug')
 app.use(express.urlencoded({extended: true}));
 
-const session = require('express-session');
 const { users } = require('./logic.js');
 app.use(session({
   cookie:{
@@ -56,13 +52,14 @@ app.use('/', function(req, res, next){
 
 app.use(express.json());
 
-app.get('/signup',signUpPage)
-app.get('/login',logInPage)
+app.get('/signup',signUpPage);
+app.get('/login',logInPage);
+app.get('/logout', logOut);
 
 app.post('/signUpUser',signUpUser,logInUser)
 app.post('/logInUser',logInUser);
 
-//the get function to get the pug file data
+//the get function to get the pug file data and logout buttun
 function signUpPage(req, res){
   res.render('Signup.pug')
 }
@@ -71,31 +68,14 @@ function logInPage(req, res){
   res.render("login.pug",{session:req.session})
 }
 
+function logOut(req, res){
+  req.session.destroy();
+  res.redirect('/login');
+}
+
 //the post request for the log in function
 function logInUser(req, res, next){
   console.log("logInUser function");
-  /*
-  if(session.loggedin==true){
-    res.send("Already loggin in");
-  }else{
-    let logUser=req.body;
-    console.log("User log in:"+ req.body.username);
-    let authBool =true;
-    //users.forEach(u => {
-    for(u in users){
-      if(logUser.username==u.username && logUser.password==u.password){
-        console.log("Found");
-        authBool =false;
-        req.session.username =logUser.username;
-        req.session.loggedin =true;
-
-        res.ststus(200).redirect(`/users/${u.id}`)
-      }
-    }
-    if(authBool){
-      res.status(401).send("Wrong username or password, please try again");
-    }
-  }*/
   if(model.authenticateUser(req.body.username, req.body.password)){
     //they have logged in successfully
     req.session.user = model.users[req.body.username];
@@ -117,6 +97,7 @@ function signUpUser(req, res, next){
     next();
   }
 }
+
 
 //1. Post request for the creating a new user (createUser)
 //input password/username, return the user information
@@ -202,9 +183,6 @@ app.get("/Recmovies", function(req, res, next){
   res.status(200).json(result);
 })
 
-
-
-
 //9. Upgrade the Account level (upgradeAccount) - Post /users
 app.post("/update", function(req, res, next){
   console.log (req.query.title);
@@ -228,9 +206,6 @@ app.post("/reviewmovie/:movieid", function(req, res, next){
   }
   res.status(200).json(result);
 })
-
-
-
 
 app.listen(3000);
 console.log("Server listening at http://localhost:3000");
