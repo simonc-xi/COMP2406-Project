@@ -7,6 +7,8 @@ const model = require("./logic.js");
 const requestingUser = model.users["Sop"];
 console.log(requestingUser);
 
+
+
 /*
 Function our business logic currently supports:
 1. creating a new user (createUser) - POST/users
@@ -149,7 +151,7 @@ app.get("/movies", function(req, res, next){
   if(req.query.title==undefined){
     req.query.title="";
   }
-  let result =model.searchMoive(requestingUser, req.query.name);
+  let result =model.searchMovie(req.query.title);
   res.status(200).json(result);
 })
 
@@ -160,7 +162,7 @@ app.get("/movies", function(req, res, next){
   if(req.query.name==undefined){
     req.query.name="";
   }
-  let result =model.searchPeople(requestingUser, req.query.name);
+  let result =model.searchPeople(req.query.name);
   res.status(200).json(result);
 })
 
