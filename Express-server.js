@@ -138,13 +138,21 @@ app.get("/users", function(req, res, next){
 
 
 //4. Searching for moive (searchMovie),
-app.get("/movies", function(req, res, next){
-  console.log (req.query.title);
+app.get("/movies/:mid", function(req, res, next){
+  console.log ("Getting movie:" + req.params.mid);
+  let result = model.searchMovie(req.params.mid);
+  /*
   if(req.query.title==undefined){
     req.query.title="";
   }
   let result =model.searchMovie(req.query.title);
   res.status(200).json(result);
+*/
+  if(result == null){
+    res.status(404).send("Unknown movie")
+  }else{
+    res.status(200).send(result);
+  }
 })
 
 
