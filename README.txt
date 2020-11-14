@@ -69,4 +69,6 @@
 	password: student
 
 7. How to run the server on OpenStack instance
-	node Express-server.js
+	1. cd COMP2406_Project
+	2. /home/student/COMP2406_Project
+	3. node Express-server.js
