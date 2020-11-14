@@ -12,6 +12,8 @@ app.use(session({ secret: 'some secret here'}))
 const requestingUser = model.users["Sop"];
 console.log(requestingUser);
 
+
+
 /*
 Function our business logic currently supports:
 1. creating a new user (createUser) - POST/users
@@ -37,7 +39,8 @@ app.use(express.static('public'));
 //app.set('view engine', 'pug')
 app.use(express.urlencoded({extended: true}));
 
-const session = require('express-session')
+const session = require('express-session');
+const { users } = require('./logic.js');
 app.use(session({
   cookie:{
     maxAge:500000000000000
@@ -56,15 +59,63 @@ app.use(express.json());
 app.get('/signup',signUpPage)
 app.get('/login',logInPage)
 
-//app.post('/signUpUser',signUpUser,logInUser)
-//app.post('/logInUser',logInUser);
+app.post('/signUpUser',signUpUser,logInUser)
+app.post('/logInUser',logInUser);
 
+//the get function to get the pug file data
 function signUpPage(req, res){
-  res.render('pages/Signup.pug')
+  res.render('Signup.pug')
 }
 
 function logInPage(req, res){
-  res.render("pages/login.pug",{session:req.session})
+  res.render("login.pug",{session:req.session})
+}
+
+//the post request for the log in function
+function logInUser(req, res, next){
+  console.log("logInUser function");
+  /*
+  if(session.loggedin==true){
+    res.send("Already loggin in");
+  }else{
+    let logUser=req.body;
+    console.log("User log in:"+ req.body.username);
+    let authBool =true;
+    //users.forEach(u => {
+    for(u in users){
+      if(logUser.username==u.username && logUser.password==u.password){
+        console.log("Found");
+        authBool =false;
+        req.session.username =logUser.username;
+        req.session.loggedin =true;
+
+        res.ststus(200).redirect(`/users/${u.id}`)
+      }
+    }
+    if(authBool){
+      res.status(401).send("Wrong username or password, please try again");
+    }
+  }*/
+  if(model.authenticateUser(req.body.username, req.body.password)){
+    //they have logged in successfully
+    req.session.user = model.users[req.body.username];
+    res.redirect("/users/" + req.body.username);
+  }else{
+    //they did not log in successfully.
+    res.status(401).send("Invalid credentials.");
+  }
+}
+
+//the post request for the sign up function
+function signUpUser(req, res, next){
+  console.log("signUpUser function");
+  let newUser =req.body;
+  if(users.hasOwnProperty(newUser.username)){
+    res.status(300).send("Username already created");
+  }else{
+    model.createUser(newUser);
+    next();
+  }
 }
 
 //1. Post request for the creating a new user (createUser)
@@ -112,7 +163,7 @@ app.get("/movies", function(req, res, next){
   if(req.query.title==undefined){
     req.query.title="";
   }
-  let result =model.searchMoive(requestingUser, req.query.name);
+  let result =model.searchMovie(req.query.title);
   res.status(200).json(result);
 })
 
@@ -123,7 +174,7 @@ app.get("/movies", function(req, res, next){
   if(req.query.name==undefined){
     req.query.name="";
   }
-  let result =model.searchPeople(requestingUser, req.query.name);
+  let result =model.searchPeople(req.query.name);
   res.status(200).json(result);
 })
 
