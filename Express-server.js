@@ -25,7 +25,8 @@ app.use(express.static('public'));
 //app.set('view engine', 'pug')
 app.use(express.urlencoded({extended: true}));
 
-const session = require('express-session')
+const session = require('express-session');
+const { users } = require('./logic.js');
 app.use(session({ 
   cookie:{
     maxAge:500000000000000
@@ -48,12 +49,47 @@ app.get('/login',logInPage)
 //app.post('/logInUser',logInUser);
 
 function signUpPage(req, res){
-  res.render('pages/Signup.pug')
+  res.render('Signup.pug')
 }
 
 function logInPage(req, res){
-  res.render("pages/login.pug",{session:req.session})
+  res.render("login.pug",{session:req.session})
 }
+
+app.post("/logInUser", function(req, res, next){
+  console.log("logInUser function");
+  /*
+  if(session.loggedin==true){
+    res.send("Already loggin in");
+  }else{
+    let logUser=req.body;
+    console.log("User log in:"+ req.body.username);
+    let authBool =true;
+    //users.forEach(u => {
+    for(u in users){
+      if(logUser.username==u.username && logUser.password==u.password){
+        console.log("Found");
+        authBool =false;
+        req.session.username =logUser.username;
+        req.session.loggedin =true;
+        
+        res.ststus(200).redirect(`/users/${u.id}`)
+      }
+    }
+    if(authBool){
+      res.status(401).send("Wrong username or password, please try again");
+    }
+  }*/
+  if(model.authenticateUser(req.body.username, req.body.password)){
+    //they have logged in successfully
+    req.session.user = model.users[req.body.username];
+    //res.redirect("/users/" + req.body.username);
+    res.redirect("/users/" + req.body.username);
+  }else{
+    //they did not log in successfully.
+    res.status(401).send("Invalid credentials.");
+  }
+})
 
 //1. Post request for the creating a new user (createUser)
 //input password/username, return the user information
