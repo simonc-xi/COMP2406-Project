@@ -33,7 +33,7 @@
 			- logic.js						(final version) This file include all the business logic part of the project.
 
 		Sever JS file
-			- Express-server.js				The new server by using the express application.
+			- server.js				The new server by using the express application.
 
 		CSS style sheet
 			style.css						Style sheet for webpage
