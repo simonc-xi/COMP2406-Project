@@ -1,3 +1,9 @@
+/*
+Purpose: This file include all the business logic part of the project, which provides the basic web function.
+This file include the different logic function, for creating new users, searching movie, or people, recommend
+movie, ect.
+*/
+
 let users = require("./users.json");
 let movies = require("./movie-data-short.json");
 
