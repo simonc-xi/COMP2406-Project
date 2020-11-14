@@ -14,23 +14,19 @@
 			HomePage.js						Include some basic functions about the homepage, ex, navigation
 			View.html						The web page that shows the information about the Director, also have subscribe button than can subscribe the Director
 
-		/*???
 		Logic JS file	(the client side and some server side of programming was divided each corresponding web page)
-			- View.js							The JavaScript file for people viewing page, which can let user subscribe the viewing person
+			- View.js						The JavaScript file for people viewing page, which can let user subscribe the viewing person
 			- login.js						This file for user to check having a correct form to login
 			- movie.js						The JavaScript file for the movie which do recommend movie for similar genre.
-			- otherProfile.js     The JavaScript file for the other users, which can let users following the viewing users
-			- profilepage.js			The JavaScript file for the user profile page which can change account level
-			- SearchBar.js				The JavaScript file for the search bar, include searching people user or movie.
-			- signUp.js						This is the sign up page for user to create account
-		*/??
-
-		Logic JS file
-			logic.js						This file include all the business logic part of the project.
+			- otherProfile.js     			The JavaScript file for the other users, which can let users following the viewing users
+			- profilepage.js				The JavaScript file for the user profile page which can change account level
+			- SearchBar.js					The JavaScript file for the search bar, include searching people user or movie.
+			- signUp.js						This is the sign up page for user to create account.
+			- logic.js						(final version) This file include all the business logic part of the project.
 
 		Sever JS file
-			- server.js
-			- Express-server.js
+			- server.js						
+			- Express-server.js				The new server by using the express application.
 
 		CSS style sheet
 			style.css						Style sheet for webpage
@@ -73,4 +69,4 @@
 	password: student
 
 7. How to run the server on OpenStack instance
-	node Express-server.js //(maybe)????
+	node Express-server.js
