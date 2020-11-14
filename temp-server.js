@@ -76,7 +76,7 @@ app.get("/Homepage.js", function(req, res, next){
 })
 
 app.get("/movie/style.css", function(req, res, next){
-  fs.readFile("style.css", function(err, data){
+  fs.readFile("stylesheet/style.css", function(err, data){
     if(err){
       res.status(500).send("Unknown resources");
       return;
@@ -274,7 +274,7 @@ app.post("/SearchMovie", function(req, res, next){
     req.query.title="";
   }
   let result =model.searchMovie(req.session.user, req.query.name);
-  
+
   let data = renderMovie({movie: result});
   res.status(200).send(data);
 })
