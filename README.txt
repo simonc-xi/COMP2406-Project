@@ -3,18 +3,18 @@
 
 		Static web page (HTML and PUG)
 			login.html						This file include the username input and password input by using the log in button to log in to the account and create new account by using the sign up button
-			login.pug							The pug file of the login.html
-			SignUp.html           The User registration page contains username and password
+			login.pug						The pug file of the login.html
+			SignUp.html           			The User registration page contains username and password
 			Signup.pug						The pug file of the signup.pug
 			movie.html						This file include the top search bar which can be using for return to home page and the search button for the movie or people searching, also include the movie information, and the other movie for the other user's viewing
-			otherProfile.html			This file include the follow button which can follow the user, user's information, the list of movie review by user, and include the people followed by this user and click the people is able to navigate to that person’s page.
-			profilepage.html			This file include the my account information, a side bar navigation to the home page and the upgrade page.
+			otherProfile.html				This file include the follow button which can follow the user, user's information, the list of movie review by user, and include the people followed by this user and click the people is able to navigate to that person’s page.
+			profilepage.html				This file include the my account information, a side bar navigation to the home page and the upgrade page.
 			Homepage.html					The homepage of the web, provide search bar, log in and register button. also provides a list of movie that is recommend to the users.
-			Home.pug							The pug file of the homepage
+			Home.pug						The pug file of the homepage
 			HomePage.js						Include some basic functions about the homepage, ex, navigation
-			View.html							The web page that shows the information about the Director, also have subscribe button than can subscribe the Director
+			View.html						The web page that shows the information about the Director, also have subscribe button than can subscribe the Director
 
-		/*
+		/*???
 		Logic JS file	(the client side and some server side of programming was divided each corresponding web page)
 			- View.js							The JavaScript file for people viewing page, which can let user subscribe the viewing person
 			- login.js						This file for user to check having a correct form to login
@@ -26,7 +26,7 @@
 		*/??
 
 		Logic JS file
-			logic.js
+			logic.js						This file include all the business logic part of the project.
 
 		Sever JS file
 			- server.js
@@ -63,6 +63,9 @@
 
 
 5. Summary of any design decisions you have increased the quality of your system
+	1. Combine all the separate logic function into one logic file for more conciseness
+	2. Update the old logic function become more details and efficient.
+	3.
 
 6. OpenStack instance information
 	ip: 134.117.133.188
@@ -70,3 +73,4 @@
 	password: student
 
 7. How to run the server on OpenStack instance
+	node Express-server.js //(maybe)????
