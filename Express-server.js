@@ -3,8 +3,10 @@ const pug = require("pug");
 const model = require("./logic.js");
 const fs = require("fs");
 const app = express();
+app.use(express.static('public'));
 app.set("view engine", "pug");
 const session = require('express-session');
+app.use(express.urlencoded({extended: true}));
 
 
 const requestingUser = model.users["Sop"];
@@ -21,22 +23,18 @@ Function our business logic currently supports:
 5. Searching for people (searchPeople) -GET /movies
 6. Making a subscribe (make Subscribe) -Post /users
 7. Recommend Movie (getRecMovie) -GET /movies
-8. Making a follow (makeFollow) -Post /users
-9. Upgrade the Account level (upgradeAccount) - Post /users
-10. Posting a new Review for movie (createReview) -Post /users
+8. Upgrade the Account level (upgradeAccount) - Post /users
+9. Posting a new Review for movie (createReview) -Post /users
 */
 
-//user pug functrion to render through the login Page
+
 const renderLogin = pug.compileFile('pages/login.pug');
 const renderHome = pug.compileFile('pages/Home.pug');
 const renderSignup = pug.compileFile('pages/Signup.pug');
 
-
-app.use(express.static('public'));
-//app.set('view engine', 'pug')
-app.use(express.urlencoded({extended: true}));
-
 const { users } = require('./logic.js');
+
+//set the cookie
 app.use(session({
   cookie:{
     maxAge:500000000000000
@@ -51,6 +49,7 @@ app.use('/', function(req, res, next){
 })
 
 app.use(express.json());
+
 
 app.get('/signup',signUpPage);
 app.get('/login',logInPage);
@@ -82,7 +81,7 @@ function logInUser(req, res, next){
     res.redirect("/users/" + req.body.username);
   }else{
     //they did not log in successfully.
-    res.status(401).send("Invalid credentials.");
+    res.status(401).send("Invalid user.");
   }
 }
 
@@ -115,7 +114,7 @@ if(result){
 
 //2. get request for the Reading a user (getUser), input the uid to get the user information
 app.get("/users/:uid", function(req, res, next){
-  console.log("Getting user with name: " + req.params.uid);
+  console.log("Getting user: " + req.params.uid);
   //let requestUser = model.users[req.params.uid];
   let result = model.getUser(requestUser, req.params.uid);
   if(result == null){
@@ -183,7 +182,7 @@ app.get("/Recmovies", function(req, res, next){
   res.status(200).json(result);
 })
 
-//9. Upgrade the Account level (upgradeAccount) - Post /users
+//8. Upgrade the Account level (upgradeAccount) - Post /users
 app.post("/update", function(req, res, next){
   console.log (req.query.title);
   if(req.query.title==undefined){
@@ -196,7 +195,7 @@ app.post("/update", function(req, res, next){
   res.status(200).json(result);
 })
 
-//10. Posting a new Review for movie (createReview) -Post /users
+//9. Posting a new Review for movie (createReview) -Post /users
 app.post("/reviewmovie/:movieid", function(req, res, next){
   console.log("reveiew movie: " + req.params.movieid);
   let result = createReview(requestingUser,req.params.movieid, req.body.review);

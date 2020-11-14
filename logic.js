@@ -292,7 +292,6 @@ module.exports = {
   users,
   movies,
   isValidUser,
-  //getRecMovie,
   createUser,
   getUser,
   makeSubscribe,
@@ -301,4 +300,6 @@ module.exports = {
   searchPeople,
   authenticateUser,
   getRanMovie,
+  upgradeAccount,
+  createReview,
 }
