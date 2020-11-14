@@ -28,7 +28,6 @@
 			- movie.js						The JavaScript file for the movie which do recommend movie for similar genre.
 			- otherProfile.js     			The JavaScript file for the other users, which can let users following the viewing users
 			- profilepage.js				The JavaScript file for the user profile page which can change account level
-			- SearchBar.js					The JavaScript file for the search bar, include searching people user or movie.
 			- signUp.js						This is the sign up page for user to create account.
 			- logic.js						(final version) This file include all the business logic part of the project.
 
