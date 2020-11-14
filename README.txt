@@ -78,7 +78,4 @@
 7. How to run the server on OpenStack instance
 	1. cd COMP2406_Project
 	2. /home/student/COMP2406_Project
-	3. npm install express
-	4. npm install pug
-	5. npm install express-session
-	4. node Express-server.js
+	3. node Exp-server.js
