@@ -2,9 +2,8 @@ let users = require("./users.json");
 let movies = require("./movie-data-short.json");
 
 
-//Check the object is valid
-//This just ensures the object has a username and password
-//You may have more complex logic for your project
+//create the user with all the defult value
+//input the new users information
 function createUser(newUser){
         if(!newUser.username || !newUser.password){
             return null;
@@ -25,7 +24,7 @@ function createUser(newUser){
 }
 
 
-//check the user is already valid form or not.
+//check the user is valid form or not.
 function isValidUser(userObj){
   if(!userObj){
     return false;
@@ -40,17 +39,15 @@ function authenticateUser(username, password){
   return users.hasOwnProperty(username) && users[username].password == password;
 }
 
-
+//get the user infor by given input username,
 function getUser(requestingUser, userID){
-    //If the requesting user is invalid (e.g., is not logged in, is missing username, anything else expected is invalid), disallow
+    //If the requesting user is invalid
     if(!isValidUser(requestingUser)){
       return null;
     }
 
     //If the requested userID exists and the requesting user is allowed to access it, return the user
     if(users.hasOwnProperty(userID)){
-      //It may be beneficial to create a helper function for canAccessUser(requesterID, requestedID)
-      //You could use this function in searchUsers below too
       if(requestingUser.username == userID || requestingUser.friends.includes(userID)){
         return users[userID];
       }
@@ -178,8 +175,6 @@ function searchMovie(movieName){
 
   //If the user is not valid, return an empty array.
   //You could return null to indicate an error or any other value to signify the requesting user was not valid.
-
-
   for(name in movies){
     let movie = movies[name];
       if(movie.Title.includes(movieName)){
