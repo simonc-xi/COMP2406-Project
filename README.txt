@@ -1,18 +1,26 @@
 1. List of Source files
 		README.txt
 
-		Static web page (HTML and PUG)
-			login.html						This file include the username input and password input by using the log in button to log in to the account and create new account by using the sign up button
-			login.pug						The pug file of the login.html
-			SignUp.html           			The User registration page contains username and password
-			Signup.pug						The pug file of the signup.pug
-			movie.html						This file include the top search bar which can be using for return to home page and the search button for the movie or people searching, also include the movie information, and the other movie for the other user's viewing
-			otherProfile.html				This file include the follow button which can follow the user, user's information, the list of movie review by user, and include the people followed by this user and click the people is able to navigate to that person’s page.
-			profilepage.html				This file include the my account information, a side bar navigation to the home page and the upgrade page.
-			Homepage.html					The homepage of the web, provide search bar, log in and register button. also provides a list of movie that is recommend to the users.
-			Home.pug						The pug file of the homepage
+		Dynamic web page (HTML and PUG)
+			login.pug						This file include the username input and password input by using the log in button to log in to the account and
+			 										create new account by using the sign up button
+
+			SignUp.pug          			The User registration page contains username and password
+
+			Movie.pug						This file include the top search bar which can be using for return to home page and the search button for the
+			 										movie or people searching, also include the movie information, and the other movie for the other user's viewing
+
+			otherProfile.html				This file include the follow button which can follow the user, user's information, the list of movie review by user,
+			 												and include the people followed by this user and click the people is able to navigate to that person’s page.
+
+		  Profile. pug				This file include the my account information, a side bar navigation to the home page and the upgrade page.
+
+			Home.pug						The homepage of the web, provide search bar, log in and register button. also provides a list of movie
+			 										that is recommend to the users.
+
 			HomePage.js						Include some basic functions about the homepage, ex, navigation
-			View.html						The web page that shows the information about the Director, also have subscribe button than can subscribe the Director
+
+			View.pug						The web page that shows the information about the Director, also have subscribe button than can subscribe the Director
 
 		Logic JS file	(the client side and some server side of programming was divided each corresponding web page)
 			- View.js						The JavaScript file for people viewing page, which can let user subscribe the viewing person
@@ -33,10 +41,6 @@
 		Demo picture
 			ilovem.jpg						Website icon
 			ilovemb.jpg						Website background
-			jumanji.jpg						demo movie Poster pic
-			Sabrina.jpg						demo movie Poster pic
-			Sudden Death.jpg				demo movie Poster pic
-			waiting.jpg						demo movie Poster pic
 
 		JSON file
 			users.JSON						demo-user-data store in json file
