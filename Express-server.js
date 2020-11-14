@@ -45,8 +45,8 @@ app.use(express.json());
 app.get('/signup',signUpPage)
 app.get('/login',logInPage)
 
-//app.post('/signUpUser',signUpUser,logInUser)
-//app.post('/logInUser',logInUser);
+app.post('/signUpUser',signUpUser,logInUser)
+app.post('/logInUser',logInUser);
 
 function signUpPage(req, res){
   res.render('Signup.pug')
@@ -56,7 +56,7 @@ function logInPage(req, res){
   res.render("login.pug",{session:req.session})
 }
 
-app.post("/logInUser", function(req, res, next){
+function logInUser(req, res, next){
   console.log("logInUser function");
   /*
   if(session.loggedin==true){
@@ -89,7 +89,21 @@ app.post("/logInUser", function(req, res, next){
     //they did not log in successfully.
     res.status(401).send("Invalid credentials.");
   }
-})
+}
+
+function signUpUser(req, res, next){
+  console.log("signUpUser function");
+  let newUser =req.body;
+  if(users.hasOwnProperty(newUser.username)){
+    res.status(300).send("Username already created");
+  }else{
+    //newUser.id=uuidv4();
+    
+    model.createUser(newUser);
+    console.log(users);
+    next();
+  }
+}
 
 //1. Post request for the creating a new user (createUser)
 //input password/username, return the user information
