@@ -253,6 +253,16 @@ function createReview(requestingUser, title, newR){
 
   return newR;
 }
+// Purpose : generated random movie on the Homepage if the user haven't login
+function getRanMovie(){
+  let movArr =[];
+  for(let i =0;i< 5;i++){
+    movArr[i] = movies[i];
+  }
+  return movArr;
+
+}
+
 
 /*
 console.log("Creating some users");
@@ -290,4 +300,5 @@ module.exports = {
   searchMovie,
   searchPeople,
   authenticateUser,
+  getRanMovie,
 }

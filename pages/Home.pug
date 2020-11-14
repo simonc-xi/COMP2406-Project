@@ -1,13 +1,13 @@
 doctype html
 head
   title Homepage
-  link(rel='stylesheet' href='style.css')
+  link(rel='stylesheet', href='/style.css', type='text/css')
 
 br
 .topBar
   img(src='img/ilovem.jpg' alt='ilovem icion' width='150' height='80')
   hr
-  a.curSelect(href='/home') Home
+  a.curSelect(href='/') Home
   a(href='/about') About
   .searchBar
     input#name(type='text' placeholder='Search Movie')
@@ -17,8 +17,8 @@ br
   h2 What to Watch
   h3 Recommended Movies
   .img
-    a(href='http://localhost:3000/movie')
-      img(src='img/Sabrina.jpg' alt='Sabrina Poster')
+    a(href= 'http://localhost:3000/' + movlink)
+      img(src=  "https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg" alt=" # {movie[0].Title}")
   .img
     a(href='http://localhost:3000/movie')
       img(src='img/jumanji.jpg' alt='Movie Picture')
@@ -30,16 +30,16 @@ br
       img(src='img/waitiing.jpg' alt='Movie Picture')
 .mid-content
   .description
-    p Sabrina
-    p 7.2/10
+    p #{movie[0].Title}
+    p #{movie[0].imdbRating}/10
   .description
-    p Jumanji
-    p 7.4/10
+    p #{movie[1].Title}
+    p #{movie[1].imdbRating}/10
   .description
-    p Sudden Death
-    p 6.7/10
+    p #{movie[2].Title}
+    p #{movie[2].imdbRating}/10
   .description
-    p Waiting to Exhale
-    p 7.7/10
+    p #{movie[3].Title}
+    p #{movie[3].imdbRating}/10
 #score
 script(src='Homepage.js')
