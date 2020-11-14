@@ -87,7 +87,6 @@ function logInUser(req, res, next){
   if(model.authenticateUser(req.body.username, req.body.password)){
     //they have logged in successfully
     req.session.user = model.users[req.body.username];
-    //res.redirect("/users/" + req.body.username);
     res.redirect("/users/" + req.body.username);
   }else{
     //they did not log in successfully.

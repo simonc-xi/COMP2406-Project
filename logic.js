@@ -37,14 +37,7 @@ function isValidUser(userObj){
 }
 
 function authenticateUser(username, password){
-  /*
-  if(users[username].password == password){
-    console.log("true");
-  }else{
-    console.log(users[username].password);
-    console.log(password);
-  }*/
-  return users.hasOwnProperty(username) //&& users[username].password == password;
+  return users.hasOwnProperty(username) && users[username].password == password;
 }
 
 
