@@ -24,9 +24,9 @@ Function our business logic currently supports:
 10. Posting a new Review for movie (createReview) -Post /users
 */
 //user pug functrion to render through the login Page
-const renderLogin = pug.compileFile('views/login.pug');
+const renderLogin = pug.compileFile('pages/login.pug');
 const renderHome = pug.compileFile('pages/Home.pug');
-const renderSignup = pug.compileFile('views/Signup.pug');
+const renderSignup = pug.compileFile('pages/Signup.pug');
 const renderProfile = pug.compileFile('pages/Profile.pug');
 const renderMovie = pug.compileFile('pages/Movie.pug');
 const renderView = pug.compileFile('pages/View.pug');
@@ -124,7 +124,7 @@ app.get("/movie/:mid", function(req, res, next){
   console.log("id = "+ req.params.mid)
   let movArr = model.getMovie(req.params.mid);
   let url = movArr[0].Poster;
-  let data = renderMovie({movie: movArr, link: url});
+  let data = renderMovie({movie: movArr, link: url, session:req.session});
   res.status(200).send(data);
 })
 

@@ -1,6 +1,6 @@
 doctype html
 head
-  link(rel='stylesheet' href='style.css')
+  link(rel='stylesheet' href='/css/style.css')
   style.
     body{font-family: "Lucida Console", Monaco, monospaces;
     background-image: url('img/ilovemb.jpg');
@@ -60,10 +60,10 @@ head
   form(method="POST" action="/logInUser")
     label(for='username')
       b Username
-    input(type='text' placeholder='Username' name='username' required='')
+    input#username(type='text' placeholder='Username' name='username' required)
     label(for='password')
       b Password
-    input(type='password' placeholder='Password' name='pass' required='')
+    input#password(type='password' placeholder='Password' name='password' required)
     button#login.btn(type='submit') LOG IN
 br
 br

@@ -1,6 +1,6 @@
 doctype html
 head
-  link(rel='stylesheet' href='style.css')
+  link(rel='stylesheet' href='/css/style.css')
   link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
   style.
     body{font-family: "Lucida Console", Monaco, monospaces;
@@ -47,6 +47,8 @@ br
   hr
   a(href='http://localhost:3000') Home
   a.curSelect(href='#movie') Movie
+  if session.loggedin
+    a(href='/profile') Profile
   .searchBar
     input#name(type='text' placeholder='Search Movie')
     button(type='submit')

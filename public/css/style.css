@@ -6,12 +6,13 @@ img {
 }
 
 body {
-  background-image: url('img/ilovemb.jpg');
+  background-image: url('/img/ilovemb.jpg');
 
 
 }
 
 /* use . to select class, add the background color */
+
 .topBar{
   font-family: "Lucida Console", Monaco, monospaces;
   background-color: aliceblue;
@@ -160,3 +161,4 @@ body {
   border: 1px solid tomato;*/
 
 }
+**/
