@@ -53,6 +53,14 @@ function auth(req, res, next){
 
 app.post('/signUpUser',signUpUser,logInUser);
 app.post('/logInUser',logInUser);
+app.get('/logOut', logOut);
+
+//check the cookie been create
+app.use('/', function(req, res, next){
+  console.log(req.session);
+  next()
+})
+
 
 //render the home page
 app.get("/", function(req, res, next){
@@ -61,10 +69,11 @@ app.get("/", function(req, res, next){
 
   console.log(movArr[0].Title);
   console.log(movArr[0].poster);
-  let data = renderHome({movie: movArr, movName: name});
+  let data = renderHome({movie: movArr, movName: name, session: req.session});
   res.status(200).send(data);
 })
 
+// Homepage JS function
 app.get("/Homepage.js", function(req, res, next){
   fs.readFile("Homepage.js", function(err, data){
     if(err){
@@ -75,6 +84,7 @@ app.get("/Homepage.js", function(req, res, next){
   });
 })
 
+// provide css style
 app.get("/movie/style.css", function(req, res, next){
   fs.readFile("stylesheet/style.css", function(err, data){
     if(err){
@@ -105,7 +115,7 @@ app.get("/login", function(req, res, next){
 //render the home page
 app.get("/profile", function(req, res, next){
 
-  let data = renderProfile({movie: movArr, movlink: link});
+  let data = renderProfile({user: req.session.user});
   res.status(200).send(data);
 })
 
@@ -135,6 +145,16 @@ app.get("/img/ilovem.jpg", function(req, res, next){
   });
 })
 
+app.get("/img/ilovemb.jpg", function(req, res, next){
+  fs.readFile("img/ilovemb.jpg", function(err, data){
+    if(err){
+      res.status(500).send("Unknown resources");
+      return;
+    }
+      res.status(200).send(data);
+  });
+})
+
 app.get("/movie/img/ilovem.jpg", function(req, res, next){
   fs.readFile("img/ilovem.jpg", function(err, data){
     if(err){
@@ -155,6 +175,7 @@ app.get("/users/img/ilovem.jpg", function(req, res, next){
       res.status(200).send(data);
   });
 })
+
 
 app.get("/img/ilovemb.jpg", function(req, res, next){
   fs.readFile("img/ilovemb.jpg", function(err, data){
@@ -196,19 +217,6 @@ app.get("/login.js", function(req, res, next){
   });
 })
 
-//Creating a new user (createUser), Input:  password/username, Output: user information
-app.post("/users", function(req, res, next){
-//the request body contains the new user information
-console.log(req.body);
-let result = model.createUser(req.body);
-if(result){
-  res.status(200).send("User added: " + JSON.stringify(result));
-}else{
-  res.status(500).send("Not valid user.");
-}
-})
-
-
 //the post request for the log in function
 function logInUser(req, res, next){
   console.log("username :" + req.body.username);
@@ -218,10 +226,11 @@ function logInUser(req, res, next){
   if(model.authenticateUser(req.body.username, req.body.password)){
     //they have logged in successfully
     req.session.user = model.users[req.body.username];
-    res.redirect("/users/" + req.body.username);
+    req.session.loggedin = true;
+    res.status(200).redirect("/users/" + req.body.username);
   }else{
     //they did not log in successfully.
-    res.status(401).send("Invalid credentials.");
+    res.status(401).send("You enter the wrong username or password. Please Try agian");
   }
 }
 
@@ -231,19 +240,26 @@ function logInUser(req, res, next){
 function signUpUser(req, res, next){
   console.log("signUpUser function");
   let newUser =req.body;
-  if(model.hasOwnProperty(newUser.username)){
-    res.status(300).send("Username already created");
+  if(model.users.hasOwnProperty(newUser.username)){
+    res.status(300).send("You already register");
   }else{
     model.createUser(newUser);
-    // redirect to profile page
+    console.log(model.users)
+    // redirect to login function
     next();
   }
+}
+
+function logOut(req, res){
+  req.session.destroy();
+  res.redirect('/login');
 }
 
 
 //2. get request for the Reading a user (getUser), input the uid to get the user information
 app.get("/users/:uid", auth,function(req, res, next){
   console.log("Getting user with name: " + req.params.uid);
+  console.log("req.session.user = " + req.session.user);
   //let requestUser = model.users[req.params.uid];
   let result = model.getUser(req.session.user, req.params.uid);
   if(result == null){
