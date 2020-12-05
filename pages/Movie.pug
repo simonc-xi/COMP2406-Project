@@ -65,9 +65,11 @@ hr
     
     p plot: #{movie[0].Plot}
     p Director: #{movie[0].Director}
-    p writer:#{movie[0].Writer}
-    p Actors:#{movie[0].Actors}
-    p Genres:#{movie[0].Genre}
+    p writer: #{movie[0].Writer}
+    p Actors: #{movie[0].Actors}
+    p Country: #{movie[0].Country}
+    p Awards: #{movie[0].Awards}
+    p Genres: #{movie[0].Genre}
     form(method="POST" action= '/movie/' + name)
       button.btn(type='submit')  Add to Watchlist
 
@@ -85,7 +87,7 @@ hr
 .row
   .column
     h2(style='font-size: medium;') Write a Review:
-    form(method="POST" action='/reviewmovie/')
+    form(method="POST" action='/reviewmovie/:movieid')
       .movieimg(style='height:200px;')
         textarea(id="moviereview" name="moviereview" rows="9" cols="130")
         br
