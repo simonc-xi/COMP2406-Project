@@ -9,6 +9,8 @@ const app = express();
 const mc = require("mongodb").MongoClient;
 app.set("view engine", "pug");
 const session = require('express-session');
+const mc = require('mongodb').MongoClient;
+let db;
 
 app.use(session({ secret: 'some secret here'}))
 app.use(express.static('public'));
@@ -39,10 +41,6 @@ const renderOther = pug.compileFile('pages/Other.pug');
 app.use(express.static("stylesheets"));
 
 
-
-//const requestingUser = model.users["Sop"];
-//console.log(requestingUser);
-
 app.use(express.json());
 
 
@@ -54,6 +52,21 @@ function auth(req, res, next){
   }
   next();
 }
+/*
+function databaseInitializer(){
+  let movies = require("./movie-data-short.json");
+  db.collection("movie").insertMany(movies,function(err, result){
+    if(err) throw err;
+    console.log(result);
+  });
+/*
+  let users = require("./users.json");
+  db.collection("user").insertMany(users,function(err, result){
+    if(err) throw err;
+    console.log(result);
+  });*/
+}*/
+
 app.get('/logOut', logOut);
 app.get("/movie/:mid", getMovie);
 app.get("/other", getOther);
@@ -104,8 +117,6 @@ function getOther(req, res, next){
   let data = renderOther();
   res.status(200).send(data);
 }
-
-
 
 // Homepage JS function
 app.get("/Homepage.js", function(req, res, next){
@@ -262,8 +273,6 @@ function logInUser(req, res, next){
   }
 }
 
-
-
 //the post request for the sign up function
 function signUpUser(req, res, next){
   console.log("signUpUser function");
@@ -311,7 +320,7 @@ app.get("/users", function(req, res, next){
 })
 
 
-//Searching for moive (searchMovie),
+//4. Searching for moive (searchMovie),
 app.post("/SearchMovie", function(req, res, next){
   console.log (req.query.name);
   if(req.query.title==undefined){
@@ -324,7 +333,7 @@ app.post("/SearchMovie", function(req, res, next){
 })
 
 
-//Searching for People (searchPeople),
+//5. Searching for People (searchPeople),
 app.get("/SearchPeople", function(req, res, next){
   console.log (req.query.title);
   if(req.query.name==undefined){
@@ -357,9 +366,6 @@ app.get("/Recmovies", function(req, res, next){
   let recMovies =model.getRecMovie(model.movies, req.query.name);
   res.status(200).json(result);
 })
-
-
-
 
 //9. Upgrade the Account level (upgradeAccount) - Post /users
 app.post("/upgrade/:uid", auth,function(req, res, next){
@@ -400,8 +406,3 @@ mc.connect("mongodb://localhost:27017", function(err, client){
     //console.log(result);
     //console.log(db.collection("Movies").find({Title:"Toy Story"}))
 });
-
-
-  app.listen(3000);
-  console.log("Server listening at http://localhost:3000");
-})

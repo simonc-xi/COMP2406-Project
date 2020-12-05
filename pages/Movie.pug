@@ -60,13 +60,18 @@ hr
 .row
   .column
     img(src=  link ,alt= " poster Picture")
+    //a(href='#{movie[0].Poster}')
+      img(src=  link,alt= "poster Picture")
     br
     br
     
     p plot: #{movie[0].Plot}
     p Director: #{movie[0].Director}
-    a(href='http://localhost:3000/view') writer:#{movie[0].Writer}
-    p Stars:
+    p writer: #{movie[0].Writer}
+    p Actors: #{movie[0].Actors}
+    p Country: #{movie[0].Country}
+    p Awards: #{movie[0].Awards}
+    p Genres: #{movie[0].Genre}
     form(method="POST" action= '/movie/' + name)
       button.btn(type='submit')  Add to Watchlist
 
@@ -84,9 +89,10 @@ hr
 .row
   .column
     h2(style='font-size: medium;') Write a Review:
-    form(method="POST" action='/reviewmovie/')
+    form(method="POST" action='/reviewmovie/:movieid')
       .movieimg(style='height:200px;')
         textarea(id="moviereview" name="moviereview" rows="9" cols="130")
+        br
         button.btn(type='submit') Submit
 
 
