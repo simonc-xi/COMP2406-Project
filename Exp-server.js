@@ -48,6 +48,21 @@ function auth(req, res, next){
   }
   next();
 }
+/*
+function databaseInitializer(){
+  let movies = require("./movie-data-short.json");
+  db.collection("movie").insertMany(movies,function(err, result){
+    if(err) throw err;
+    console.log(result);
+  });
+/*
+  let users = require("./users.json");
+  db.collection("user").insertMany(users,function(err, result){
+    if(err) throw err;
+    console.log(result);
+  });*/
+}*/
+
 app.get('/logOut', logOut);
 app.get("/movie/:mid", getMovie);
 app.get("/other", getOther);
@@ -254,8 +269,6 @@ function logInUser(req, res, next){
   }
 }
 
-
-
 //the post request for the sign up function
 function signUpUser(req, res, next){
   console.log("signUpUser function");
@@ -375,6 +388,7 @@ app.post("/reviewmovie/:movieid", function(req, res, next){
   res.status(200).json(result);
 })
 
+/*
 mc.connect("mongodb://localhost:27017", function(err, client){
   if(err)
   {
@@ -385,9 +399,11 @@ mc.connect("mongodb://localhost:27017", function(err, client){
 
   db=client.db("Moives");
 
+  databaseInitializer();
+
   app.listen(3000);
   console.log("Server listening at http://localhost:3000");
-})
+})*/
 
 
 
