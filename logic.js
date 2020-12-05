@@ -24,6 +24,7 @@ function createUser(newUser){
         newUser.accountLevel = ["regular"];
         newUser.reviews = [];
         newUser.following = [];
+        newUser.likedMovie = [];
         users[newUser.username] = newUser;
 
         return users[newUser.username];
@@ -61,6 +62,14 @@ function getUser(requestingUser, userID){
 
     return null;
 }
+
+// Purpose : Return the first string that separate by the space
+function getFirstStr(str){
+  let arrStr = str.split(' ');
+  return arrStr;
+}
+//console.log(getFirstStr("Grumpier Old Men"));
+
 
 /*
 Purpose : Recommand some movies to the user homepage with in the section of recommand Movies
@@ -318,4 +327,5 @@ module.exports = {
   getMovie,
   upgradeAccount,
   createReview,
+  getFirstStr,
 }
