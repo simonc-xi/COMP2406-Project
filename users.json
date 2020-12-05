@@ -1,3 +1,7 @@
-{"user0":{"username":"Sophia","password":"12345","accountLevel":["contributing"],"reviews":[["Toy Story", "Bad moive, but I like it"]], "following":[], "likedMovie ":[]},
+/*[{"user0":{"username":"Sophia","password":"12345","accountLevel":["contributing"],"reviews":[["Toy Story", "Bad moive, but I like it"]], "following":[], "likedMovie ":[]},
 "user1":{"username":"Chen","password":"12345","accountLevel":["regular"],"reviews":[["Jumanji", "Great Movie, like it"]], "following":[], "likedMovie ":[]},
- "user2":{"username":"Frank","password":"12345","accountLevel":["contributing"],"reviews":[["Toy Story", "Nice moive, like it"]], "following":[], "likedMovie ":[]}}
+ "user2":{"username":"Frank","password":"12345","accountLevel":["contributing"],"reviews":[["Toy Story", "Nice moive, like it"]], "following":[], "likedMovie ":[]}}]*/
+
+ [{"username":"Sophia","password":"12345","accountLevel":["contributing"],"reviews":[{"Title":"Toy Story", "Review":"Bad moive, but I like it"}], "following":[], "likedMovie ":[]},
+{"username":"Chen","password":"12345","accountLevel":["regular"],"reviews":[{"Title":"Jumanji", "Reivew":"Great Movie, like it"}], "following":[], "likedMovie ":[]},
+ {"username":"Frank","password":"12345","accountLevel":["contributing"],"reviews":[{"Title":"Toy Story", "Review":"Nice moive, like it"}], "following":[], "likedMovie ":[]}]
