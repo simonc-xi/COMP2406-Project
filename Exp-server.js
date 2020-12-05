@@ -2,7 +2,11 @@ const express = require('express');
 const pug = require("pug");
 const model = require("./logic.js");
 const fs = require("fs");
+const mongo = require('mongodb');
+const movies = require("./movie/movie-data.json");
+
 const app = express();
+const mc = require("mongodb").MongoClient;
 app.set("view engine", "pug");
 const session = require('express-session');
 
@@ -382,10 +386,22 @@ app.post("/reviewmovie/:movieid", function(req, res, next){
   res.status(200).json(result);
 })
 
+mc.connect("mongodb://localhost:27017", function(err, client){
+  if(err)
+  {
+    console.log("Error connecting to MongoDB");
+    console.log(err);
+    return;
+  }
+
+  db = client.db("Moivedb");
+  db.collection("Movies").insertMany(movies, function(err,result){
+    if(err) throw err;
+    //console.log(result);
+    //console.log(db.collection("Movies").find({Title:"Toy Story"}))
+});
 
 
-
-
-
-app.listen(3000);
-console.log("Server listening at http://localhost:3000");
+  app.listen(3000);
+  console.log("Server listening at http://localhost:3000");
+})
