@@ -5,6 +5,8 @@ const fs = require("fs");
 const app = express();
 app.set("view engine", "pug");
 const session = require('express-session');
+const mc = require('mongodb').MongoClient;
+let db;
 
 app.use(session({ secret: 'some secret here'}))
 app.use(express.static('public'));
@@ -15,7 +17,7 @@ Function our business logic currently supports:
 1. creating a new user (createUser) - POST/users
 2. Reading a user (getUser) - GET /users/:users
 3. Searching for users (searchUsers) -GET /users
-4. Searching for movie (searchMovie) -GET /movies
+4. Searching for movie (searchMovie) -GET /movies  
 5. Searching for people (searchPeople) -GET /movies
 6. Making a subscribe (make Subscribe) -Post /users
 7. Recommend Movie (getRecMovie) -GET /movies
@@ -34,10 +36,6 @@ const renderOther = pug.compileFile('pages/Other.pug');
 
 app.use(express.static("stylesheets"));
 
-
-
-//const requestingUser = model.users["Sop"];
-//console.log(requestingUser);
 
 app.use(express.json());
 
@@ -100,8 +98,6 @@ function getOther(req, res, next){
   let data = renderOther();
   res.status(200).send(data);
 }
-
-
 
 // Homepage JS function
 app.get("/Homepage.js", function(req, res, next){
@@ -307,7 +303,7 @@ app.get("/users", function(req, res, next){
 })
 
 
-//Searching for moive (searchMovie),
+//4. Searching for moive (searchMovie),
 app.post("/SearchMovie", function(req, res, next){
   console.log (req.query.name);
   if(req.query.title==undefined){
@@ -320,7 +316,7 @@ app.post("/SearchMovie", function(req, res, next){
 })
 
 
-//Searching for People (searchPeople),
+//5. Searching for People (searchPeople),
 app.get("/SearchPeople", function(req, res, next){
   console.log (req.query.title);
   if(req.query.name==undefined){
@@ -354,9 +350,6 @@ app.get("/Recmovies", function(req, res, next){
   res.status(200).json(result);
 })
 
-
-
-
 //9. Upgrade the Account level (upgradeAccount) - Post /users
 app.post("/upgrade/:uid", auth,function(req, res, next){
   console.log (req.params.uid);
@@ -382,10 +375,21 @@ app.post("/reviewmovie/:movieid", function(req, res, next){
   res.status(200).json(result);
 })
 
+mc.connect("mongodb://localhost:27017", function(err, client){
+  if(err)
+  {
+    console.log("Error connecting to MongoDB");
+    console.log(err);
+    return;
+  }
+
+  db=client.db("Moives");
+
+  app.listen(3000);
+  console.log("Server listening at http://localhost:3000");
+})
 
 
 
 
 
-app.listen(3000);
-console.log("Server listening at http://localhost:3000");
