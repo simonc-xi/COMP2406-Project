@@ -50,10 +50,13 @@ function auth(req, res, next){
   }
   next();
 }
-
-app.post('/signUpUser',signUpUser,logInUser);
-app.post('/logInUser',logInUser);
 app.get('/logOut', logOut);
+app.get("/movie/:mid", getMovie);
+
+
+app.post('/signUpUser', signUpUser, logInUser);
+app.post('/logInUser', logInUser);
+app.post("/moive/:mid", addWatchList, getMovie);
 
 //check the cookie been create
 app.use('/', function(req, res, next){
@@ -65,13 +68,35 @@ app.use('/', function(req, res, next){
 //render the home page
 app.get("/", function(req, res, next){
   let movArr = model.getRanMovie();
-  let name = movArr[0].Title;
+  let movName = movArr[0].Title;
 
   console.log(movArr[0].Title);
   console.log(movArr[0].poster);
-  let data = renderHome({movie: movArr, movName: name, session: req.session});
+  let data = renderHome({movie: movArr, name: movName, session: req.session});
   res.status(200).send(data);
 })
+
+
+//render the movie page  get
+
+function getMovie(req, res, next){
+  console.log("id = "+ req.params.mid)
+
+  let movArr = model.getMovie(req.params.mid);
+  let url = movArr[0].Poster;
+  //let movName = getFirstStr(movArr[0].Title)
+  let data = renderMovie({movie: movArr, link: url, session:req.session, movName: movArr[0].Title});
+  res.status(200).send(data);
+}
+
+// add the movie to users watch List -post/subscribeMovie
+function addWatchList(req, res, next){
+  console.log(req.params.mid);
+  //res.status(200).send("name = " + req.body.name);
+  next();
+}
+
+
 
 // Homepage JS function
 app.get("/Homepage.js", function(req, res, next){
@@ -119,14 +144,8 @@ app.get("/profile", function(req, res, next){
   res.status(200).send(data);
 })
 
-//render the movie
-app.get("/movie/:mid", function(req, res, next){
-  console.log("id = "+ req.params.mid)
-  let movArr = model.getMovie(req.params.mid);
-  let url = movArr[0].Poster;
-  let data = renderMovie({movie: movArr, link: url, session:req.session});
-  res.status(200).send(data);
-})
+
+
 
 //render the movie
 app.get("/view", function(req, res, next){
@@ -357,6 +376,8 @@ app.post("/reviewmovie/:movieid", function(req, res, next){
   }
   res.status(200).json(result);
 })
+
+
 
 
 

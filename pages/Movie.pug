@@ -67,7 +67,8 @@ hr
     p Director: #{movie[0].Director}
     a(href='http://localhost:3000/view') writer:#{movie[0].Writer}
     p Stars:
-    button.btn(type='submit')  Add to Watchlist
+    form(method="POST" action= '/movie/' + name)
+      button.btn(type='submit')  Add to Watchlist
 .row
   .column
     h2(style='font-size: medium;') Other Users Also Like This

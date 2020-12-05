@@ -1,7 +1,7 @@
 doctype html
 head
   title Homepage
-  link(rel='stylesheet', href='/css/style.css')
+  link(rel='stylesheet', href='css/style.css')
 
 br
 .topBar
@@ -22,8 +22,8 @@ br
   h2 What to Watch
   h3 Recommended Movies
   .img
-    a(href= 'http://localhost:3000/movie/' + movName)
-      img(src=  "https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg" alt=" # {movie[0].Title}" width='300' height = '450')
+    a(href= 'http://localhost:3000/movie/' + name)
+      img(src=  "https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg" alt=" # {movie[0].Title}" width='280' height = '450')
   .img
     a(href='http://localhost:3000/movie/Jumanji')
       img(src='https://m.media-amazon.com/images/M/MV5BZTk2ZmUwYmEtNTcwZS00YmMyLWFkYjMtNTRmZDA3YWExMjc2XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg' alt='Movie Poster' width='300' height = '450')
