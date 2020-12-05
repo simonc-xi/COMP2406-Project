@@ -30,7 +30,7 @@ const renderSignup = pug.compileFile('pages/Signup.pug');
 const renderProfile = pug.compileFile('pages/Profile.pug');
 const renderMovie = pug.compileFile('pages/Movie.pug');
 const renderView = pug.compileFile('pages/View.pug');
-
+const renderOther = pug.compileFile('pages/Other.pug');
 
 app.use(express.static("stylesheets"));
 
@@ -52,7 +52,7 @@ function auth(req, res, next){
 }
 app.get('/logOut', logOut);
 app.get("/movie/:mid", getMovie);
-
+app.get("/other", getOther);
 
 app.post('/signUpUser', signUpUser, logInUser);
 app.post('/logInUser', logInUser);
@@ -78,7 +78,6 @@ app.get("/", function(req, res, next){
 
 
 //render the movie page  get
-
 function getMovie(req, res, next){
   console.log("id = "+ req.params.mid)
 
@@ -94,6 +93,12 @@ function addWatchList(req, res, next){
   console.log(req.params.mid);
   //res.status(200).send("name = " + req.body.name);
   next();
+}
+
+function getOther(req, res, next){
+
+  let data = renderOther();
+  res.status(200).send(data);
 }
 
 
