@@ -4,9 +4,9 @@ const model = require("./logic.js");
 const fs = require("fs");
 const mongo = require('mongodb');
 const movies = require("./movie/movie-data.json");
+const users = require("./movie/users.json");
 
 const app = express();
-const mc = require("mongodb").MongoClient;
 app.set("view engine", "pug");
 const session = require('express-session');
 const mc = require('mongodb').MongoClient;
@@ -52,20 +52,6 @@ function auth(req, res, next){
   }
   next();
 }
-/*
-function databaseInitializer(){
-  let movies = require("./movie-data-short.json");
-  db.collection("movie").insertMany(movies,function(err, result){
-    if(err) throw err;
-    console.log(result);
-  });
-/*
-  let users = require("./users.json");
-  db.collection("user").insertMany(users,function(err, result){
-    if(err) throw err;
-    console.log(result);
-  });*/
-}*/
 
 app.get('/logOut', logOut);
 app.get("/movie/:mid", getMovie);
@@ -403,6 +389,13 @@ mc.connect("mongodb://localhost:27017", function(err, client){
   db = client.db("Moivedb");
   db.collection("Movies").insertMany(movies, function(err,result){
     if(err) throw err;
-    //console.log(result);
-    //console.log(db.collection("Movies").find({Title:"Toy Story"}))
-});
+
+  });
+  db.collection("Users").insertMany(users, function(err,result){
+		if(err) throw err;
+		console.log(result);
+	});
+  app.listen(3000);
+
+
+})
