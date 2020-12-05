@@ -62,16 +62,31 @@ hr
     img(src=  link ,alt= " poster Picture")
     br
     br
-    .rate average rating: #{movie[0].imdbRating}/10
+    
     p plot: #{movie[0].Plot}
     p Director: #{movie[0].Director}
     a(href='http://localhost:3000/view') writer:#{movie[0].Writer}
     p Stars:
     form(method="POST" action= '/movie/' + name)
       button.btn(type='submit')  Add to Watchlist
+
 .row
   .column
     h2(style='font-size: medium;') Other Users Also Like This
     .movieimg(style='height:200px;') Movie image
-    br
-    .movieimg(style='height:200px;') Movie image
+    
+.row
+  .column
+    h2(style='font-size: medium;') User Reivews
+    .rate average rating: #{movie[0].imdbRating}/10
+    .movieimg(style='height:200px;') Review
+
+.row
+  .column
+    h2(style='font-size: medium;') Write a Review:
+    form(method="POST" action='/reviewmovie/')
+      .movieimg(style='height:200px;')
+        textarea(id="moviereview" name="moviereview" rows="9" cols="130")
+        button.btn(type='submit') Submit
+
+
