@@ -10,17 +10,17 @@ br
   if session.loggedin
     a(href='/profile') Profile
   .searchBar
-  if session.loggedin
-    form(method="post" action="/people")
-      label(for='peoName')
-      input#movName(type='text' placeholder='Search people' name = 'peoName')
-      button#search(type='submit') Search
-  else
-    form(method="post" action="/people")
-      label(for='peoName')
-      input#movName(type='text' placeholder='Search people' name = 'peoName')
-      button#search.btn(type='submit') Search
-      button#sign(onclick = "window.location.href= 'http://localhost:3000/signin'" type='button') Sign in
+    if session.loggedin
+      form(method="post" action="/people")
+        label(for='peoName')
+        input#movName(type='text' placeholder='Search people' name = 'peoName')
+        button#search(type='submit') Search
+    else
+      form(method="post" action="/people")
+        label(for='peoName')
+        input#movName(type='text' placeholder='Search people' name = 'peoName')
+        button#search.btn(type='submit') Search
+        button#sign(onclick = "window.location.href= 'http://localhost:3000/signin'" type='button') Sign in
 hr
 .col
 .midcol
