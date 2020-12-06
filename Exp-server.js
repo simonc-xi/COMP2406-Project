@@ -140,7 +140,7 @@ app.get("/signin", function(req, res, next){
 
 app.get("/login", function(req, res, next){
   let data = renderLogin("./pages/login.pug",{session:req.session})
-  res.status(200).send(data);
+  res.status(200).send(data); 
 })
 
 //render the home page
@@ -242,35 +242,59 @@ app.get("/login.js", function(req, res, next){
   });
 })
 
+//无法读取
 //the post request for the log in function
 function logInUser(req, res, next){
   console.log("username :" + req.body.username);
   console.log("password : " + req.body.password);
 
-
-  if(model.authenticateUser(req.body.username, req.body.password)){
-    //they have logged in successfully
-    req.session.user = model.users[req.body.username];
-    req.session.loggedin = true;
-    res.status(200).redirect("/users/" + req.body.username);
-  }else{
-    //they did not log in successfully.
-    res.status(401).send("You enter the wrong username or password. Please Try agian");
-  }
+  db.collection("Users").find({username:req.body.username,password:req.body.password}).toArray(function(err,result){
+    if(err){
+      res.status(500).send("Error Reading Database");
+      return;
+    }
+    if(result>=1){
+      req.session.user = result[0].username;
+      req.session.loggedin = true;
+      res.status(200).redirect("/users/" + req.body.username);
+    }else if(model.authenticateUser(req.body.username, req.body.password)){
+        //they have logged in successfully
+        req.session.user = model.users[req.body.username];
+        req.session.loggedin = true;
+        res.status(200).redirect("/users/" + req.body.username);
+    }else if(result.length<1||result==undefined){
+      //they did not log in successfully.
+      res.status(401).send("You enter the wrong username or password. Please Try agian");
+    }
+    next();
+  });
 }
 
 //the post request for the sign up function
 function signUpUser(req, res, next){
   console.log("signUpUser function");
   let newUser =req.body;
-  if(model.users.hasOwnProperty(newUser.username)){
-    res.status(300).send("You already register");
-  }else{
-    model.createUser(newUser);
-    console.log(model.users)
-    // redirect to login function
-    next();
-  }
+  
+  db.collection("Users").find({username:newUser.username}).toArray(function(err,result){
+    if(err){
+      res.status(500).send("Error Reading Database");
+      return;
+    }
+    console.log(result);
+    console.log(result.length<1||result==undefined);
+    if(result.length<1||result==undefined){
+      let usernew= model.createUser(newUser);
+      db.collection("Users").insertOne(usernew,function(err,result){
+        if(err){
+          res.status(500).send("Error Reading Database");
+          return;
+        }
+        next();
+      });
+    }else if(result[0].username===(newUser.username)){
+      res.status(300).send("You already register");
+    }
+  });
 }
 
 function logOut(req, res){
