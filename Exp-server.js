@@ -242,7 +242,6 @@ app.get("/login.js", function(req, res, next){
   });
 })
 
-//无法读取
 //the post request for the log in function
 function logInUser(req, res, next){
   console.log("username :" + req.body.username);
@@ -253,7 +252,7 @@ function logInUser(req, res, next){
       res.status(500).send("Error Reading Database");
       return;
     }
-    if(result>=1){
+    if(result.length>=1){
       req.session.user = result[0].username;
       req.session.loggedin = true;
       res.status(200).redirect("/users/" + req.body.username);
@@ -302,12 +301,13 @@ function logOut(req, res){
   res.redirect('/login');
 }
 
-
+//???????????????????????????????????
 //2. get request for the Reading a user (getUser), input the uid to get the user information
 app.get("/users/:uid", auth,function(req, res, next){
   console.log("Getting user with name: " + req.params.uid);
   console.log("req.session.user = " + req.session.user);
   //let requestUser = model.users[req.params.uid];
+  /*
   let result = model.getUser(req.session.user, req.params.uid);
   if(result == null){
     res.status(404).send("Unknown user")
@@ -315,7 +315,24 @@ app.get("/users/:uid", auth,function(req, res, next){
     let data = renderProfile({user: result});
     res.status(200).send(data);
     return;
-  }
+  }*/
+  db.collection("Users").find({username:req.session.user}).toArray(function(err,result){
+    if(err){
+      res.status(500).send("Error Reading Database");
+      return;
+    }
+    let results = model.getUser(req.session.user, req.params.uid);
+    if((result.length<1)||(result==undefined)){
+      res.status(404).send("Unknown user");
+    }/*
+    else if(results == null){
+      res.status(404).send("Unknown user");
+    }*/else{
+      let data = renderProfile({user: results});
+      res.status(200).send(data);
+      return;
+    }
+  });
 })
 
 
@@ -380,7 +397,7 @@ app.get("/Recmovies", function(req, res, next){
 //9. Upgrade the Account level (upgradeAccount) - Post /users
 app.post("/upgrade/:uid", auth,function(req, res, next){
   console.log (req.params.uid);
-
+  
   let result = upgradeAccount(req.session.user);
   console.log(result);
   if(result == NULL){
