@@ -5,6 +5,14 @@ img {
 
 }
 
+
+li {
+  float: left;
+  text-decoration: none;
+  padding: 5px;
+  list-style-type: none
+}
+
 body {
   background-image: url('/img/ilovemb.jpg');
 

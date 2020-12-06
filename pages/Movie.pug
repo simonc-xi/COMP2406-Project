@@ -50,9 +50,11 @@ br
   if session.loggedin
     a(href='/profile') Profile
   .searchBar
-    input#name(type='text' placeholder='Search Movie')
-    button(type='submit')
-      i.fa.fa-search
+    form(method="GET" action="/searchMovie")
+      input#name(type='text' placeholder='Search Movie')
+      button(type='submit')
+        i.fa.fa-search
+      
 hr
 .title
   h2 #{movie[0].Title}
@@ -64,22 +66,39 @@ hr
       img(src=  link,alt= "poster Picture")
     br
     br
-    
+
     p plot: #{movie[0].Plot}
-    p Director: #{movie[0].Director}
-    p writer: #{movie[0].Writer}
-    p Actors: #{movie[0].Actors}
+    p Director:
+    li
+      a(href='http://localhost:3000/people/' + otherName[0]) #{otherName[0]}
+    br
+    p writer:
+    li
+      a(href='http://localhost:3000/people/' + writerName[0]) #{writerName[0]}
+    li
+      a(href='http://localhost:3000/people/' + writerName[1]) #{writerName[1]}
+    li
+      a(href='http://localhost:3000/people/' + writerName[2]) #{writerName[2]}
+    br
+    p Actors:
+    li
+      a(href='http://localhost:3000/people/' + actorName[0]) #{actorName[0]}
+    li
+      a(href='http://localhost:3000/people/' + actorName[1]) #{actorName[1]}
+    li
+      a(href='http://localhost:3000/people/' + actorName[2]) #{actorName[2]}
+    br
     p Country: #{movie[0].Country}
     p Awards: #{movie[0].Awards}
     p Genres: #{movie[0].Genre}
-    form(method="POST" action= '/movie/' + name)
+    form(method="POST" action= '/movies/' + movName)
       button.btn(type='submit')  Add to Watchlist
 
 .row
   .column
     h2(style='font-size: medium;') Other Users Also Like This
     .movieimg(style='height:200px;') Movie image
-    
+
 .row
   .column
     h2(style='font-size: medium;') User Reivews
@@ -94,5 +113,3 @@ hr
         textarea(id="moviereview" name="moviereview" rows="9" cols="130")
         br
         button.btn(type='submit') Submit
-
-
