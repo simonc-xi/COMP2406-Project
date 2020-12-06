@@ -1,0 +1,41 @@
+doctype html
+head
+  title Homepage
+  link(rel='stylesheet', href='css/style.css')
+
+br
+.topBar
+  img(src='img/ilovem.jpg' alt='ilovem icion' width='150' height='80')
+  hr
+  a.curSelect(href='/') Home
+  a(href='/about') About
+  if session.loggedin
+    a(href='/profile') Profile
+  .searchBar
+    if session.loggedin
+      form(method="post" action="/movies")
+        label(for='movName')
+        input#movName(type='text' placeholder='Search Movie' name = 'movName')
+        button#search(type='submit') Search
+    else
+      form(method="post" action="/movies")
+        label(for='movName')
+        input#movName(type='text' placeholder='Search Movie' name = 'movName')
+        button#search.btn(type='submit') Search
+        button#sign(onclick = "window.location.href= 'http://localhost:3000/signin'" type='button') Sign in
+#movieInfo.mid-content
+  h2 All the movies
+.mid-content
+  .description
+    p #{movie[0].Title}
+    p #{movie[0].imdbRating}/10
+  .description
+    p #{movie[1].Title}
+    p #{movie[1].imdbRating}/10
+  .description
+    p #{movie[2].Title}
+    p #{movie[2].imdbRating}/10
+  .description
+    p #{movie[3].Title}
+    p #{movie[3].imdbRating}/10
+#score

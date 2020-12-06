@@ -69,8 +69,6 @@ img(src='img/ilovem.jpg' alt='ilovem icion' width='172' height='80')
     i.fa.fa-fw.fa-home
     |  Home
 .main
-
-
   h1 Account overview
   button.btn(type='submit')  Upgrade
   br
@@ -87,9 +85,19 @@ img(src='img/ilovem.jpg' alt='ilovem icion' width='172' height='80')
     .column
       p(style='color:dodgerblue') Movie Reviews
       .review
-        | Movie Title:
-        hr
-        p Review:
+        if session.hasReview
+          each rev in review
+            | Movie Title:
+            a(href='http://localhost:3000/movies/' + rev.movName) #{rev.movName}
+            hr
+            p Review:
+            p #{rev.review}
+            hr
+        else
+          | Movie Title:
+          hr
+          p Review:
+              p
   .row
     .column
       p(style='color:dodgerblue') Movie You Want To Watch

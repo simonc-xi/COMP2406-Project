@@ -98,13 +98,21 @@ hr
   .column
     h2(style='font-size: medium;') User Reivews
     .rate average rating: #{movie[0].imdbRating}/10
-    .movieimg(style='height:200px;') Review
+    if session.hasReview
+      .movieimg(style='height:200px;') Review
+        each rev in session.user.reviews
+          p users: #{rev.username}
+          p review: #{rev.review}
+          hr
+    else
+      .movieimg(style='height:200px;') Review
 
 .row
   .column
     h2(style='font-size: medium;') Write a Review:
-    form(method="POST" action='/reviewmovie/:movieid')
+    form(method="post" action='/reviewmovie/' + movName)
       .movieimg(style='height:200px;')
+        label(for='moviewreview')
         textarea(id="moviereview" name="moviereview" rows="9" cols="130")
         br
         button.btn(type='submit') Submit
