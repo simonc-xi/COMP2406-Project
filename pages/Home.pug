@@ -13,13 +13,15 @@ br
     a(href='/profile') Profile
   .searchBar
     if session.loggedin
-      form(method="GET" action="/searchMovie")
-        input#name(type='text' placeholder='Search Movie')
+      form(method="post" action="/movies")
+        label(for='movName')
+        input#movName(type='text' placeholder='Search Movie' name = 'movName')
         button#search(type='submit') Search
     else
-      form(method="GET" action="/searchMovie")
-        input#name(type='text' placeholder='Search Movie')
-        button#search(type='submit') Search
+      form(method="post" action="/movies")
+        label(for='movName')
+        input#movName(type='text' placeholder='Search Movie' name = 'movName')
+        button#search.btn(type='submit') Search
         button#sign(onclick = "window.location.href= 'http://localhost:3000/signin'" type='button') Sign in
 #movieInfo.mid-content
   h2 What to Watch

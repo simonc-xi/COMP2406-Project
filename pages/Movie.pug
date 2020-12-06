@@ -50,11 +50,12 @@ br
   if session.loggedin
     a(href='/profile') Profile
   .searchBar
-    form(method="GET" action="/searchMovie")
-      input#name(type='text' placeholder='Search Movie')
+    form(method="post" action="/movies")
+      label(for='movName')
+      input#movName(type='text' placeholder='Search Movie' name = 'movName')
       button(type='submit')
         i.fa.fa-search
-      
+
 hr
 .title
   h2 #{movie[0].Title}
@@ -73,25 +74,19 @@ hr
       a(href='http://localhost:3000/people/' + otherName[0]) #{otherName[0]}
     br
     p writer:
-    li
-      a(href='http://localhost:3000/people/' + writerName[0]) #{writerName[0]}
-    li
-      a(href='http://localhost:3000/people/' + writerName[1]) #{writerName[1]}
-    li
-      a(href='http://localhost:3000/people/' + writerName[2]) #{writerName[2]}
+    for name in writerName
+      li
+        a(href='http://localhost:3000/people/' + name) #{name}
     br
     p Actors:
-    li
-      a(href='http://localhost:3000/people/' + actorName[0]) #{actorName[0]}
-    li
-      a(href='http://localhost:3000/people/' + actorName[1]) #{actorName[1]}
-    li
-      a(href='http://localhost:3000/people/' + actorName[2]) #{actorName[2]}
+    for name in actorName
+      li
+        a(href='http://localhost:3000/people/' + name) #{name}
     br
     p Country: #{movie[0].Country}
     p Awards: #{movie[0].Awards}
     p Genres: #{movie[0].Genre}
-    form(method="POST" action= '/movies/' + movName)
+    form(method="post" action= '/movies/' + movName)
       button.btn(type='submit')  Add to Watchlist
 
 .row

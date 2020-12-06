@@ -7,24 +7,25 @@ br
   img(src='img/ilovem.jpg' alt='ilovem icion' width='150' height='80')
   hr
   a(href='http://localhost:3000') Home
-  a(href='#about') About
+  if session.loggedin
+    a(href='/profile') Profile
   .searchBar
   if session.loggedin
-    form(method="GET" action="/searchMovie")
-      input#name(type='text' placeholder='Search Movie')
+    form(method="post" action="/people")
+      label(for='peoName')
+      input#movName(type='text' placeholder='Search people' name = 'peoName')
       button#search(type='submit') Search
   else
-    form(method="GET" action="/searchMovie")
-      input#name(type='text' placeholder='Search Movie')
-      button#search(type='submit') Search
+    form(method="post" action="/people")
+      label(for='peoName')
+      input#movName(type='text' placeholder='Search people' name = 'peoName')
+      button#search.btn(type='submit') Search
       button#sign(onclick = "window.location.href= 'http://localhost:3000/signin'" type='button') Sign in
 hr
 .col
 .midcol
   .row
     h2  Name of Person: #{name}
-    .pic
-      p picture of the person
     p Discription of the person, ....
     h3 History
     a(href='movie')  Jumanji
@@ -32,5 +33,6 @@ hr
   .row
     h3  Collaborators
     p simon
-  button#subscribe(type='button') subscribe
+  form(method="post" action= '/people/' + movName)
+    button#subscribe(type='submit') subscribe
 .col

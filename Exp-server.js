@@ -56,6 +56,7 @@ function auth(req, res, next){
 app.get("/", getHome)
 app.get('/logOut', logOut);
 app.get("/movies/:mid", getMovie);
+//app.get("/movies", searchMovie, getMovie);
 app.get("/other", getOther);
 app.get("/people/:uid", getPeople);
 //app.get("/people/:person", getPerson);
@@ -67,9 +68,11 @@ app.get("/img/ilovemb.jpg", getBackgroundImg);
 app.get("/movies/img/ilovemb.jpg", getBackgroundImg);
 app.get("/users/img/ilovemb.jpg", getBackgroundImg);
 
+app.post("/movies", searchMovie, getMovie);
+app.post("/people", searchPeople, getPeople);
 app.post('/signUpUser', signUpUser, logInUser);
 app.post('/logInUser', logInUser);
-app.post("/moives/:mid", auth, addWatchList, getMovie);
+app.post("/movies/:mid", auth, addWatchList, getMovie);
 
 //check the cookie been create
 app.use('/', function(req, res, next){
@@ -83,26 +86,49 @@ function getHome(req, res, next){
   let movArr = model.getRanMovie();
   let movName = movArr[0].Title;
 
-  console.log(req.name);
+  console.log(req.movName);
   console.log(movArr[0].Title);
   console.log(movArr[0].poster);
   let data = renderHome({movie: movArr, name: movName, session: req.session});
   res.status(200).send(data);
 }
 
+function searchMovie(req, res, next){
+  console.log("inside search movie");
+  console.log(JSON.stringify(req.body));
+  db.collection("Movies").find({Title:req.body.movName}).toArray(function(err,result){
+    if(err){
+      res.status(500).send("Error Reading Database");
+      return;
+    }
+    if(result.length<1||result==undefined){
+      res.send("Please enter the full name or correct name (Movie Name)");
+    }else{
+      res.redirect("/movies/" + req.body.movName);
+      //res.send("search content = " + req.body.movName);
+    }
+  });
+}
+
+function searchPeople(req, res, next){
+  console.log("inside search people");
+  console.log(JSON.stringify(req.body));
+  let result=model.searchPeople(req.body.peoName);
+  console.log(result);
+  if(result.length<1||result==undefined){
+      res.send("Please enter the correct name (People Name)");
+    }else{
+      res.redirect("/people/" + req.body.peoName);
+  }
+}
+
 
 //render the movie page  get
 function getMovie(req, res, next){
-  //console.log("id = "+ req.params.mid)
-
   let movArr = model.getMovie(req.params.mid);
-  //let testArr = JSON.stringify(movArr);
-  //console.log("movarr = " + testArr );
   let directorName = model.getNameArr(movArr[0].Director);
   let writerName = model.getNameArr(movArr[0].Writer);
   let actorName = model.getNameArr(movArr[0].Actors);
-  //console.log(movArr[0]);
-  //console.log(nameArr);
   let url = movArr[0].Poster;
   //let movName = getFirstStr(movArr[0].Title)
   let data = renderMovie({movie: movArr, link: url, session:req.session, movName: req.params.mid,
@@ -122,9 +148,11 @@ function getPeople(req, res, next){
 
 // add the movie to users watch List -post/subscribeMovie
 function addWatchList(req, res, next){
-  console.log(req.params.mid);
+  console.log("movie name = " + req.params.mid);
   //res.status(200).send("name = " + req.body.name);
   console.log(req.session);
+  req.session.hasMovies = true;
+  req.session.user.likedMovie.push(req.params.mid);
 
   next();
 }
@@ -199,7 +227,7 @@ app.get("/login", function(req, res, next){
 //render the home page
 app.get("/profile", function(req, res, next){
 
-  let data = renderProfile({user: req.session.user});
+  let data = renderProfile({user: req.session.user, session:req.session, movName:req.session.user.likedMovie});
   res.status(200).send(data);
 })
 
@@ -223,7 +251,7 @@ app.get("/login.js", function(req, res, next){
 
 //the post request for the log in function
 function logInUser(req, res, next){
-  console.log("username :" + req.body.username);
+  console.log("username :" + req.body);
   console.log("password : " + req.body.password);
 
   db.collection("Users").find({username:req.body.username,password:req.body.password}).toArray(function(err,result){
@@ -231,14 +259,11 @@ function logInUser(req, res, next){
       res.status(500).send("Error Reading Database");
       return;
     }
-    if(result>=1){
-      req.session.user = result[0].username;
-      req.session.loggedin = true;
-      res.status(200).redirect("/users/" + req.body.username);
-    }else if(model.authenticateUser(req.body.username, req.body.password)){
+    if(model.authenticateUser(req.body.username, req.body.password)){
         //they have logged in successfully
         req.session.user = model.users[req.body.username];
         req.session.loggedin = true;
+        req.session.hasMovies = false;
         res.status(200).redirect("/users/" + req.body.username);
     }else if(result.length<1||result==undefined){
       //they did not log in successfully.
@@ -258,8 +283,8 @@ function signUpUser(req, res, next){
       res.status(500).send("Error Reading Database");
       return;
     }
-    //console.log(result);
-    //console.log(result.length<1||result==undefined);
+
+
     if(result.length<1||result==undefined){
       let usernew= model.createUser(newUser);
       db.collection("Users").insertOne(usernew,function(err,result){
@@ -290,7 +315,7 @@ app.get("/users/:uid", auth,function(req, res, next){
   if(result == null){
     res.status(404).send("Unknown user")
   }else{
-    let data = renderProfile({user: result});
+    let data = renderProfile({user: result, session:req.session});
     res.status(200).send(data);
     return;
   }

@@ -81,15 +81,25 @@ img(src='img/ilovem.jpg' alt='ilovem icion' width='172' height='80')
   hr
   br
   br
-.row
-  .column
-    p(style='color:dodgerblue') Movie Reviews
-    .review
-      | Movie Title:
-      hr
-      p Review:
-.row
-  .column
-    p(style='color:dodgerblue') Following
-    .review
-      a(href='http://localhost:3000/others') People:
+  .row
+    .column
+      p(style='color:dodgerblue') Movie Reviews
+      .review
+        | Movie Title:
+        hr
+        p Review:
+  .row
+    .column
+      p(style='color:dodgerblue') Movie You Want To Watch
+      .review
+        p Movies:
+        if session.hasMovies
+          each mov in movName
+            li
+              a(href='http://localhost:3000/movies/' + mov) #{mov}
+
+  .row
+    .column
+      p(style='color:dodgerblue') Following
+      .review
+        a(href='http://localhost:3000/others') People:

@@ -297,6 +297,11 @@ function getMovie(name){
 
 }
 
+// Purpose : return the Director past work invovle
+function getPeopleMoivie(){
+  return;
+}
+
 
 
 
