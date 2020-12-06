@@ -4,7 +4,7 @@ This file include the different logic function, for creating new users, searchin
 movie, ect.
 */
 
-let users = require("./users.json");
+let users = require("./movie/users.json");
 let movies = require("./movie-data-short.json");
 
 
@@ -63,12 +63,24 @@ function getUser(requestingUser, userID){
     return null;
 }
 
-// Purpose : Return the first string that separate by the space
-function getFirstStr(str){
-  let arrStr = str.split(' ');
-  return arrStr;
+// Purpose : Return the first string that separate by the , then get the string before (
+// ex : Input : "John Lasseter (original story by), Pete Docter (original story by)"
+//      Output : ["John Lasseter", "Pete Docter"]
+function getNameArr(str){
+  let arrStr = str.split(',');
+  let nameArr = []
+  for(let i=0; i < arrStr.length; i++){
+    let name = arrStr[i].split('(')[0];
+    //check if the first string whetehr contains space bar
+    if(name[0] === ' '){
+      name = name.substring(1);
+    }
+    nameArr.push(name);
+  }
+  return nameArr;
 }
-//console.log(getFirstStr("Grumpier Old Men"));
+//console.log(getNameArr("John Lasseter (original story by), Pete Docter (original story by), Andrew Stanton (original story by), Joe Ranft (original story by), Joss Whedon (screenplay by), Andrew Stanton (screenplay by), Joel Cohen (screenplay by), Alec Sokolow (screenplay by)"));
+//console.log(getNameArr("Tom Hanks, Tim Allen, Don Rickles, Jim Varney"));
 
 
 /*
@@ -327,5 +339,5 @@ module.exports = {
   getMovie,
   upgradeAccount,
   createReview,
-  getFirstStr,
+  getNameArr,
 }
