@@ -70,6 +70,7 @@ app.get("/users/img/ilovemb.jpg", getBackgroundImg);
 
 app.post("/movies", searchMovie, getMovie);
 app.post("/people", searchPeople, getPeople);
+//app.post("/users", searchUser, getPeople);
 app.post('/signUpUser', signUpUser, logInUser);
 app.post('/logInUser', logInUser);
 app.post("/movies/:mid", auth, addWatchList, getMovie);
@@ -119,11 +120,23 @@ function searchPeople(req, res, next){
   let result=model.searchPeople(req.body.peoName);
   console.log(result);
   if(result.length<1||result==undefined){
-      res.send("Please enter the correct name (People Name)");
+      res.send("Please enter the full name or correct name (People Name)");
     }else{
       res.redirect("/people/" + req.body.peoName);
   }
 }
+/*
+function searchUser(req, res, next){
+  console.log("inside search user");
+  console.log(JSON.stringify(req.body));
+  let result=model.searchUsers(req.session.user,req.body.userName);
+  console.log(result);
+  if(result.length<1||result==undefined){
+      res.send("Please enter the full name or correct name (User Name)");
+    }else{
+      res.redirect("/users/" + req.body.userName);
+  }
+}*/
 
 
 //render the movie page  get

@@ -13,13 +13,13 @@ br
     if session.loggedin
       form(method="post" action="/people")
         label(for='peoName')
-        input#movName(type='text' placeholder='Search people' name = 'peoName')
-        button#search(type='submit') Search
+        input#movName(type='text' placeholder='Search full name' name = 'peoName')
+        button#search(type='submit') Search people
     else
       form(method="post" action="/people")
         label(for='peoName')
-        input#movName(type='text' placeholder='Search people' name = 'peoName')
-        button#search.btn(type='submit') Search
+        input#movName(type='text' placeholder='Search full name' name = 'peoName')
+        button#search.btn(type='submit') Search People
         button#sign(onclick = "window.location.href= 'http://localhost:3000/signin'" type='button') Sign in
 hr
 .col

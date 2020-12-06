@@ -216,27 +216,16 @@ return results;
 function searchPeople(peopleName){
   let results = [];
 
-  for(writer in movies){
-    let movieWriter = movies[writer];
-      if(movieWriter.Writer.includes(peopleName)){
-        results.push(movieWriter);
+    for(i in movies){
+      let moviepeople = movies[i];
+      if(moviepeople.Actors.includes(peopleName)){
+        results.push(moviepeople);
+      }else if(moviepeople.Actors.includes(peopleName)){
+        results.push(moviepeople);
+      }else if(moviepeople.Director.includes(peopleName)){
+        results.push(moviepeople);
       }
     }
-
-  for(actors in movies){
-    let movieActors = movies[actors];
-      if(movieActors.Actors.includes(peopleName)){
-        results.push(movieActors);
-      }
-    }
-
-  for(director in movies){
-    let movieDirector = movies[director];
-      if(movieDirector.Director.includes(peopleName)){
-        results.push(movieDirector);
-      }
-    }
-
   return results;
 }
 
@@ -312,20 +301,7 @@ let userC = createUser({username: "Li", password:"12345"});
 let userD = createUser({username: "Lulu", password: "12345"});
 let userB = createUser({username: "simon", password: "123"});
 
-//check
-//print the user after following
 
-/*
-//searching the movie by name
-console.log("Testing searchMoive");
-let result = searchMovie("Toy Story") //should print the movie info with the title Toy Story
-console.log(result);
-
-//Testing the people by name
-console.log("Testing searchPoeple");
-let results = searchPeople("John Lasseter") //should print this people's movie info and other related
-console.log(results);
-*/
 
 
 
