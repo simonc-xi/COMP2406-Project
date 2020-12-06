@@ -47,15 +47,26 @@ app.use(express.json());
 
 function auth(req, res, next){
   if(!req.session.user){
-    res.status(403).send(" You need to logged in to view");
+    res.status(403).send(" You need to logged in to do this request");
     return;
   }
   next();
 }
 
+app.get("/", getHome)
 app.get('/logOut', logOut);
-app.get("/movie/:mid", getMovie);
+app.get("/movies/:mid", getMovie);
+//app.get("/movies", searchMovie, getMovie);
 app.get("/other", getOther);
+app.get("/people/:uid", getPeople);
+//app.get("/people/:person", getPerson);
+app.get("/img/ilovem.jpg", getImg);
+app.get("/movies/img/ilovem.jpg", getImg);
+app.get("/users/img/ilovem.jpg", getImg);
+app.get("/people/img/ilovem.jpg", getImg);
+app.get("/img/ilovemb.jpg", getBackgroundImg);
+app.get("/movies/img/ilovemb.jpg", getBackgroundImg);
+app.get("/users/img/ilovemb.jpg", getBackgroundImg);
 
 app.post("/movies", searchMovie, getMovie);
 app.post("/people", searchPeople, getPeople);
@@ -71,7 +82,7 @@ app.use('/', function(req, res, next){
 
 
 //render the home page
-app.get("/", function(req, res, next){
+function getHome(req, res, next){
   let movArr = model.getRanMovie();
   let movName = movArr[0].Title;
 
@@ -80,7 +91,7 @@ app.get("/", function(req, res, next){
   console.log(movArr[0].poster);
   let data = renderHome({movie: movArr, name: movName, session: req.session});
   res.status(200).send(data);
-})
+}
 
 function searchMovie(req, res, next){
   console.log("inside search movie");
@@ -120,7 +131,18 @@ function getMovie(req, res, next){
   let actorName = model.getNameArr(movArr[0].Actors);
   let url = movArr[0].Poster;
   //let movName = getFirstStr(movArr[0].Title)
-  let data = renderMovie({movie: movArr, link: url, session:req.session, movName: movArr[0].Title});
+  let data = renderMovie({movie: movArr, link: url, session:req.session, movName: req.params.mid,
+                          otherName: directorName, writerName: writerName, actorName: actorName});
+  res.status(200).send(data);
+}
+
+// render people page
+function getPeople(req, res, next){
+  let name = req.params.uid;
+  console.log(name);
+  console.log(req.session);
+
+  let data = renderView({name:name, session:req.session});
   res.status(200).send(data);
 }
 
@@ -135,10 +157,32 @@ function addWatchList(req, res, next){
   next();
 }
 
-function getOther(req, res, next){
 
-  let data = renderOther();
+function getOther(req, res, next){
+  console.log("in");
+  console.log(req.session);
+  let data = renderOther({session:req.session});
   res.status(200).send(data);
+}
+
+function getImg(req, res, next){
+  fs.readFile("img/ilovem.jpg", function(err, data){
+    if(err){
+      res.status(500).send("Unknown resources");
+      return;
+    }
+      res.status(200).send(data);
+  });
+}
+
+function getBackgroundImg(req, res, next){
+  fs.readFile("img/ilovemb.jpg", function(err, data){
+    if(err){
+      res.status(500).send("Unknown resources");
+      return;
+    }
+      res.status(200).send(data);
+  });
 }
 
 // Homepage JS function
@@ -188,85 +232,10 @@ app.get("/profile", function(req, res, next){
 })
 
 
-
-
 //render the movie
 app.get("/view", function(req, res, next){
   let data = renderView();
   res.status(200).send(data);
-})
-
-
-app.get("/img/ilovem.jpg", function(req, res, next){
-  fs.readFile("img/ilovem.jpg", function(err, data){
-    if(err){
-      res.status(500).send("Unknown resources");
-      return;
-    }
-      res.status(200).send(data);
-  });
-})
-
-app.get("/img/ilovemb.jpg", function(req, res, next){
-  fs.readFile("img/ilovemb.jpg", function(err, data){
-    if(err){
-      res.status(500).send("Unknown resources");
-      return;
-    }
-      res.status(200).send(data);
-  });
-})
-
-app.get("/movie/img/ilovem.jpg", function(req, res, next){
-  fs.readFile("img/ilovem.jpg", function(err, data){
-    if(err){
-      res.status(500).send("Unknown resources");
-      return;
-    }
-      res.status(200).send(data);
-  });
-})
-
-
-app.get("/users/img/ilovem.jpg", function(req, res, next){
-  fs.readFile("img/ilovem.jpg", function(err, data){
-    if(err){
-      res.status(500).send("Unknown resources");
-      return;
-    }
-      res.status(200).send(data);
-  });
-})
-
-
-app.get("/img/ilovemb.jpg", function(req, res, next){
-  fs.readFile("img/ilovemb.jpg", function(err, data){
-    if(err){
-      res.status(500).send("Unknown resources");
-      return;
-    }
-      res.status(200).send(data);
-  });
-})
-
-app.get("/users/ilovemb.jpg", function(req, res, next){
-  fs.readFile("img/ilovemb.jpg", function(err, data){
-    if(err){
-      res.status(500).send("Unknown resources");
-      return;
-    }
-      res.status(200).send(data);
-  });
-})
-
-app.get("/movie/img/ilovemb.jpg", function(req, res, next){
-  fs.readFile("img/ilovemb.jpg", function(err, data){
-    if(err){
-      res.status(500).send("Unknown resources");
-      return;
-    }
-      res.status(200).send(data);
-  });
 })
 
 app.get("/login.js", function(req, res, next){
@@ -278,6 +247,7 @@ app.get("/login.js", function(req, res, next){
       res.status(200).send(data);
   });
 })
+
 
 //the post request for the log in function
 function logInUser(req, res, next){
@@ -300,16 +270,7 @@ function logInUser(req, res, next){
       res.status(401).send("You enter the wrong username or password. Please Try agian");
     }
     next();
-  });/*
-  if(model.authenticateUser(req.body.username, req.body.password)){
-    //they have logged in successfully
-    req.session.user = model.users[req.body.username];
-    req.session.loggedin = true;
-    res.status(200).redirect("/users/" + req.body.username);
-  }else{
-    //they did not log in successfully.
-    res.status(401).send("You enter the wrong username or password. Please Try agian");
-  }*/
+  });
 }
 
 //the post request for the sign up function
@@ -344,13 +305,12 @@ function logOut(req, res){
   res.redirect('/login');
 }
 
-//???????????????????????????????????
+
 //2. get request for the Reading a user (getUser), input the uid to get the user information
 app.get("/users/:uid", auth,function(req, res, next){
   console.log("Getting user with name: " + req.params.uid);
   console.log("req.session.user = " + req.session.user);
   //let requestUser = model.users[req.params.uid];
-
   let result = model.getUser(req.session.user, req.params.uid);
   if(result == null){
     res.status(404).send("Unknown user")
@@ -359,21 +319,6 @@ app.get("/users/:uid", auth,function(req, res, next){
     res.status(200).send(data);
     return;
   }
-  /*
-  db.collection("Users").find({username:req.session.user}).toArray(function(err,result){
-    if(err){
-      res.status(500).send("Error Reading Database");
-      return;
-    }
-    let results = model.getUser(req.session.user, req.params.uid);
-    if(result == null){
-      res.status(404).send("Unknown user")
-    }else{
-      let data = renderProfile({user: result});
-      res.status(200).send(data);
-      return;
-    }
-  });*/
 })
 
 
@@ -478,6 +423,7 @@ mc.connect("mongodb://localhost:27017", function(err, client){
 		console.log(result);
 	});
   app.listen(3000);
+  console.log("Server listening on port 3000");
 
 
 })
