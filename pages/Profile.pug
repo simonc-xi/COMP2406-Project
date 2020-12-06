@@ -102,4 +102,8 @@ img(src='img/ilovem.jpg' alt='ilovem icion' width='172' height='80')
     .column
       p(style='color:dodgerblue') Following
       .review
-        a(href='http://localhost:3000/others') People:
+        p People:
+        if session.hasSubscribe
+          each name in subName
+            li
+              a(href='http://localhost:3000/people/' + name) #{name}

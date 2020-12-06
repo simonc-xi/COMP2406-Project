@@ -73,12 +73,15 @@ app.post("/people", searchPeople, getPeople);
 app.post('/signUpUser', signUpUser, logInUser);
 app.post('/logInUser', logInUser);
 app.post("/movies/:mid", auth, addWatchList, getMovie);
+app.post("/subscribe/:pid", subscribePeo, getPeople);
 
 //check the cookie been create
 app.use('/', function(req, res, next){
   console.log(req.session);
   next()
 })
+
+
 
 
 //render the home page
@@ -139,7 +142,7 @@ function getMovie(req, res, next){
 // render people page
 function getPeople(req, res, next){
   let name = req.params.uid;
-  console.log(name);
+  console.log("people name = " + name);
   console.log(req.session);
 
   let data = renderView({name:name, session:req.session});
@@ -155,6 +158,16 @@ function addWatchList(req, res, next){
   req.session.user.likedMovie.push(req.params.mid);
 
   next();
+}
+
+function subscribePeo(req, res,next){
+  console.log("sub - people name = " + req.params.pid);
+  //res.status(200).send("name = " + req.body.name);
+  //console.log(req.session);
+  req.session.hasSubscribe = true;
+  req.session.user.following.push(req.params.pid);
+
+  res.status(200).redirect("/people/" + req.params.pid);
 }
 
 
@@ -227,7 +240,8 @@ app.get("/login", function(req, res, next){
 //render the home page
 app.get("/profile", function(req, res, next){
 
-  let data = renderProfile({user: req.session.user, session:req.session, movName:req.session.user.likedMovie});
+  let data = renderProfile({user: req.session.user, session:req.session, movName:req.session.user.likedMovie,
+                              subName:req.session.user.following });
   res.status(200).send(data);
 })
 
@@ -264,6 +278,7 @@ function logInUser(req, res, next){
         req.session.user = model.users[req.body.username];
         req.session.loggedin = true;
         req.session.hasMovies = false;
+        req.session.hasSubscribe = false;
         res.status(200).redirect("/users/" + req.body.username);
     }else if(result.length<1||result==undefined){
       //they did not log in successfully.
@@ -356,19 +371,7 @@ app.get("/SearchPeople", function(req, res, next){
   res.status(200).json(result);
 })
 
-//6. Making a subscribe (makeSubscribe) -Post /users
-app.post("/SubscibeUsers/:uid", function(req, res, next){
-  console.log("req.params.uid = " + req.params.uid);
-  let result = model.makeSubscribe(req.session.user.username, req.params.uid);
-  console.log("result = "+ result);
-  if(result == 0){
-    res.status(500).send("The user does not exist");
-  }else if (result == 1){
-    res.status(500).send("The user is already in your following");
-  }else{
-    res.status(200).send("User added: " + JSON.stringify(req.params.uid));
-  }
-})
+
 
 //7. Recommend Movie (getRecMovie) -GET /movies
 app.get("/Recmovies", function(req, res, next){
