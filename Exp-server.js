@@ -56,7 +56,6 @@ function auth(req, res, next){
 app.get("/", getHome)
 app.get('/logOut', logOut);
 app.get("/movies/:mid", getMovie);
-//app.get("/movies", searchMovie, getMovie);
 app.get("/other", getOther);
 app.get("/people/:uid", getPeople);
 //app.get("/people/:person", getPerson);
@@ -321,7 +320,7 @@ app.get("/users/:uid", auth,function(req, res, next){
   }
 })
 
-
+/*
 //3. Searching for users (searchUsers),
 app.get("/users", function(req, res, next){
   console.log (req.query.name);
@@ -355,7 +354,7 @@ app.get("/SearchPeople", function(req, res, next){
   let result =model.searchPeople(req.session.user, req.query.name);
   res.status(200).json(result);
 })
-
+*/
 //6. Making a subscribe (makeSubscribe) -Post /users
 app.post("/SubscibeUsers/:uid", function(req, res, next){
   console.log("req.params.uid = " + req.params.uid);
