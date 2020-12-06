@@ -83,6 +83,7 @@ function getHome(req, res, next){
   let movArr = model.getRanMovie();
   let movName = movArr[0].Title;
 
+  console.log(req.name);
   console.log(movArr[0].Title);
   console.log(movArr[0].poster);
   let data = renderHome({movie: movArr, name: movName, session: req.session});
@@ -92,7 +93,7 @@ function getHome(req, res, next){
 
 //render the movie page  get
 function getMovie(req, res, next){
-  console.log("id = "+ req.params.mid)
+  //console.log("id = "+ req.params.mid)
 
   let movArr = model.getMovie(req.params.mid);
   //let testArr = JSON.stringify(movArr);
@@ -100,7 +101,7 @@ function getMovie(req, res, next){
   let directorName = model.getNameArr(movArr[0].Director);
   let writerName = model.getNameArr(movArr[0].Writer);
   let actorName = model.getNameArr(movArr[0].Actors);
-  //console.log(nameArr[0]);
+  //console.log(movArr[0]);
   //console.log(nameArr);
   let url = movArr[0].Poster;
   //let movName = getFirstStr(movArr[0].Title)
@@ -113,9 +114,9 @@ function getMovie(req, res, next){
 function getPeople(req, res, next){
   let name = req.params.uid;
   console.log(name);
+  console.log(req.session);
 
-
-  let data = renderView({name: name});
+  let data = renderView({name:name, session:req.session});
   res.status(200).send(data);
 }
 
@@ -130,8 +131,9 @@ function addWatchList(req, res, next){
 
 
 function getOther(req, res, next){
-
-  let data = renderOther();
+  console.log("in");
+  console.log(req.session);
+  let data = renderOther({session:req.session});
   res.status(200).send(data);
 }
 
@@ -191,7 +193,7 @@ app.get("/signin", function(req, res, next){
 
 app.get("/login", function(req, res, next){
   let data = renderLogin("./pages/login.pug",{session:req.session})
-  res.status(200).send(data); 
+  res.status(200).send(data);
 })
 
 //render the home page
@@ -218,7 +220,7 @@ app.get("/login.js", function(req, res, next){
   });
 })
 
-//无法读取
+
 //the post request for the log in function
 function logInUser(req, res, next){
   console.log("username :" + req.body.username);
@@ -250,14 +252,14 @@ function logInUser(req, res, next){
 function signUpUser(req, res, next){
   console.log("signUpUser function");
   let newUser =req.body;
-  
+
   db.collection("Users").find({username:newUser.username}).toArray(function(err,result){
     if(err){
       res.status(500).send("Error Reading Database");
       return;
     }
-    console.log(result);
-    console.log(result.length<1||result==undefined);
+    //console.log(result);
+    //console.log(result.length<1||result==undefined);
     if(result.length<1||result==undefined){
       let usernew= model.createUser(newUser);
       db.collection("Users").insertOne(usernew,function(err,result){

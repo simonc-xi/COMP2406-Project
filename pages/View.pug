@@ -9,9 +9,15 @@ br
   a(href='http://localhost:3000') Home
   a(href='#about') About
   .searchBar
-    input#name(type='text' placeholder='Search Movie')
-    button#search(type='button') Search
-    button#sign(type='button') Sign in
+  if session.loggedin
+    form(method="GET" action="/searchMovie")
+      input#name(type='text' placeholder='Search Movie')
+      button#search(type='submit') Search
+  else
+    form(method="GET" action="/searchMovie")
+      input#name(type='text' placeholder='Search Movie')
+      button#search(type='submit') Search
+      button#sign(onclick = "window.location.href= 'http://localhost:3000/signin'" type='button') Sign in
 hr
 .col
 .midcol

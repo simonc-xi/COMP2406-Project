@@ -50,9 +50,11 @@ br
   if session.loggedin
     a(href='/profile') Profile
   .searchBar
-    input#name(type='text' placeholder='Search Movie')
-    button(type='submit')
-      i.fa.fa-search
+    form(method="GET" action="/searchMovie")
+      input#name(type='text' placeholder='Search Movie')
+      button(type='submit')
+        i.fa.fa-search
+      
 hr
 .title
   h2 #{movie[0].Title}
