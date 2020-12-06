@@ -322,15 +322,13 @@ app.get("/users/:uid", auth,function(req, res, next){
       return;
     }
     let results = model.getUser(req.session.user, req.params.uid);
-    if((result.length<1)||(result==undefined)){
-      res.status(404).send("Unknown user");
-    }/*
-    else if(results == null){
-      res.status(404).send("Unknown user");
-    }*/else{
+    if((results != null)||((result.length>0)||(result!=undefined))){
       let data = renderProfile({user: results});
       res.status(200).send(data);
       return;
+    }
+    else{
+      res.status(404).send("Unknown user");
     }
   });
 })
