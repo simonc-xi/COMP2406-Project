@@ -55,4 +55,4 @@
 5. How to run the server on OpenStack instance
 	1. cd COMP2406_finalProject
 	2. /home/student/COMP2406_finalProject
-	3. node Exp-server.js
+	3. node movie-server.js
