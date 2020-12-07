@@ -123,3 +123,8 @@ img(src='img/ilovem.jpg' alt='ilovem icion' width='172' height='80')
           each name in subName
             ul
               a(href='http://localhost:3000/people/' + name) #{name}
+        p Others:
+        if session.hasSubOthers
+          each name in subOtherName
+            ul
+              a(href='http://localhost:3000/other/' + name) #{name}

@@ -4,12 +4,11 @@ This file include the different logic function, for creating new users, searchin
 movie, ect.
 */
 
-let users = require("./movie/users.json");
+let users = require("./Movie/users.json");
 let movies = require("./Movie/movie-data.json");
 
 
-//create the user with all the defult value
-//input the new users information
+// Purpose: Create the user with all the defult value; Input: newUser - object; output: object
 function createUser(newUser){
         if(!newUser.username || !newUser.password){
             return null;
@@ -25,13 +24,14 @@ function createUser(newUser){
         newUser.reviews = [];
         newUser.following = [];
         newUser.likedMovie = [];
+        newUser.followOther = [];
         users[newUser.username] = newUser;
 
         return users[newUser.username];
 }
 
 
-//check the user is valid form or not.
+// Purpose: Check the user enter whether valid .
 function isValidUser(userObj){
   if(!userObj){
     return false;
@@ -42,11 +42,12 @@ function isValidUser(userObj){
   return true;
 }
 
+// Purpose: Check whether is authenticateUser
 function authenticateUser(username, password){
   return users.hasOwnProperty(username) && users[username].password == password;
 }
 
-//get the user infor by given input username,
+// Purpose: Get the user infor by given input username,
 function getUser(requestingUser, userID){
     //If the requesting user is invalid
     if(!isValidUser(requestingUser)){
@@ -64,8 +65,8 @@ function getUser(requestingUser, userID){
 }
 
 // Purpose : Return the first string that separate by the , then get the string before (
-// ex : Input : "John Lasseter (original story by), Pete Docter (original story by)"
-//      Output : ["John Lasseter", "Pete Docter"]
+// Input : "John Lasseter (original story by), Pete Docter (original story by)"
+// Output : ["John Lasseter", "Pete Docter"]
 function getNameArr(str){
   let arrStr = str.split(',');
   let nameArr = []
@@ -79,35 +80,25 @@ function getNameArr(str){
   }
   return nameArr;
 }
-//console.log(getNameArr("John Lasseter (original story by), Pete Docter (original story by), Andrew Stanton (original story by), Joe Ranft (original story by), Joss Whedon (screenplay by), Andrew Stanton (screenplay by), Joel Cohen (screenplay by), Alec Sokolow (screenplay by)"));
-//console.log(getNameArr("Tom Hanks, Tim Allen, Don Rickles, Jim Varney"));
 
 
 /*
-Purpose : Recommand some movies to the user homepage with in the section of recommand Movies
-Throug the input parameter of the user, we can get its liked movie. from the user liked movie,
-we can get general types of movie that users will liked , then we can generated an objects of
-movieArr that contains some similar types movies to the users. if the users does not have any
-like movie, we will juest randomlize choose some movies to the users.
-
-
-input:    1. The movie database that stores all the movies
-          2. The specific user ,where we can get its liked movie.
-          3. The current number
-
-outputs:
-          a movies arrary object that contains some movies informaion
+Purpose : Return an array of Recommand movies
+Input:    1. movie title - string
+Outputs: movie arrary
 */
 
 function getRecMovie(movie){
   let movieArr = getMovie(movie);
   let recMovie = [];
   let length = 0;
+
+  // get 4 movies into array
   for(i in movies){
     if (length == 4){
       return recMovie;
     }
-
+    // get same Country and Rated title movie
     if(movies[i].Country == movieArr[0].Country
       && movies[i].Rated == movieArr[0].Rated
     && movies[i].Title != movieArr[0].Title){
@@ -121,8 +112,8 @@ function getRecMovie(movie){
 
 
 /*
-input: user - who want to subscribe, and the people who has been subscribed by other
-output: NULL - not found the user, 2 - user already in the following, 3-add succesful
+Input: user - who want to subscribe, and the people who has been subscribed by other
+Output: NULL - not found the user, 2 - user already in the following, 3-add succesful
 */
 function makeSubscribe(user, people){
     console.log("!"+user + ".hasOwnProperty("+people+ " = " +  !users.hasOwnProperty(people));
@@ -147,7 +138,7 @@ function makeSubscribe(user, people){
 
 }
 
-//search the user
+// Purpose: search the user
 function searchUsers(requestingUser, searchTerm){
     let results = [];
 
@@ -173,7 +164,7 @@ function searchUsers(requestingUser, searchTerm){
 }
 
 
-//search Movie Title
+//Purpose: search Movie Title
 function searchMovie(movieName){
   let results = [];
 
@@ -206,7 +197,7 @@ function searchPeople(peopleName){
   return results;
 }
 
-//change the account level
+// Purpose: Change the account level
 function upgradeAccount(requestingUser){
 
     if(!isValidUser(requestingUser)){
@@ -224,14 +215,8 @@ function upgradeAccount(requestingUser){
     return users[requestingUser.accountLevel];
 }
 
-
 function createReview(requestingUser, title, newR){
   //Verify the contents of the question and we should verify the user
-
-  /*
-  if(!isValidUser(requestingUser)){
-    return null;
-  }*/
   let reviewArr = [];
 
   reviewArr.push(title);
@@ -241,6 +226,7 @@ function createReview(requestingUser, title, newR){
 
   return newR;
 }
+
 // Purpose : generated random movie on the Homepage if the user haven't login
 function getRanMovie(){
   let movArr =[];
@@ -263,24 +249,11 @@ function getMovie(name){
 
 }
 
-// Purpose : return the Director past work invovle
-function getPeopleMoivie(){
-  return;
-}
-
-
-
-
-
 console.log("Creating some users");
 let userA = createUser({username: "Sop", password: "12345"});
 let userC = createUser({username: "Li", password:"12345"});
 let userD = createUser({username: "Lulu", password: "12345"});
 let userB = createUser({username: "simon", password: "123"});
-
-
-
-
 
 module.exports = {
   users,

@@ -29,6 +29,7 @@ Function our business logic currently supports:
 9. Upgrade the Account level (upgradeAccount) - Post /users
 10. Posting a new Review for movie (createReview) -Post /users
 */
+
 //user pug functrion to render through the login Page
 const renderLogin = pug.compileFile('pages/login.pug');
 const renderHome = pug.compileFile('pages/Home.pug');
@@ -39,11 +40,7 @@ const renderView = pug.compileFile('pages/View.pug');
 const renderOther = pug.compileFile('pages/Other.pug');
 
 app.use(express.static("stylesheets"));
-
-
 app.use(express.json());
-
-
 
 function auth(req, res, next){
   if(!req.session.user){
@@ -56,50 +53,46 @@ function auth(req, res, next){
 app.get("/", getHome)
 app.get('/logOut', logOut);
 app.get("/movies/:mid", getMovie);
-//app.get("/movies", searchMovie, getMovie);
 app.get("/other", getOther);
+app.get("/other/:uid",getOther);
 app.get("/people/:uid", getPeople);
-//app.get("/people/:person", getPerson);
+
+// provide logo and background images
 app.get("/img/ilovem.jpg", getImg);
 app.get("/movies/img/ilovem.jpg", getImg);
 app.get("/users/img/ilovem.jpg", getImg);
 app.get("/people/img/ilovem.jpg", getImg);
+app.get("/other/img/ilovem.jpg", getImg);
 app.get("/img/ilovemb.jpg", getBackgroundImg);
 app.get("/movies/img/ilovemb.jpg", getBackgroundImg);
 app.get("/users/img/ilovemb.jpg", getBackgroundImg);
+app.get("/other/img/ilovemb.jpg", getBackgroundImg);
 
 app.post("/movies", searchMovie, getMovie);
 app.post("/people", searchPeople, getPeople);
-//app.post("/users", searchUser, getPeople);
+app.post("/other", searchUser, getOther);
 app.post('/signUpUser', signUpUser, logInUser);
 app.post('/logInUser', logInUser);
 app.post("/movies/:mid", auth, addWatchList, getMovie);
-app.post("/subscribe/:pid", subscribePeo, getPeople);
+app.post("/subscribe/:pid", auth, subscribePeo, getPeople);
+app.post("/reviewmovie/:mid", auth, makeReview);
 
 //check the cookie been create
 app.use('/', function(req, res, next){
-  console.log(req.session);
+  //console.log(req.session);
   next()
 })
-
-
-
 
 //render the home page
 function getHome(req, res, next){
   let movArr = model.getRanMovie();
   let movName = movArr[0].Title;
-
-  console.log(req.movName);
-  console.log(movArr[0].Title);
-  console.log(movArr[0].poster);
   let data = renderHome({movie: movArr, name: movName, session: req.session});
   res.status(200).send(data);
 }
 
 function searchMovie(req, res, next){
-  console.log("inside search movie");
-  console.log(JSON.stringify(req.body));
+
   db.collection("Movies").find({Title:req.body.movName}).toArray(function(err,result){
     if(err){
       res.status(500).send("Error Reading Database");
@@ -109,64 +102,82 @@ function searchMovie(req, res, next){
       res.send("Please enter the full name or correct name (Movie Name)");
     }else{
       res.redirect("/movies/" + req.body.movName);
-      //res.send("search content = " + req.body.movName);
     }
   });
 }
 
 function searchPeople(req, res, next){
-  console.log("inside search people");
-  console.log(JSON.stringify(req.body));
   let result=model.searchPeople(req.body.peoName);
-  console.log(result);
+
   if(result.length<1||result==undefined){
-      res.send("Please enter the full name or correct name (People Name)");
+      res.send("Please enter the correct name (People Name)");
     }else{
       res.redirect("/people/" + req.body.peoName);
   }
 }
-/*
+
 function searchUser(req, res, next){
-  console.log("inside search user");
-  console.log(JSON.stringify(req.body));
-  let result=model.searchUsers(req.session.user,req.body.userName);
-  console.log(result);
-  if(result.length<1||result==undefined){
-      res.send("Please enter the full name or correct name (User Name)");
+  db.collection("Users").find({username:req.body.userName}).toArray(function(err,result){
+    if(err){
+      res.status(500).send("Error Reading Database");
+      return;
+    }
+    if(result.length<1||result==undefined){
+      res.send("Please enter the full name or correct name (Users Name)");
     }else{
-      res.redirect("/users/" + req.body.userName);
-  }
-}*/
+      res.redirect("/other/" + req.body.userName);
+    }
+  });
+}
 
-
-//render the movie page  get
+//render the movie page
 function getMovie(req, res, next){
   let movArr = model.getMovie(req.params.mid);
   let directorName = model.getNameArr(movArr[0].Director);
   let writerName = model.getNameArr(movArr[0].Writer);
   let actorName = model.getNameArr(movArr[0].Actors);
   let url = movArr[0].Poster;
-  //let movName = getFirstStr(movArr[0].Title)
+  let recMovie = model.getRecMovie(req.params.mid);
+
   let data = renderMovie({movie: movArr, link: url, session:req.session, movName: req.params.mid,
-                          otherName: directorName, writerName: writerName, actorName: actorName});
+                          otherName: directorName, writerName: writerName, actorName: actorName,
+                        recMovie: recMovie});
   res.status(200).send(data);
 }
 
 // render people page
 function getPeople(req, res, next){
   let name = req.params.uid;
-  console.log("people name = " + name);
-  console.log(req.session);
 
-  let data = renderView({name:name, session:req.session});
-  res.status(200).send(data);
+  db.collection("Movies").find({$or:[{Writer:{$eq:name}}, {Director: {$eq:name}}, {Actors: {$eq:name}}]}).toArray(function(err,result){
+		if(err) throw err;
+    if(result.length < 1 || result == undefined){
+      //empty
+      res.redirect("/");
+      return;
+    }
+    let writerName = model.getNameArr(result[0].Writer);
+    let data = renderView({name:name, session:req.session, movie:result, writerName:writerName});
+    res.status(200).send(data);
+	});
+}
+
+function getOther(req, res, next){
+  let name = req.params.uid;
+
+  req.session.hasSubOthers = true;
+  req.session.user.followOther.push(req.params.uid);
+
+  db.collection("Users").find({username:req.params.uid}).toArray(function(err,result){
+    if(err) throw err;
+
+    let data = renderOther({name:name,session:req.session});
+    res.status(200).send(data);
+        });
 }
 
 // add the movie to users watch List -post/subscribeMovie
 function addWatchList(req, res, next){
-  console.log("movie name = " + req.params.mid);
-  //res.status(200).send("name = " + req.body.name);
-  console.log(req.session);
   req.session.hasMovies = true;
   req.session.user.likedMovie.push(req.params.mid);
 
@@ -174,23 +185,27 @@ function addWatchList(req, res, next){
 }
 
 function subscribePeo(req, res,next){
-  console.log("sub - people name = " + req.params.pid);
-  //res.status(200).send("name = " + req.body.name);
-  //console.log(req.session);
+  if(req.session.user.following.includes(req.params.pid)){
+    res.status(200).redirect("/people/" + req.params.pid);
+    return;
+  }
   req.session.hasSubscribe = true;
   req.session.user.following.push(req.params.pid);
 
   res.status(200).redirect("/people/" + req.params.pid);
 }
 
+//Purpose : add review to the user profile page and movie page
+function makeReview(req, res, next){
+    let movName = req.params.mid;
+    let review = {username: req.session.user.username, movName :movName , review: req.body.moviereview}
 
-function getOther(req, res, next){
-  console.log("in");
-  console.log(req.session);
-  let data = renderOther({session:req.session});
-  res.status(200).send(data);
+    req.session.hasReview = true;
+    req.session.user.reviews.push(review);
+    res.status(200).redirect("/movies/" + req.params.mid);
 }
 
+// serve logo image
 function getImg(req, res, next){
   fs.readFile("img/ilovem.jpg", function(err, data){
     if(err){
@@ -201,6 +216,7 @@ function getImg(req, res, next){
   });
 }
 
+// serve background image
 function getBackgroundImg(req, res, next){
   fs.readFile("img/ilovemb.jpg", function(err, data){
     if(err){
@@ -250,11 +266,12 @@ app.get("/login", function(req, res, next){
   res.status(200).send(data);
 })
 
-//render the home page
+//render the profile page
 app.get("/profile", function(req, res, next){
 
   let data = renderProfile({user: req.session.user, session:req.session, movName:req.session.user.likedMovie,
-                              subName:req.session.user.following });
+                              subName:req.session.user.following , review: req.session.user.reviews,
+                            subOtherName:req.session.user.followOther});
   res.status(200).send(data);
 })
 
@@ -278,8 +295,6 @@ app.get("/login.js", function(req, res, next){
 
 //the post request for the log in function
 function logInUser(req, res, next){
-  console.log("username :" + req.body);
-  console.log("password : " + req.body.password);
 
   db.collection("Users").find({username:req.body.username,password:req.body.password}).toArray(function(err,result){
     if(err){
@@ -291,7 +306,9 @@ function logInUser(req, res, next){
         req.session.user = model.users[req.body.username];
         req.session.loggedin = true;
         req.session.hasMovies = false;
+        req.session.hasReview = false;
         req.session.hasSubscribe = false;
+        req.session.hasSubOthers = false;
         res.status(200).redirect("/users/" + req.body.username);
     }else if(result.length<1||result==undefined){
       //they did not log in successfully.
@@ -303,7 +320,6 @@ function logInUser(req, res, next){
 
 //the post request for the sign up function
 function signUpUser(req, res, next){
-  console.log("signUpUser function");
   let newUser =req.body;
 
   db.collection("Users").find({username:newUser.username}).toArray(function(err,result){
@@ -336,9 +352,6 @@ function logOut(req, res){
 
 //2. get request for the Reading a user (getUser), input the uid to get the user information
 app.get("/users/:uid", auth,function(req, res, next){
-  console.log("Getting user with name: " + req.params.uid);
-  console.log("req.session.user = " + req.session.user);
-  //let requestUser = model.users[req.params.uid];
   let result = model.getUser(req.session.user, req.params.uid);
   if(result == null){
     res.status(404).send("Unknown user")
@@ -352,7 +365,7 @@ app.get("/users/:uid", auth,function(req, res, next){
 
 //3. Searching for users (searchUsers),
 app.get("/users", function(req, res, next){
-  console.log (req.query.name);
+
   if(req.query.name==undefined){
     req.query.name="";
   }
@@ -363,7 +376,7 @@ app.get("/users", function(req, res, next){
 
 //4. Searching for moive (searchMovie),
 app.post("/SearchMovie", function(req, res, next){
-  console.log (req.query.name);
+
   if(req.query.title==undefined){
     req.query.title="";
   }
@@ -376,7 +389,7 @@ app.post("/SearchMovie", function(req, res, next){
 
 //5. Searching for People (searchPeople),
 app.get("/SearchPeople", function(req, res, next){
-  console.log (req.query.title);
+
   if(req.query.name==undefined){
     req.query.name="";
   }
@@ -384,24 +397,9 @@ app.get("/SearchPeople", function(req, res, next){
   res.status(200).json(result);
 })
 
-
-
-//7. Recommend Movie (getRecMovie) -GET /movies
-app.get("/Recmovies", function(req, res, next){
-  console.log (req.query.title);
-  if(req.query.name==undefined){
-    req.query.name="";
-  }
-  let recMovies =model.getRecMovie(model.movies, req.query.name);
-  res.status(200).json(result);
-})
-
 //9. Upgrade the Account level (upgradeAccount) - Post /users
 app.post("/upgrade/:uid", auth,function(req, res, next){
-  console.log (req.params.uid);
-
   let result = upgradeAccount(req.session.user);
-  console.log(result);
   if(result == NULL){
       res.status(500).send("Invalid User");
   }
@@ -410,17 +408,7 @@ app.post("/upgrade/:uid", auth,function(req, res, next){
   return;
 })
 
-//10. Posting a new Review for movie (createReview) -Post /users
-app.post("/reviewmovie/:movieid", function(req, res, next){
-  console.log("reveiew movie: " + req.params.movieid);
-  let result = createReview(req.session.user,req.params.movieid, req.body.review);
-  console.log("result" + result )
-  if(result == NULL){
-      res.status(500).send("Invalid User");
-  }
-  res.status(200).json(result);
-})
-
+// set up the mongodb server, add movies and users into database
 mc.connect("mongodb://localhost:27017", function(err, client){
   if(err)
   {
