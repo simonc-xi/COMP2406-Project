@@ -63,8 +63,6 @@ hr
 .row
   .column
     img(src=  link ,alt= " poster Picture")
-    //a(href='#{movie[0].Poster}')
-      img(src=  link,alt= "poster Picture")
     br
     br
 
@@ -92,7 +90,12 @@ hr
 .row
   .column
     h2(style='font-size: medium;') Other Users Also Like This
-    .movieimg(style='height:200px;') Movie image
+    for mov in recMovie
+      #movieInfo.mid-content
+        .img
+          a(href= 'http://localhost:3000/movies/' + mov.Title)
+            img(src=  mov.Poster ,alt= " poster Picture" width='300' height = '450')
+            P #{mov.Title}
 
 .row
   .column

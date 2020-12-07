@@ -34,7 +34,8 @@ hr
         p #{mov.year}
   .row
     h3  Collaborators
-    p simon
+    for name in writerName
+      a(href='/people/' +name)  #{name}
   form(method="post" action= '/subscribe/' + name)
     button#subscribe(type='submit') subscribe
 .col
