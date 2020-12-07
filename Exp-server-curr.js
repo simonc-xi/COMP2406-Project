@@ -157,10 +157,11 @@ function getMovie(req, res, next){
   let writerName = model.getNameArr(movArr[0].Writer);
   let actorName = model.getNameArr(movArr[0].Actors);
   let url = movArr[0].Poster;
-
+  let recMovie = model.getRecMovie(req.params.mid);
 
   let data = renderMovie({movie: movArr, link: url, session:req.session, movName: req.params.mid,
-                          otherName: directorName, writerName: writerName, actorName: actorName});
+                          otherName: directorName, writerName: writerName, actorName: actorName,
+                        recMovie: recMovie});
   res.status(200).send(data);
 }
 
@@ -172,9 +173,15 @@ function getPeople(req, res, next){
   //find({$or:[{Writer:{$eq:name}}, {Director: {$eq:name}}, {Actors: {$eq:name}}]})
   db.collection("Movies").find({$or:[{Writer:{$eq:name}}, {Director: {$eq:name}}, {Actors: {$eq:name}}]}).toArray(function(err,result){
 		if(err) throw err;
-
-		console.log(result);
-    let data = renderView({name:name, session:req.session, movie:result});
+    if(result.length < 1 || result == undefined){
+      //empty
+      res.redirect("/");
+      return;
+    }
+    console.log("should be array, actural =>" + result);
+    let writerName = model.getNameArr(result[0].Writer);
+		console.log(writerName);
+    let data = renderView({name:name, session:req.session, movie:result, writerName:writerName});
     res.status(200).send(data);
 	});
 }

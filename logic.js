@@ -98,50 +98,27 @@ input:    1. The movie database that stores all the movies
 outputs:
           a movies arrary object that contains some movies informaion
 */
-/*
-function getRecMovie(mov,user){
 
-  let movieArr = [];
-  let likeGenre = [];
-  let userLiked = [];
-
-  // check if the user subscribe movie is null or not
-  if (user["following"] != NULL){
-    // get user subscribe movie name
-    for (i in user["following"]){
-      console.log(user["following"][0]);
-      userLiked.push(user["following"][i]);
-    }
-  }
-
-  // get the user liked movie general
-  for(i in mov){
-    for(j in userLiked){
-      if(mov[i]["Title"] == userLiked[j]){
-        console.log(mov[i]["Genre"].split(','));
-        likeGenre.push(mov[i]["Genre"].split(',')[0]); // push the first
-        break;
-      }
-    }
-  }
-
-  // add the movie that is user likede general in to movie array
-  for(i in mov){
-    console.log(" User:  " + likeGenre[0]);
-    let movieGenera = mov[i]["Genre"].split(',');
-    console.log(" Movie  :  " + movieGenera[0]);
-    if(movieGenera[0] == likeGenre[0]){
-      movieArr.push(mov[i]);
+function getRecMovie(movie){
+  let movieArr = getMovie(movie);
+  let recMovie = [];
+  let length = 0;
+  for(i in movies){
+    if (length == 4){
+      return recMovie;
     }
 
-
+    if(movies[i].Country == movieArr[0].Country
+      && movies[i].Rated == movieArr[0].Rated
+    && movies[i].Title != movieArr[0].Title){
+      recMovie.push(movies[i]);
+      length++;
+    }
   }
-  console.log("User liked movie : " + userLiked);
-  console.log("User liked Genre : " + likeGenre);
-  console.log(movieArr);
-  return movieArr;
+  return recMovie;
+
 }
-*/
+
 
 /*
 input: user - who want to subscribe, and the people who has been subscribed by other
@@ -321,4 +298,5 @@ module.exports = {
   upgradeAccount,
   createReview,
   getNameArr,
+  getRecMovie,
 }
