@@ -69,6 +69,12 @@ img(src='img/ilovem.jpg' alt='ilovem icion' width='172' height='80')
     i.fa.fa-fw.fa-home
     |  Home
 .main
+  .searchBar
+  if session.loggedin
+    form(method="post" action="/other")
+      label(for='userName')
+      input#movName(type='text' placeholder='Search full name' name = 'userName')
+      button#search(type='submit') Search User
   h1 Account overview
   button.btn(type='submit')  Upgrade
   br

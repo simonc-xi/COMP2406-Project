@@ -58,7 +58,8 @@ app.get('/logOut', logOut);
 app.get("/movies", getAllMovie);
 app.get("/movies/:mid", getMovie);
 //app.get("/movies", searchMovie, getMovie);
-app.get("/other", getOther);
+//app.get("/other", getOther);
+app.get("/other/:uid",getOther);
 app.get("/people/:uid", getPeople);
 //app.get("/people/:person", getPerson);
 app.get("/img/ilovem.jpg", getImg);
@@ -71,6 +72,7 @@ app.get("/users/img/ilovemb.jpg", getBackgroundImg);
 
 app.post("/movies", searchMovie, getMovie);
 app.post("/people", searchPeople, getPeople);
+app.post("/other", searchUser, getOther);
 app.post('/signUpUser', signUpUser, logInUser);
 app.post('/logInUser', logInUser);
 app.post("/movies/:mid", auth, addWatchList, getMovie);
@@ -131,7 +133,22 @@ function searchPeople(req, res, next){
       res.redirect("/people/" + req.body.peoName);
   }
 }
-
+//app.post("/other", searchUser, getOther);
+function searchUser(req, res, next){
+  console.log("inside search user");
+  console.log(JSON.stringify(req.body));
+  db.collection("Users").find({username:req.body.userName}).toArray(function(err,result){
+    if(err){
+      res.status(500).send("Error Reading Database");
+      return;
+    }
+    if(result.length<1||result==undefined){
+      res.send("Please enter the full name or correct name (Users Name)");
+    }else{
+      res.redirect("/other/" + req.body.userName);
+    }
+  });
+}
 
 //render the movie page  get
 function getMovie(req, res, next){
@@ -160,7 +177,19 @@ function getPeople(req, res, next){
     let data = renderView({name:name, session:req.session, movie:result});
     res.status(200).send(data);
 	});
+}
 
+function getOther(req, res, next){
+  console.log("in other");
+  let name = req.params.uid;
+  console.log("user name = " + name);
+  console.log(req.session);
+  db.collection("Users").find({username:req.params.uid}).toArray(function(err,result){
+		if(err) throw err;
+		console.log(result);
+    let data = renderOther({name:name,session:req.session});
+    res.status(200).send(data);
+	});
 }
 
 // add the movie to users watch List -post/subscribeMovie
@@ -203,12 +232,7 @@ function makeReview(req, res, next){
     res.status(200).redirect("/movies/" + req.params.mid);
 }
 
-function getOther(req, res, next){
-  console.log("in");
-  console.log(req.session);
-  let data = renderOther({session:req.session});
-  res.status(200).send(data);
-}
+
 
 function getImg(req, res, next){
   fs.readFile("img/ilovem.jpg", function(err, data){
@@ -369,7 +393,7 @@ app.get("/users/:uid", auth,function(req, res, next){
   }
 })
 
-
+/*
 //3. Searching for users (searchUsers),
 app.get("/users", function(req, res, next){
   console.log (req.query.name);
@@ -403,7 +427,7 @@ app.get("/SearchPeople", function(req, res, next){
   let result =model.searchPeople(req.session.user, req.query.name);
   res.status(200).json(result);
 })
-
+*/
 
 
 //7. Recommend Movie (getRecMovie) -GET /movies
