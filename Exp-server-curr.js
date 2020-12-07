@@ -152,9 +152,15 @@ function getPeople(req, res, next){
   let name = req.params.uid;
   console.log("people name = " + name);
   console.log(req.session);
+  //find({$or:[{Writer:{$eq:name}}, {Director: {$eq:name}}, {Actors: {$eq:name}}]})
+  db.collection("Movies").find({$or:[{Writer:{$eq:name}}, {Director: {$eq:name}}, {Actors: {$eq:name}}]}).toArray(function(err,result){
+		if(err) throw err;
 
-  let data = renderView({name:name, session:req.session});
-  res.status(200).send(data);
+		console.log(result);
+    let data = renderView({name:name, session:req.session, movie:result});
+    res.status(200).send(data);
+	});
+
 }
 
 // add the movie to users watch List -post/subscribeMovie
@@ -172,6 +178,10 @@ function subscribePeo(req, res,next){
   console.log("sub - people name = " + req.params.pid);
   //res.status(200).send("name = " + req.body.name);
   //console.log(req.session);
+  if(req.session.user.following.includes(req.params.pid)){
+    res.status(200).redirect("/people/" + req.params.pid);
+    return;
+  }
   req.session.hasSubscribe = true;
   req.session.user.following.push(req.params.pid);
 

@@ -27,9 +27,11 @@ hr
   .row
     h2  Name of Person: #{name}
     p Discription of the person, ....
-    h3 History
-    a(href='movie')  Jumanji
-    a(href='movie') Sudden Death
+    h3 Known For
+    for mov in movie
+      ul
+        a(href='/movies/' +mov.Title)  #{mov.Title}
+        p #{mov.year}
   .row
     h3  Collaborators
     p simon

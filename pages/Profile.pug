@@ -105,7 +105,7 @@ img(src='img/ilovem.jpg' alt='ilovem icion' width='172' height='80')
         p Movies:
         if session.hasMovies
           each mov in movName
-            li
+            ul
               a(href='http://localhost:3000/movies/' + mov) #{mov}
 
   .row
@@ -115,5 +115,5 @@ img(src='img/ilovem.jpg' alt='ilovem icion' width='172' height='80')
         p People:
         if session.hasSubscribe
           each name in subName
-            li
+            ul
               a(href='http://localhost:3000/people/' + name) #{name}

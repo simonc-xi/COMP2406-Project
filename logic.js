@@ -5,7 +5,7 @@ movie, ect.
 */
 
 let users = require("./movie/users.json");
-let movies = require("./movie-data-short.json");
+let movies = require("./Movie/movie-data.json");
 
 
 //create the user with all the defult value
