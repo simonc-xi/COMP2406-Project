@@ -54,27 +54,12 @@
  	Sophia Luan #101035064,
 	Yanxi Chen #101118360，
 
-4. Summary of extensions have added to the system
-	1. Using Express’ functionality to connect incoming requests to the business logic that writhed at check in 2.
-	2. Using sessions to authenticate the users log in account.
-	3. Using pug to generate web page
-
-
-5. Summary of any design decisions you have increased the quality of your system
-	1. Combine all the separate logic function into one logic file for more conciseness
-	2. Update the old logic function become more details and efficient.
-	3. Mostly finished the API design for the web, ex. log in, sign in, getMovie, user now can only access its own profile page after logged in
-	4. Due to time issue, still left some Api such as subscribe, search incomplete, but the logic model works well,
-		 Test by the postman.
-	5. Dynamically create web using template engine(pug) to produce html pages such as movie pages.
-
-
 6. OpenStack instance information
 	ip: 134.117.133.188
 	username: student
 	password: student
 
 7. How to run the server on OpenStack instance
-	1. cd COMP2406_Project
-	2. /home/student/COMP2406_Project
+	1. cd COMP2406_FinalProject
+	2. /home/student/COMP2406_FinalProject
 	3. node Exp-server.js
