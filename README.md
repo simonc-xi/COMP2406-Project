@@ -7,13 +7,19 @@ The server side applied the Express.js to handle user inquries, and template eng
 
 
 ## Requirement
- 
+- node.js
+
 ## Installation
 1. clone the project
-2.  
+$ git clone https://github.com/simonc-xi/COMP2406-Project.git example
+$ cd ./example
+$ npm install
+$ npm start
 
 ## Usage
 
 
 ## Contributing
+Yanxi Chen
+Sophia Luan
 
