@@ -3,8 +3,8 @@ const pug = require("pug");
 const model = require("./logic.js");
 const fs = require("fs");
 const mongo = require('mongodb');
-const movies = require("./movie/movie-data.json");
-const users = require("./movie/users.json");
+const movies = require("./Movie/movie-data.json");
+const users = require("./Movie/users.json");
 
 const app = express();
 app.set("view engine", "pug");
@@ -423,8 +423,8 @@ mc.connect("mongodb://localhost:27017", function(err, client){
 		if(err) throw err;
 		console.log(result);
 	});
-  app.listen(3000);
-  console.log("Server listening on port 3000");
-
 
 })
+
+app.listen(3000);
+console.log("Server listening on port 3000");
